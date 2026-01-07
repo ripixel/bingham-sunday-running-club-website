@@ -41,9 +41,6 @@ collections:
             name: "hero"
             widget: "object"
             fields:
-              - { label: "Title Line 1", name: "titleLine1", widget: "string", default: "Sunday" }
-              - { label: "Title Line 2 (Accent)", name: "titleLine2", widget: "string", default: "Running" }
-              - { label: "Title Line 3", name: "titleLine3", widget: "string", default: "Club" }
               - { label: "Tagline", name: "tagline", widget: "string", default: "All Paces. All Smiles. Just Show Up." }
               - { label: "CTA Button Text", name: "ctaText", widget: "string", default: "Join Us On Strava" }
               - { label: "CTA Button Link", name: "ctaLink", widget: "string" }
@@ -135,6 +132,13 @@ collections:
             fields:
               - { label: "Heading", name: "heading", widget: "string" }
               - { label: "Content", name: "content", widget: "markdown" }
+          - label: "Values"
+            name: "values"
+            widget: "list"
+            fields:
+              - { label: "Icon", name: "icon", widget: "string", default: "🏃" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "string" }
           - label: "Meeting Details"
             name: "meeting"
             widget: "object"
@@ -144,22 +148,24 @@ collections:
               - { label: "Distance", name: "distance", widget: "string", default: "5-10km (your choice!)" }
               - { label: "After Run", name: "after", widget: "string", default: "Brunch at a local café" }
 
-      # Contact Page
       - name: "contact"
         label: "Contact Page"
         file: "content/pages/contact.json"
         fields:
           - { label: "Page Title", name: "title", widget: "string", default: "Contact" }
           - { label: "Page Subtitle", name: "subtitle", widget: "string", default: "Get in touch or just show up!" }
+          - { label: "Section Title", name: "sectionTitle", widget: "string", default: "Join the Conversation" }
           - { label: "Introduction", name: "intro", widget: "text" }
-          - label: "Contact Methods"
-            name: "methods"
-            widget: "object"
+          - label: "Contact Cards"
+            name: "cards"
+            widget: "list"
             fields:
-              - { label: "WhatsApp Link", name: "whatsapp", widget: "string", required: false }
-              - { label: "Email", name: "email", widget: "string", default: "hello@binghamsundayrunningclub.co.uk" }
-              - { label: "Instagram Handle", name: "instagram", widget: "string", default: "@binghamsundayrunning" }
-              - { label: "Instagram URL", name: "instagramUrl", widget: "string", required: false }
+              - { label: "Icon (Emoji)", name: "icon", widget: "string", default: "📧" }
+              - { label: "Icon Background Color", name: "color", widget: "color", default: "#25D366" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "string" }
+              - { label: "Link", name: "link", widget: "string" }
+          - { label: "Meeting Note", name: "meetingNote", widget: "string", default: "No sign-up needed. Just show up and look for the friendly runners!" }
 
   # Site Settings
   - name: "settings"
@@ -178,7 +184,6 @@ collections:
             name: "social"
             widget: "object"
             fields:
-              - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
               - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
               - { label: "Strava Club URL", name: "strava", widget: "string", required: false }
               - { label: "Strava Club URL", name: "strava", widget: "string", required: false }

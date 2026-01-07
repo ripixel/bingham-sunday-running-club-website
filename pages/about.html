@@ -9,8 +9,8 @@
       <!-- Page Header -->
       <section class="page-header">
         <div class="container">
-          <h1 class="page-title">About Us</h1>
-          <p class="page-subtitle">The chill philosophy behind the club</p>
+          <h1 class="page-title">{{content.pages.about.title}}</h1>
+          <p class="page-subtitle">{{content.pages.about.subtitle}}</p>
         </div>
       </section>
 
@@ -40,34 +40,15 @@
                 voluptate velit esse cillum dolore eu fugiat nulla pariatur.
               </p>
               <div class="values-list">
-                <div class="value-item">
-                  <span class="value-icon">🏃</span>
-                  <div class="value-content">
-                    <h3>All Paces Welcome</h3>
-                    <p>From walkers to speedsters, everyone's welcome.</p>
+                {{#each content.pages.about.values}}
+                  <div class="value-item">
+                    <span class="value-icon">{{icon}}</span>
+                    <div class="value-content">
+                      <h3>{{title}}</h3>
+                      <p>{{description}}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="value-item">
-                  <span class="value-icon">☕</span>
-                  <div class="value-content">
-                    <h3>Coffee & Brunch</h3>
-                    <p>We always end with food. It's the best motivation.</p>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <span class="value-icon">🌧️</span>
-                  <div class="value-content">
-                    <h3>Rain or Shine</h3>
-                    <p>We run every Sunday. The weather is just scenery.</p>
-                  </div>
-                </div>
-                <div class="value-item">
-                  <span class="value-icon">👋</span>
-                  <div class="value-content">
-                    <h3>Drop In Anytime</h3>
-                    <p>No sign-up, no commitment. Just show up!</p>
-                  </div>
-                </div>
+                {{/each}}
               </div>
             </div>
 

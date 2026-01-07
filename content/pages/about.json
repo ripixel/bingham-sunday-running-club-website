@@ -15,6 +15,28 @@
       "content": "We meet every Sunday at **9:00 AM** at the Bingham Market Place. Look for the group of slightly tired but enthusiastic people in running gear!\n\nAfter the run, we grab breakfast at one of the local cafés. It's not optional – it's the most important part of the workout."
     }
   ],
+  "values": [
+    {
+      "icon": "🏃",
+      "title": "All Paces Welcome",
+      "description": "From walkers to speedsters, everyone's welcome."
+    },
+    {
+      "icon": "☕",
+      "title": "Coffee & Brunch",
+      "description": "We always end with food. It's the best motivation."
+    },
+    {
+      "icon": "🌧️",
+      "title": "Rain or Shine",
+      "description": "We run every Sunday. The weather is just scenery."
+    },
+    {
+      "icon": "👋",
+      "title": "Drop In Anytime",
+      "description": "No sign-up, no commitment. Just show up!"
+    }
+  ],
   "meeting": {
     "when": "Every Sunday @ 9:00 AM",
     "where": "Bingham Market Place",

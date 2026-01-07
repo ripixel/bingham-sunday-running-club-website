@@ -1,11 +1,30 @@
 {
   "title": "Contact",
   "subtitle": "Get in touch or just show up!",
-  "intro": "The easiest way to get involved is to join our WhatsApp group. We share route updates, post-run brunch locations, and the occasional terrible joke.",
-  "methods": {
-    "whatsapp": "#",
-    "email": "hello@binghamsundayrunningclub.co.uk",
-    "instagram": "@binghamsundayrunning",
-    "instagramUrl": "#"
-  }
+  "sectionTitle": "Join the Conversation",
+  "intro": "The easiest way to get involved is to join our Instagram or Strava club. We share route updates, post-run brunch locations, and the occasional terrible joke.",
+  "cards": [
+    {
+      "icon": "📧",
+      "color": "#E91E63",
+      "title": "Email Us",
+      "description": "hello@binghamsundayrunningclub.co.uk",
+      "link": "mailto:hello@binghamsundayrunningclub.co.uk"
+    },
+    {
+      "icon": "📸",
+      "color": "#E4405F",
+      "title": "Instagram",
+      "description": "@sundayrunclub_bingham",
+      "link": "https://www.instagram.com/sundayrunclub_bingham"
+    },
+    {
+      "icon": "🏃",
+      "color": "#FC4C02",
+      "title": "Strava Club",
+      "description": "Join us on Strava",
+      "link": "https://www.strava.com/clubs/bingham-sunday-running-club"
+    }
+  ],
+  "meetingNote": "No sign-up needed. Just show up and look for the friendly runners!"
 }

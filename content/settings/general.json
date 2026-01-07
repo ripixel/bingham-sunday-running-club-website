@@ -5,9 +5,7 @@
   "logo": "/images/logo.png",
   "favicon": "/images/favicon.ico",
   "social": {
-    "facebook": "",
-    "instagram": "",
-    "strava": "",
-    "whatsapp": ""
+    "instagram": "https://www.instagram.com/sundayrunclub_bingham",
+    "strava": "https://www.strava.com/clubs/bingham-sunday-running-club"
   }
 }

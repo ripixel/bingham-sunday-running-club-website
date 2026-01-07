@@ -9,21 +9,22 @@
       <!-- Hero Section -->
       <section class="hero">
         <div class="hero-background">
-          <img src="${page.hero.heroImage}" alt="Group of runners" class="hero-image" />
+          <img src="{{content.pages.home.hero.heroImage}}" alt="Group of runners" class="hero-image" />
           <div class="hero-overlay"></div>
         </div>
         <div class="hero-content container">
           <div class="hero-title-group">
             <span class="pre-title">Bingham</span>
             <h1 class="hero-title">
-              <span class="title-line">${page.hero.titleLine1}</span>
-              <span class="title-line">${page.hero.titleLine2}</span>
-              <span class="title-line">${page.hero.titleLine3}</span>
+              <span class="title-line">Sunday</span>
+              <span class="title-line">Running</span>
+              <span class="title-line">Club</span>
             </h1>
           </div>
-          <p class="hero-tagline">${page.hero.tagline}</p>
+          <p class="hero-tagline">{{content.pages.home.hero.tagline}}</p>
           <div class="hero-actions">
-            <a href="${page.hero.ctaLink}" class="btn btn-primary" target="_blank">${page.hero.ctaText}</a>
+            <a href="{{content.pages.home.hero.ctaLink}}" class="btn btn-primary"
+              target="_blank">{{content.pages.home.hero.ctaText}}</a>
           </div>
         </div>
       </section>
@@ -33,22 +34,22 @@
         <div class="container">
           <div class="story-grid">
             <div class="story-content">
-              <span class="section-label">${page.story.label}</span>
-              <h2 class="section-title">${page.story.title}</h2>
+              <span class="section-label">{{content.pages.home.story.label}}</span>
+              <h2 class="section-title">{{content.pages.home.story.title}}</h2>
               <p class="section-text">
-                ${page.story.description}
+                {{content.pages.home.story.description}}
               </p>
             </div>
             <div class="member-avatars">
-              ${page.story.members.map(member => `
-              <div class="avatar-item">
-                <div class="avatar-ring">
-                  <img src="${member.photo}" alt="${member.name}" class="avatar-image" />
+              {{#each content.pages.home.story.members}}
+                <div class="avatar-item">
+                  <div class="avatar-ring">
+                    <img src="{{photo}}" alt="{{name}}" class="avatar-image" />
+                  </div>
+                  <span class="avatar-name">{{name}}</span>
+                  <span class="avatar-role">{{tagline}}</span>
                 </div>
-                <span class="avatar-name">${member.name}</span>
-                <span class="avatar-role">${member.tagline}</span>
-              </div>
-              `).join('')}
+              {{/each}}
             </div>
           </div>
         </div>
@@ -57,24 +58,24 @@
       <!-- Weekly Vibe Section -->
       <section class="section section-vibe">
         <div class="container">
-          <h2 class="section-title">${page.vibe.title}</h2>
+          <h2 class="section-title">{{content.pages.home.vibe.title}}</h2>
           <div class="vibe-grid">
             <!-- Schedule Card -->
             <div class="vibe-card vibe-orange">
-              <h3 class="vibe-title">${page.vibe.scheduleCard.title}</h3>
+              <h3 class="vibe-title">{{content.pages.home.vibe.scheduleCard.title}}</h3>
               <div class="vibe-icon">
                 <svg viewBox="0 0 64 64" fill="currentColor">
                   <circle cx="32" cy="16" r="8" />
                   <path d="M32 28c-8 0-16 4-16 12v8h32v-8c0-8-8-12-16-12z" />
                 </svg>
               </div>
-              <a href="${page.vibe.scheduleCard.buttonLink}"
-                class="btn btn-small">${page.vibe.scheduleCard.buttonText}</a>
+              <a href="{{content.pages.home.vibe.scheduleCard.buttonLink}}"
+                class="btn btn-small">{{content.pages.home.vibe.scheduleCard.buttonText}}</a>
             </div>
 
             <!-- Instagram Card -->
             <div class="vibe-card vibe-pink">
-              <h3 class="vibe-title">${page.vibe.instagramCard.title}</h3>
+              <h3 class="vibe-title">{{content.pages.home.vibe.instagramCard.title}}</h3>
               <div class="vibe-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -84,22 +85,22 @@
                   <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                 </svg>
               </div>
-              <a href="${page.vibe.instagramCard.buttonLink}" target="_blank"
-                class="btn btn-small">${page.vibe.instagramCard.buttonText}</a>
+              <a href="{{content.pages.home.vibe.instagramCard.buttonLink}}" target="_blank"
+                class="btn btn-small">{{content.pages.home.vibe.instagramCard.buttonText}}</a>
             </div>
 
             <!-- Strava Card -->
             <div class="vibe-card vibe-white">
-              <h3 class="vibe-title">${page.vibe.stravaCard.title}</h3>
+              <h3 class="vibe-title">{{content.pages.home.vibe.stravaCard.title}}</h3>
               <div class="vibe-icon strava-icon">
                 <svg viewBox="0 0 24 24" fill="#FC4C02">
                   <path
                     d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169" />
                 </svg>
               </div>
-              <span class="vibe-label">${page.vibe.stravaCard.label}</span>
-              <a href="${page.vibe.stravaCard.buttonLink}" target="_blank"
-                class="btn btn-small btn-orange">${page.vibe.stravaCard.buttonText}</a>
+              <span class="vibe-label">{{content.pages.home.vibe.stravaCard.label}}</span>
+              <a href="{{content.pages.home.vibe.stravaCard.buttonLink}}" target="_blank"
+                class="btn btn-small btn-orange">{{content.pages.home.vibe.stravaCard.buttonText}}</a>
             </div>
 
           </div>
@@ -107,52 +108,54 @@
       </section>
 
       <!-- Merch Section -->
-      ${page.merch.items && page.merch.items.length > 0 ? `
-      <section class="section section-merch">
-        <div class="container">
-          <div class="section-header">
-            <h2 class="section-title">${page.merch.title}</h2>
-            <p class="section-subtitle">${page.merch.description || ''}</p>
-          </div>
-
-          <div class="merch-grid">
-            ${page.merch.items.map(item => `
-            <div class="merch-card">
-              <div class="merch-image">
-                <img src="${item.image || '/images/merch-placeholder.jpg'}" alt="${item.name}" />
-              </div>
-              <div class="merch-details">
-                <h3 class="merch-name">${item.name}</h3>
-                <span class="merch-price">${item.price}</span>
-              </div>
+      {{#if content.pages.home.merch.items.length}}
+        <section class="section section-merch">
+          <div class="container">
+            <div class="section-header">
+              <h2 class="section-title">{{content.pages.home.merch.title}}</h2>
+              {{#if content.pages.home.merch.description}}
+                <p class="section-subtitle">{{content.pages.home.merch.description}}</p>
+              {{/if}}
             </div>
-            `).join('')}
+
+            <div class="merch-grid">
+              {{#each content.pages.home.merch.items}}
+                <div class="merch-card">
+                  <div class="merch-image">
+                    <img src="{{#if image}}{{image}}{{else}}/images/merch-placeholder.jpg{{/if}}" alt="{{name}}" />
+                  </div>
+                  <div class="merch-details">
+                    <h3 class="merch-name">{{name}}</h3>
+                    <span class="merch-price">{{price}}</span>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+            <p class="merch-note">{{content.pages.home.merch.note}}</p>
           </div>
-          <p class="merch-note">${page.merch.note}</p>
-        </div>
-      </section>
-      ` : ''}
+        </section>
+      {{/if}}
 
       <!-- Personal Bests Section -->
-      ${page.pbs.records && page.pbs.records.length > 0 ? `
-      <section class="section section-pbs">
-        <div class="container">
-          <h2 class="section-title">${page.pbs.title}</h2>
-          <div class="pbs-list">
-            ${page.pbs.records.map(record => `
-            <div class="pb-item">
-              <span class="pb-distance">${record.distance}</span>
-              <div class="pb-details">
-                <span class="pb-time">${record.time}</span>
-                <span class="pb-runner">${record.name}</span>
-                <span class="pb-date">${new Date(record.date).toLocaleDateString()}</span>
-              </div>
+      {{#if content.pages.home.pbs.records.length}}
+        <section class="section section-pbs">
+          <div class="container">
+            <h2 class="section-title">{{content.pages.home.pbs.title}}</h2>
+            <div class="pbs-list">
+              {{#each content.pages.home.pbs.records}}
+                <div class="pb-item">
+                  <span class="pb-distance">{{distance}}</span>
+                  <div class="pb-details">
+                    <span class="pb-time">{{time}}</span>
+                    <span class="pb-runner">{{name}}</span>
+                    <span class="pb-date">{{date}}</span>
+                  </div>
+                </div>
+              {{/each}}
             </div>
-            `).join('')}
           </div>
-        </div>
-      </section>
-      ` : ''}
+        </section>
+      {{/if}}
 
     </main>
 
