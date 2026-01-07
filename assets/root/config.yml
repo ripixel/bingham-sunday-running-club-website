@@ -2,22 +2,13 @@
 # https://decapcms.org/docs/configuration-options/
 
 backend:
-  # name: github
-  # repo: ripixel/bingham-sunday-running-club-website
-  # branch: main
-
-  # Git Gateway (for Netlify Identity / Email Auth)
-  # name: git-gateway
-  # branch: main
-  # identity_url: "https://sparkling-trifle-458a60.netlify.app/.netlify/identity"
-  # gateway_url: "https://sparkling-trifle-458a60.netlify.app/.netlify/git/github"
-
   # GitHub Backend with Custom Authentication (Firebase Functions)
   name: github
   repo: ripixel/bingham-sunday-running-club-website
   branch: main
   base_url: https://bingham-sunday-running-club.web.app
   auth_endpoint: api/auth
+  api_root: https://api.github.com
 
 # Media files storage
 media_folder: "assets/images"
@@ -150,7 +141,7 @@ collections:
         file: "content/settings/general.json"
         fields:
           - { label: "Site Name", name: "siteName", widget: "string", default: "Bingham Sunday Running Club" }
-          - { label: "Site URL", name: "siteUrl", widget: "string", default: "https://bingham-sunday-running-club.web.app" }
+          - { label: "Site URL", name: "siteUrl", widget: "string", default: "https://binghamsundayrunningclub.co.uk" }
           - { label: "Site Description", name: "siteDescription", widget: "text" }
           - { label: "Logo", name: "logo", widget: "image", required: false }
           - { label: "Favicon", name: "favicon", widget: "image", required: false }

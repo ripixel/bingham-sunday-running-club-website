@@ -9,6 +9,16 @@
   </head>
 
   <body>
+    <!-- Debug: Log all messages to see if OAuth token arrives -->
+    <script>
+      window.addEventListener("message", (event) => {
+        if (event.data && typeof event.data === 'string' && event.data.startsWith('authorization:')) {
+          console.log("✅ OAuth Message Received:", event.data);
+        } else {
+          console.log("📨 Other Message Received:", event);
+        }
+      });
+    </script>
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
   </body>

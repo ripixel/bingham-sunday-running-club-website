@@ -8,7 +8,8 @@
     "build": "skier",
     "serve": "npx serve public/",
     "deploy": "firebase deploy",
-    "local": "npm run build && npm run serve"
+    "local": "npm run build && npm run serve",
+    "prod": "npm run build && npm run deploy"
   },
   "engines": {
     "node": "^22"
