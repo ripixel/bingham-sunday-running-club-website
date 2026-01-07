@@ -22,7 +22,7 @@
     "scheduleCard": {
       "title": "Meet Up & Move",
       "buttonText": "View Full Schedule",
-      "buttonLink": "#"
+      "buttonLink": "/about"
     },
     "instagramCard": {
       "title": "Connect & Chat",
@@ -40,10 +40,40 @@
     "title": "Club Merch",
     "description": "Look the part with our official club gear.",
     "note": "Available to purchase at the run. Cash or card accepted.",
-    "items": []
+    "items": [
+      {
+        "name": "BSRC Tech Tee",
+        "price": "£20",
+        "image": "/images/merch-tee.jpg"
+      },
+      {
+        "name": "Club Hoodie",
+        "price": "£35",
+        "image": "/images/merch-hoodie.jpg"
+      }
+    ]
   },
   "pbs": {
     "title": "Club Records",
-    "records": []
+    "records": [
+      {
+        "name": "Sarah J.",
+        "distance": "5k",
+        "time": "21:45",
+        "date": "2024-03-15"
+      },
+      {
+        "name": "Mike T.",
+        "distance": "10k",
+        "time": "42:15",
+        "date": "2024-04-02"
+      },
+      {
+        "name": "Emma R.",
+        "distance": "Half Marathon",
+        "time": "1:45:30",
+        "date": "2024-05-10"
+      }
+    ]
   }
 }

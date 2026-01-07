@@ -18,29 +18,23 @@
       <section class="section section-about">
         <div class="container">
           <div class="about-content">
+
+            <!-- Philosophy Section -->
             <div class="about-block">
-              <h2>Our Philosophy</h2>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. We believe that running should be
-                fun, social, and completely pressure-free.
-              </p>
-              <p>
-                Whether you're training for a marathon or just want to escape the house on a
-                Sunday morning, you're welcome here. We don't care about your pace – we care
-                about showing up, having a laugh, and enjoying breakfast together afterwards.
-              </p>
+              <h2>{{content.pages.about.philosophy.heading}}</h2>
+              <div class="markdown-content">
+                {{content.pages.about.philosophy.content}}
+              </div>
             </div>
 
+            <!-- Vibes Section -->
             <div class="about-block">
-              <h2>No Pressure, Just Vibes</h2>
-              <p>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              </p>
+              <h2>{{content.pages.about.vibes.heading}}</h2>
+              <div class="markdown-content">
+                {{content.pages.about.vibes.content}}
+              </div>
               <div class="values-list">
-                {{#each content.pages.about.values}}
+                {{#each content.pages.about.vibes.values}}
                   <div class="value-item">
                     <span class="value-icon">{{icon}}</span>
                     <div class="value-content">
@@ -52,17 +46,14 @@
               </div>
             </div>
 
+            <!-- Location Section -->
             <div class="about-block">
-              <h2>When & Where</h2>
-              <p>
-                We meet every Sunday at <strong>9:00 AM</strong> at the Bingham Market Place.
-                Look for the group of slightly tired but enthusiastic people in running gear!
-              </p>
-              <p>
-                After the run, we grab breakfast at one of the local cafés. It's not optional –
-                it's the most important part of the workout.
-              </p>
+              <h2>{{content.pages.about.location.heading}}</h2>
+              <div class="markdown-content">
+                {{content.pages.about.location.content}}
+              </div>
             </div>
+
           </div>
         </div>
       </section>

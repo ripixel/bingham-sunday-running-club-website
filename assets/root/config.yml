@@ -126,22 +126,47 @@ collections:
         fields:
           - { label: "Page Title", name: "title", widget: "string", default: "About Us" }
           - { label: "Page Subtitle", name: "subtitle", widget: "string", default: "The chill philosophy behind the club" }
-          - label: "Content Blocks"
-            name: "blocks"
-            widget: "list"
+          - label: "Philosophy Section"
+            name: "philosophy"
+            widget: "object"
             fields:
-              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string", default: "Our Philosophy" }
               - { label: "Content", name: "content", widget: "markdown" }
-          - label: "Values"
-            name: "values"
-            widget: "list"
+
+          - label: "Vibes Section"
+            name: "vibes"
+            widget: "object"
             fields:
-              - { label: "Icon", name: "icon", widget: "string", default: "🏃" }
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "string" }
-          - label: "Meeting Details"
+              - { label: "Heading", name: "heading", widget: "string", default: "No Pressure, Just Vibes" }
+              - { label: "Intro Content", name: "content", widget: "markdown" }
+              - label: "Values Grid"
+                name: "values"
+                widget: "list"
+                fields:
+                  - { label: "Icon", name: "icon", widget: "string", default: "🏃" }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "description", widget: "string" }
+
+          - label: "Location Section"
+            name: "location"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string", default: "When & Where" }
+              - { label: "Content", name: "content", widget: "markdown" }
+              - label: "Meeting Details"
+                name: "meeting"
+                widget: "object"
+                fields:
+                  - { label: "Day & Time", name: "when", widget: "string", default: "Every Sunday @ 9:00 AM" }
+                  - { label: "Location", name: "where", widget: "string", default: "Bingham Market Place" }
+                  - { label: "Distance", name: "distance", widget: "string", default: "5-10km (your choice!)" }
+                  - { label: "After Run", name: "after", widget: "string", default: "Brunch at a local café" }
+
+          - label: "Meeting Info (for Contact Page)"
             name: "meeting"
             widget: "object"
+            collapsed: true
+            hint: "This data is also shown on the Contact page"
             fields:
               - { label: "Day & Time", name: "when", widget: "string", default: "Every Sunday @ 9:00 AM" }
               - { label: "Location", name: "where", widget: "string", default: "Bingham Market Place" }
@@ -185,7 +210,6 @@ collections:
             widget: "object"
             fields:
               - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
-              - { label: "Strava Club URL", name: "strava", widget: "string", required: false }
               - { label: "Strava Club URL", name: "strava", widget: "string", required: false }
 
   # Events Collection

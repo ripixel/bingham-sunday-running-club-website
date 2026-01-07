@@ -1,42 +1,46 @@
 {
   "title": "About Us",
   "subtitle": "The chill philosophy behind the club",
-  "blocks": [
-    {
-      "heading": "Our Philosophy",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. We believe that running should be fun, social, and completely pressure-free.\n\nWhether you're training for a marathon or just want to escape the house on a Sunday morning, you're welcome here. We don't care about your pace – we care about showing up, having a laugh, and enjoying breakfast together afterwards."
-    },
-    {
-      "heading": "No Pressure, Just Vibes",
-      "content": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-    },
-    {
-      "heading": "When & Where",
-      "content": "We meet every Sunday at **9:00 AM** at the Bingham Market Place. Look for the group of slightly tired but enthusiastic people in running gear!\n\nAfter the run, we grab breakfast at one of the local cafés. It's not optional – it's the most important part of the workout."
+  "philosophy": {
+    "heading": "Our Philosophy",
+    "content": "We started this club with a simple idea: running shouldn't be a chore. It should be the best part of your week.\n\nWhether you're training for your first 5k or your fiftieth marathon, you have a place here. We don't care about splits or PBs on Sunday mornings. We care about fresh air, good company, and the promise of a hot coffee at the finish line."
+  },
+  "vibes": {
+    "heading": "No Pressure, Just Vibes",
+    "content": "Forget the watch. Forget the pace. This run is for you.\n\nWe loop back, we chat, and we make sure no one runs alone (unless they want to!). It's not about how fast you go, but that you went at all.",
+    "values": [
+      {
+        "icon": "🏃",
+        "title": "All Paces Welcome",
+        "description": "From walkers to speedsters, everyone's welcome."
+      },
+      {
+        "icon": "☕",
+        "title": "Coffee & Brunch",
+        "description": "We always end with food. It's the best motivation."
+      },
+      {
+        "icon": "🌧️",
+        "title": "Rain or Shine",
+        "description": "We run every Sunday. The weather is just scenery."
+      },
+      {
+        "icon": "👋",
+        "title": "Drop In Anytime",
+        "description": "No sign-up, no commitment. Just show up!"
+      }
+    ]
+  },
+  "location": {
+    "heading": "When & Where",
+    "content": "We meet every Sunday at **9:00 AM** at the Bingham Market Place. Look for the group of slightly tired but enthusiastic people in running gear!\n\nAfter the run, we grab breakfast at one of the local cafés. It's not optional – it's the most important part of the workout.",
+    "meeting": {
+      "when": "Every Sunday @ 9:00 AM",
+      "where": "Bingham Market Place",
+      "distance": "5-10km (your choice!)",
+      "after": "Brunch at a local café ☕"
     }
-  ],
-  "values": [
-    {
-      "icon": "🏃",
-      "title": "All Paces Welcome",
-      "description": "From walkers to speedsters, everyone's welcome."
-    },
-    {
-      "icon": "☕",
-      "title": "Coffee & Brunch",
-      "description": "We always end with food. It's the best motivation."
-    },
-    {
-      "icon": "🌧️",
-      "title": "Rain or Shine",
-      "description": "We run every Sunday. The weather is just scenery."
-    },
-    {
-      "icon": "👋",
-      "title": "Drop In Anytime",
-      "description": "No sign-up, no commitment. Just show up!"
-    }
-  ],
+  },
   "meeting": {
     "when": "Every Sunday @ 9:00 AM",
     "where": "Bingham Market Place",
