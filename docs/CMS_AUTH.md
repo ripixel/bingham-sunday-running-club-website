@@ -26,7 +26,7 @@ There is no database of users in Firebase. Authentication is delegated entirely 
 2.  **Go to the Repository on GitHub**: Settings > Collaborators.
 3.  **Add People**: Enter their email or username and invite them.
 4.  **Accept Invite**: They must check their email and accept the invitation.
-5.  **Done**: They can now go to `https://bingham-sunday-running-club.web.app/admin` and log in.
+5.  **Done**: They can now go to `https://binghamsundayrunningclub.co.uk/admin` and log in.
 
 ## Configuration
 
@@ -35,7 +35,7 @@ Tells Decap CMS where to find our gateway.
 ```yaml
 backend:
   name: github
-  base_url: https://bingham-sunday-running-club.web.app  # Point to OUR site (for auth)
+  base_url: https://binghamsundayrunningclub.co.uk  # Point to OUR site (for auth)
   auth_endpoint: api/auth                              # Point to OUR function
   api_root: https://api.github.com                       # Point to GITHUB (for content)
 ```
@@ -49,6 +49,6 @@ Updated via: `firebase functions:secrets:set OAUTH_CLIENT_ID`
 
 ### 3. GitHub OAuth App
 In GitHub Developer Settings, the app MUST allow these callbacks:
-*   **Authorization callback URL**: `https://bingham-sunday-running-club.web.app/api/callback`
+*   **Authorization callback URL**: `https://binghamsundayrunningclub.co.uk/api/callback`
 
 (If you change the domain, you MUST update this URL).

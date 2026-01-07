@@ -6,7 +6,7 @@ backend:
   name: github
   repo: ripixel/bingham-sunday-running-club-website
   branch: main
-  base_url: https://bingham-sunday-running-club.web.app
+  base_url: https://binghamsundayrunningclub.co.uk
   auth_endpoint: api/auth
   api_root: https://api.github.com
 
@@ -15,8 +15,8 @@ media_folder: "assets/images"
 public_folder: "/images"
 
 # Site URL for local development preview
-site_url: https://bingham-sunday-running-club.web.app
-display_url: https://bingham-sunday-running-club.web.app
+site_url: https://binghamsundayrunningclub.co.uk
+display_url: https://binghamsundayrunningclub.co.uk
 logo_url: /images/logo.png
 
 # Slug configuration
@@ -45,7 +45,7 @@ collections:
               - { label: "Title Line 2 (Accent)", name: "titleLine2", widget: "string", default: "Running" }
               - { label: "Title Line 3", name: "titleLine3", widget: "string", default: "Club" }
               - { label: "Tagline", name: "tagline", widget: "string", default: "All Paces. All Smiles. Just Show Up." }
-              - { label: "CTA Button Text", name: "ctaText", widget: "string", default: "Join Our WhatsApp Group" }
+              - { label: "CTA Button Text", name: "ctaText", widget: "string", default: "Join Us On Strava" }
               - { label: "CTA Button Link", name: "ctaLink", widget: "string" }
               - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
 
@@ -77,12 +77,12 @@ collections:
                   - { label: "Title", name: "title", widget: "string", default: "Meet Up & Move" }
                   - { label: "Button Text", name: "buttonText", widget: "string", default: "View Full Schedule" }
                   - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
-              - label: "WhatsApp Card"
-                name: "whatsappCard"
+              - label: "Instagram Card"
+                name: "instagramCard"
                 widget: "object"
                 fields:
                   - { label: "Title", name: "title", widget: "string", default: "Connect & Chat" }
-                  - { label: "Button Text", name: "buttonText", widget: "string", default: "Join WhatsApp" }
+                  - { label: "Button Text", name: "buttonText", widget: "string", default: "Follow Us" }
                   - { label: "Button Link", name: "buttonLink", widget: "string" }
               - label: "Strava Card"
                 name: "stravaCard"
@@ -92,6 +92,35 @@ collections:
                   - { label: "Label", name: "label", widget: "string", default: "Find Us On Strava" }
                   - { label: "Button Text", name: "buttonText", widget: "string", default: "Follow Our Socials" }
                   - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+
+          - label: "Merch Section"
+            name: "merch"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string", default: "Club Merch" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Note", name: "note", widget: "string", default: "Available to purchase at the run. Cash or card accepted." }
+              - label: "Items"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Price", name: "price", widget: "string" }
+                  - { label: "Image", name: "image", widget: "image", required: false }
+
+          - label: "Personal Bests"
+            name: "pbs"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string", default: "Club Records" }
+              - label: "Records"
+                name: "records"
+                widget: "list"
+                fields:
+                  - { label: "Runner Name", name: "name", widget: "string" }
+                  - { label: "Distance", name: "distance", widget: "select", options: ["5k", "10k", "Half Marathon", "Marathon"] }
+                  - { label: "Time", name: "time", widget: "string" }
+                  - { label: "Date", name: "date", widget: "datetime", format: "MMMM D, YYYY" }
 
       # About Page
       - name: "about"
@@ -152,4 +181,17 @@ collections:
               - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
               - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
               - { label: "Strava Club URL", name: "strava", widget: "string", required: false }
-              - { label: "WhatsApp Invite Link", name: "whatsapp", widget: "string", required: false }
+              - { label: "Strava Club URL", name: "strava", widget: "string", required: false }
+
+  # Events Collection
+  - name: "events"
+    label: "Special Events"
+    folder: "content/events"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Event Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Location", name: "location", widget: "string", default: "Bingham Market Place" }
+      - { label: "Description", name: "body", widget: "markdown" }
+      - { label: "Cover Image", name: "image", widget: "image", required: false }

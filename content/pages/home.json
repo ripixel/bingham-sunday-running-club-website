@@ -4,14 +4,14 @@
     "titleLine2": "Running",
     "titleLine3": "Club",
     "tagline": "All Paces. All Smiles. Just Show Up.",
-    "ctaText": "Join Our WhatsApp Group",
-    "ctaLink": "#",
+    "ctaText": "Join Us On Strava",
+    "ctaLink": "https://www.strava.com/clubs/bingham-sunday-running-club",
     "heroImage": "/images/hero-runners.jpg"
   },
   "story": {
     "label": "Our Story",
     "title": "More Than Just Running",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+    "description": "Bingham’s easy-going Sunday run. No memberships or fees—just turn up! All paces welcome and we never leave anyone behind. Dogs, strollers, bikes, and kids are all welcome.",
     "members": [
       {
         "name": "James",
@@ -27,16 +27,26 @@
       "buttonText": "View Full Schedule",
       "buttonLink": "#"
     },
-    "whatsappCard": {
+    "instagramCard": {
       "title": "Connect & Chat",
-      "buttonText": "Join WhatsApp",
-      "buttonLink": "#"
+      "buttonText": "Follow Us",
+      "buttonLink": "https://www.instagram.com/sundayrunclub_bingham"
     },
     "stravaCard": {
       "title": "Track & Share",
       "label": "Find Us On Strava",
       "buttonText": "Follow Our Socials",
-      "buttonLink": "#"
+      "buttonLink": "https://www.strava.com/clubs/bingham-sunday-running-club"
     }
+  },
+  "merch": {
+    "title": "Club Merch",
+    "description": "Look the part with our official club gear.",
+    "note": "Available to purchase at the run. Cash or card accepted.",
+    "items": []
+  },
+  "pbs": {
+    "title": "Club Records",
+    "records": []
   }
 }

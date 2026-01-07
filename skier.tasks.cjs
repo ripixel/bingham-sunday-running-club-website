@@ -50,7 +50,7 @@ exports.tasks = [
   setGlobalsTask({
     values: {
       siteName: 'Bingham Sunday Running Club',
-      siteUrl: 'https://bingham-sunday-running-club.web.app',
+      siteUrl: 'https://binghamsundayrunningclub.co.uk/',
       year: new Date().getFullYear(),
       noindex:
         process.env.NODE_ENV === 'production'
@@ -68,7 +68,6 @@ exports.tasks = [
       page: currentPage === 'index' ? 'home' : currentPage,
       isHome: currentPage === 'index',
       isAbout: currentPage === 'about',
-      isGallery: currentPage === 'gallery',
       isContact: currentPage === 'contact',
       description: (() => {
         switch (currentPage) {
@@ -76,8 +75,6 @@ exports.tasks = [
             return "Bingham Sunday Running Club - No pace, no pressure, just good vibes. We meet every Sunday, rain or shine, and always end with breakfast!";
           case 'about':
             return "Learn about our friendly running club. All paces welcome, from walkers to speedsters!";
-          case 'gallery':
-            return "Photos from our Sunday runs, events, and post-run brunches.";
           case 'contact':
             return "Get in touch with Bingham Sunday Running Club.";
           default:
@@ -91,6 +88,6 @@ exports.tasks = [
   generateSitemapTask({
     outDir: './public',
     scanDir: './public',
-    siteUrl: 'https://bingham-sunday-running-club.web.app',
+    siteUrl: 'https://binghamsundayrunningclub.co.uk',
   }),
 ];
