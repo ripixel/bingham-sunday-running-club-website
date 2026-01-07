@@ -10,6 +10,10 @@ backend:
   name: git-gateway
   branch: main
 
+  # CRITICAL: Since we are hosting on Firebase, we must point to the Netlify site
+  identity_url: "https://sparkling-trifle-458a60.netlify.app/.netlify/identity"
+  gateway_url: "https://sparkling-trifle-458a60.netlify.app/.netlify/git/github"
+
 # Media files storage
 media_folder: "assets/images"
 public_folder: "/images"

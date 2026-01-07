@@ -14,11 +14,48 @@
   <body>
     <div id="nc-root"></div>
 
-    <!-- Decap CMS -->
+    <!-- JS-YAML for parsing config -->
+    <script src="https://unpkg.com/js-yaml@4/dist/js-yaml.min.js"></script>
+
+    <!-- Netlify Identity Widget -->
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Decap CMS (Manual Init Mode) -->
+    <script>
+      window.CMS_MANUAL_INIT = true;
+    </script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
-    <!-- Netlify Identity Transport Script -->
+    <!-- Initialize -->
     <script>
+      // 1. Configure Login Widget
+      const netlifySiteURL = "https://sparkling-trifle-458a60.netlify.app";
+
+      window.netlifyIdentityOptions = {
+        APIUrl: netlifySiteURL + "/.netlify/identity"
+      };
+
+      // 2. Fetch Config & Init CMS
+      fetch('/admin/config.yml')
+        .then(response => response.text())
+        .then(yaml => {
+          const config = jsyaml.load(yaml);
+
+          // FORCE the correct backend URLs
+          if (config.backend.name === 'git-gateway') {
+            config.backend.identity_url = netlifySiteURL + "/.netlify/identity";
+            config.backend.gateway_url = netlifySiteURL + "/.netlify/git/github";
+          }
+
+          console.log('Initializing CMS with config:', config);
+          CMS.init({ config });
+        })
+        .catch(err => {
+          console.error('Error loading config:', err);
+          document.body.innerHTML = '<p style="color:red; padding: 20px;">Error loading config.yml. Check console.</p>';
+        });
+
+      // 3. Handle Redirects
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {
