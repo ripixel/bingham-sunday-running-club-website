@@ -26,6 +26,19 @@
             "value": "max-age=31536000, immutable"
           }
         ]
+      },
+      {
+        "source": "**/*.yml",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "text/yaml"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
       }
     ]
   }

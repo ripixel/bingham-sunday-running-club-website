@@ -2,12 +2,13 @@
 # https://decapcms.org/docs/configuration-options/
 
 backend:
-  name: github
-  repo: ripixel/bingham-sunday-running-club-website
-  branch: main
-  # Uncomment below for Git Gateway (Netlify Identity)
-  # name: git-gateway
+  # name: github
+  # repo: ripixel/bingham-sunday-running-club-website
   # branch: main
+
+  # Git Gateway (for Netlify Identity / Email Auth)
+  name: git-gateway
+  branch: main
 
 # Media files storage
 media_folder: "assets/images"
