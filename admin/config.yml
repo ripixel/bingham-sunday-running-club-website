@@ -55,10 +55,10 @@ collections:
               - { label: "Section Label", name: "label", widget: "string", default: "Our Story" }
               - { label: "Title", name: "title", widget: "string", default: "More Than Just Running" }
               - { label: "Description", name: "description", widget: "text" }
-              - label: "Featured Members"
+              - label: "Featured Member (Creator)"
                 name: "members"
                 widget: "list"
-                max: 3
+                max: 1
                 fields:
                   - { label: "Name", name: "name", widget: "string" }
                   - { label: "Tag Line", name: "tagline", widget: "string" }

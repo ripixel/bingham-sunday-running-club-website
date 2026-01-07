@@ -14,19 +14,9 @@
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
     "members": [
       {
-        "name": "Sarah",
-        "tagline": "Loves post-run croissants",
-        "photo": "/images/avatar-sarah.jpg"
-      },
-      {
-        "name": "Mike",
-        "tagline": "Always has terrible jokes",
-        "photo": "/images/avatar-mike.jpg"
-      },
-      {
-        "name": "Chen",
-        "tagline": "Chief tea Barista/jogger",
-        "photo": "/images/avatar-chen.jpg"
+        "name": "James",
+        "tagline": "Founder & Chief Brunch Officer",
+        "photo": "/images/avatar-creator.jpg"
       }
     ]
   },
