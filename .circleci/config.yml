@@ -1,0 +1,68 @@
+version: 2.1
+
+executors:
+  node-project:
+    working_directory: ~/project
+    docker:
+      - image: cimg/node:22.21.1
+
+jobs:
+  install_deps:
+    executor: node-project
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install NPM Dependencies
+          command: |
+            [ ! -d "node_modules" ] && npm ci
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/project/node_modules
+
+  build:
+    executor: node-project
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Build Site
+          command: npm run build
+      - store_artifacts:
+          path: public
+      - save_cache:
+          key: deploy-cache-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+          paths:
+            - ~/project/public
+            - ~/project/.firebaserc
+            - ~/project/firebase.json
+            - ~/project/package-lock.json
+
+  deploy_to_firebase:
+    executor: node-project
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - restore_cache:
+          key: deploy-cache-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run:
+          name: Deploy to Firebase Production Hosting
+          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
+
+workflows:
+  build_and_deploy:
+    jobs:
+      - install_deps
+      - build:
+          requires:
+            - install_deps
+      - deploy_to_firebase:
+          filters:
+            branches:
+              only: main
+          requires:
+            - build

@@ -1,0 +1,154 @@
+# Decap CMS Configuration
+# https://decapcms.org/docs/configuration-options/
+
+backend:
+  name: github
+  repo: ripixel/bingham-sunday-running-club-website
+  branch: main
+  # Uncomment below for Git Gateway (Netlify Identity)
+  # name: git-gateway
+  # branch: main
+
+# Media files storage
+media_folder: "assets/images"
+public_folder: "/images"
+
+# Site URL for local development preview
+site_url: https://binghamsundayrunningclub.co.uk
+display_url: https://binghamsundayrunningclub.co.uk
+logo_url: /images/logo.png
+
+# Slug configuration
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
+# Collections define the structure for editable content
+collections:
+  # Editable Pages
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    description: "Edit site pages content"
+    files:
+      # Homepage
+      - name: "home"
+        label: "Homepage"
+        file: "content/pages/home.json"
+        fields:
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Title Line 1", name: "titleLine1", widget: "string", default: "Sunday" }
+              - { label: "Title Line 2 (Accent)", name: "titleLine2", widget: "string", default: "Running" }
+              - { label: "Title Line 3", name: "titleLine3", widget: "string", default: "Club" }
+              - { label: "Tagline", name: "tagline", widget: "string", default: "All Paces. All Smiles. Just Show Up." }
+              - { label: "CTA Button Text", name: "ctaText", widget: "string", default: "Join Our WhatsApp Group" }
+              - { label: "CTA Button Link", name: "ctaLink", widget: "string" }
+              - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
+
+          - label: "Story Section"
+            name: "story"
+            widget: "object"
+            fields:
+              - { label: "Section Label", name: "label", widget: "string", default: "Our Story" }
+              - { label: "Title", name: "title", widget: "string", default: "More Than Just Running" }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Featured Members"
+                name: "members"
+                widget: "list"
+                max: 3
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Tag Line", name: "tagline", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image", required: false }
+
+          - label: "Vibe Section"
+            name: "vibe"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string", default: "Weekly Vibe" }
+              - label: "Schedule Card"
+                name: "scheduleCard"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "Meet Up & Move" }
+                  - { label: "Button Text", name: "buttonText", widget: "string", default: "View Full Schedule" }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+              - label: "WhatsApp Card"
+                name: "whatsappCard"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "Connect & Chat" }
+                  - { label: "Button Text", name: "buttonText", widget: "string", default: "Join WhatsApp" }
+                  - { label: "Button Link", name: "buttonLink", widget: "string" }
+              - label: "Strava Card"
+                name: "stravaCard"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "Track & Share" }
+                  - { label: "Label", name: "label", widget: "string", default: "Find Us On Strava" }
+                  - { label: "Button Text", name: "buttonText", widget: "string", default: "Follow Our Socials" }
+                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+
+      # About Page
+      - name: "about"
+        label: "About Page"
+        file: "content/pages/about.json"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", default: "About Us" }
+          - { label: "Page Subtitle", name: "subtitle", widget: "string", default: "The chill philosophy behind the club" }
+          - label: "Content Blocks"
+            name: "blocks"
+            widget: "list"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Content", name: "content", widget: "markdown" }
+          - label: "Meeting Details"
+            name: "meeting"
+            widget: "object"
+            fields:
+              - { label: "Day & Time", name: "when", widget: "string", default: "Every Sunday @ 9:00 AM" }
+              - { label: "Location", name: "where", widget: "string", default: "Bingham Market Place" }
+              - { label: "Distance", name: "distance", widget: "string", default: "5-10km (your choice!)" }
+              - { label: "After Run", name: "after", widget: "string", default: "Brunch at a local café" }
+
+      # Contact Page
+      - name: "contact"
+        label: "Contact Page"
+        file: "content/pages/contact.json"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", default: "Contact" }
+          - { label: "Page Subtitle", name: "subtitle", widget: "string", default: "Get in touch or just show up!" }
+          - { label: "Introduction", name: "intro", widget: "text" }
+          - label: "Contact Methods"
+            name: "methods"
+            widget: "object"
+            fields:
+              - { label: "WhatsApp Link", name: "whatsapp", widget: "string", required: false }
+              - { label: "Email", name: "email", widget: "string", default: "hello@binghamsundayrunningclub.co.uk" }
+              - { label: "Instagram Handle", name: "instagram", widget: "string", default: "@binghamsundayrunning" }
+              - { label: "Instagram URL", name: "instagramUrl", widget: "string", required: false }
+
+  # Site Settings
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "General Settings"
+        file: "content/settings/general.json"
+        fields:
+          - { label: "Site Name", name: "siteName", widget: "string", default: "Bingham Sunday Running Club" }
+          - { label: "Site URL", name: "siteUrl", widget: "string", default: "https://binghamsundayrunningclub.co.uk" }
+          - { label: "Site Description", name: "siteDescription", widget: "text" }
+          - { label: "Logo", name: "logo", widget: "image", required: false }
+          - { label: "Favicon", name: "favicon", widget: "image", required: false }
+          - label: "Social Links"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
+              - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
+              - { label: "Strava Club URL", name: "strava", widget: "string", required: false }
+              - { label: "WhatsApp Invite Link", name: "whatsapp", widget: "string", required: false }

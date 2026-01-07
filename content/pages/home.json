@@ -1,0 +1,52 @@
+{
+  "hero": {
+    "titleLine1": "Sunday",
+    "titleLine2": "Running",
+    "titleLine3": "Club",
+    "tagline": "All Paces. All Smiles. Just Show Up.",
+    "ctaText": "Join Our WhatsApp Group",
+    "ctaLink": "#",
+    "heroImage": "/images/hero-runners.jpg"
+  },
+  "story": {
+    "label": "Our Story",
+    "title": "More Than Just Running",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+    "members": [
+      {
+        "name": "Sarah",
+        "tagline": "Loves post-run croissants",
+        "photo": "/images/avatar-sarah.jpg"
+      },
+      {
+        "name": "Mike",
+        "tagline": "Always has terrible jokes",
+        "photo": "/images/avatar-mike.jpg"
+      },
+      {
+        "name": "Chen",
+        "tagline": "Chief tea Barista/jogger",
+        "photo": "/images/avatar-chen.jpg"
+      }
+    ]
+  },
+  "vibe": {
+    "title": "Weekly Vibe",
+    "scheduleCard": {
+      "title": "Meet Up & Move",
+      "buttonText": "View Full Schedule",
+      "buttonLink": "#"
+    },
+    "whatsappCard": {
+      "title": "Connect & Chat",
+      "buttonText": "Join WhatsApp",
+      "buttonLink": "#"
+    },
+    "stravaCard": {
+      "title": "Track & Share",
+      "label": "Find Us On Strava",
+      "buttonText": "Follow Our Socials",
+      "buttonLink": "#"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "siteName": "Bingham Sunday Running Club",
+  "siteUrl": "https://binghamsundayrunningclub.co.uk",
+  "siteDescription": "No pace, no pressure, just good vibes. We meet every Sunday, rain or shine, and always end with breakfast!",
+  "logo": "/images/logo.png",
+  "favicon": "/images/favicon.ico",
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "strava": "",
+    "whatsapp": ""
+  }
+}

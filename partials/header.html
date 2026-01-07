@@ -1,0 +1,19 @@
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="logo-icon">🏃‍♀️</span>
+      <span class="logo-text">BSRC</span>
+    </a>
+    <nav class="main-nav">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+      <ul class="nav-list">
+        <li><a href="/" class="nav-link {{#if isHome}}active{{/if}}">Home</a></li>
+        <li><a href="/about" class="nav-link {{#if isAbout}}active{{/if}}">About Us</a></li>
+        <li><a href="/gallery" class="nav-link {{#if isGallery}}active{{/if}}">Gallery</a></li>
+        <li><a href="/contact" class="nav-link {{#if isContact}}active{{/if}}">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
