@@ -40,6 +40,12 @@ exports.tasks = [
     to: './public/content',
   }),
 
+  // Copy root assets (favicon, config, etc)
+  copyStaticTask({
+    from: './assets/root',
+    to: './public',
+  }),
+
   // Set global variables
   setGlobalsTask({
     values: {

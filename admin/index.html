@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Content Manager | Bingham Sunday Running Club</title>
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
 
   <body>
@@ -19,8 +17,12 @@
     <!-- Decap CMS (Manual Init Mode) -->
     <script>
       window.CMS_MANUAL_INIT = true;
+
+      const cmsScript = document.createElement('script');
+      cmsScript.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
+      cmsScript.async = false; // Execute in order
+      document.head.appendChild(cmsScript);
     </script>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
     <!-- Initialize -->
     <script>
@@ -31,36 +33,46 @@
         APIUrl: netlifySiteURL + "/.netlify/identity"
       };
 
-      // 2. Fetch Config & Init CMS
-      fetch('/admin/config.yml')
-        .then(response => response.text())
-        .then(yaml => {
-          const config = jsyaml.load(yaml);
+      // 2. Load Netlify Identity Widget AFTER options are set
+      const script = document.createElement('script');
+      script.src = "https://identity.netlify.com/v1/netlify-identity-widget.js";
+      script.async = false; // Execute in order
+      script.onload = () => {
+        // 3. Fetch Config & Init CMS
+        fetch('/admin/config.yml')
+          .then(response => response.text())
+          .then(yaml => {
+            const config = jsyaml.load(yaml);
 
-          // FORCE the correct backend URLs
-          if (config.backend.name === 'git-gateway') {
-            config.backend.identity_url = netlifySiteURL + "/.netlify/identity";
-            config.backend.gateway_url = netlifySiteURL + "/.netlify/git/github";
-          }
+            // FORCE the correct backend URLs
+            if (config.backend.name === 'git-gateway') {
+              config.backend.identity_url = netlifySiteURL + "/.netlify/identity";
+              config.backend.gateway_url = netlifySiteURL + "/.netlify/git/github";
+            }
 
-          console.log('Initializing CMS with config:', config);
-          CMS.init({ config });
-        })
-        .catch(err => {
-          console.error('Error loading config:', err);
-          document.body.innerHTML = '<p style="color:red; padding: 20px;">Error loading config.yml. Check console.</p>';
-        });
+            console.log('Initializing CMS with config:', config);
+            if (config.collections) {
+              console.log('Collections:', config.collections.map(c => c.name));
+            }
+            CMS.init({ config });
 
-      // 3. Handle Redirects
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
+            // 4. Handle Redirects
+            if (window.netlifyIdentity) {
+              window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                  window.netlifyIdentity.on("login", () => {
+                    document.location.href = "/admin/";
+                  });
+                }
+              });
+            }
+          })
+          .catch(err => {
+            console.error('Error loading config:', err);
+            document.body.innerHTML = '<p style="color:red; padding: 20px;">Error loading config.yml. Check console.</p>';
+          });
+      };
+      document.head.appendChild(script);
     </script>
   </body>
 
