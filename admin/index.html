@@ -9,71 +9,8 @@
   </head>
 
   <body>
-    <div id="nc-root"></div>
-
-    <!-- JS-YAML for parsing config -->
-    <script src="https://unpkg.com/js-yaml@4/dist/js-yaml.min.js"></script>
-
-    <!-- Decap CMS (Manual Init Mode) -->
-    <script>
-      window.CMS_MANUAL_INIT = true;
-
-      const cmsScript = document.createElement('script');
-      cmsScript.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
-      cmsScript.async = false; // Execute in order
-      document.head.appendChild(cmsScript);
-    </script>
-
-    <!-- Initialize -->
-    <script>
-      // 1. Configure Login Widget
-      const netlifySiteURL = "https://sparkling-trifle-458a60.netlify.app";
-
-      window.netlifyIdentityOptions = {
-        APIUrl: netlifySiteURL + "/.netlify/identity"
-      };
-
-      // 2. Load Netlify Identity Widget AFTER options are set
-      const script = document.createElement('script');
-      script.src = "https://identity.netlify.com/v1/netlify-identity-widget.js";
-      script.async = false; // Execute in order
-      script.onload = () => {
-        // 3. Fetch Config & Init CMS
-        fetch('/admin/config.yml')
-          .then(response => response.text())
-          .then(yaml => {
-            const config = jsyaml.load(yaml);
-
-            // FORCE the correct backend URLs
-            if (config.backend.name === 'git-gateway') {
-              config.backend.identity_url = netlifySiteURL + "/.netlify/identity";
-              config.backend.gateway_url = netlifySiteURL + "/.netlify/git/github";
-            }
-
-            console.log('Initializing CMS with config:', config);
-            if (config.collections) {
-              console.log('Collections:', config.collections.map(c => c.name));
-            }
-            CMS.init({ config });
-
-            // 4. Handle Redirects
-            if (window.netlifyIdentity) {
-              window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                  window.netlifyIdentity.on("login", () => {
-                    document.location.href = "/admin/";
-                  });
-                }
-              });
-            }
-          })
-          .catch(err => {
-            console.error('Error loading config:', err);
-            document.body.innerHTML = '<p style="color:red; padding: 20px;">Error loading config.yml. Check console.</p>';
-          });
-      };
-      document.head.appendChild(script);
-    </script>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
   </body>
 
 </html>

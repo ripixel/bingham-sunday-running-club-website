@@ -1,10 +1,23 @@
 {
+  "functions": {
+    "source": "functions"
+  },
   "hosting": {
     "public": "./public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/api/auth",
+        "function": "oauth"
+      },
+      {
+        "source": "/api/callback",
+        "function": "oauth"
+      }
     ],
     "cleanUrls": true,
     "trailingSlash": false,

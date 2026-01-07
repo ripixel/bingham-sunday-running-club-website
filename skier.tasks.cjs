@@ -50,7 +50,7 @@ exports.tasks = [
   setGlobalsTask({
     values: {
       siteName: 'Bingham Sunday Running Club',
-      siteUrl: 'https://binghamsundayrunningclub.co.uk',
+      siteUrl: 'https://bingham-sunday-running-club.web.app',
       year: new Date().getFullYear(),
       noindex:
         process.env.NODE_ENV === 'production'
@@ -91,6 +91,6 @@ exports.tasks = [
   generateSitemapTask({
     outDir: './public',
     scanDir: './public',
-    siteUrl: 'https://binghamsundayrunningclub.co.uk',
+    siteUrl: 'https://bingham-sunday-running-club.web.app',
   }),
 ];
