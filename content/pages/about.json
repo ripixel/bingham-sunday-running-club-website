@@ -90,11 +90,30 @@
   "location": {
     "heading": "Where to Find Us",
     "content": "We set off every Sunday at 9:00 AM from the Bingham Market Place (there'll always be some folks there a little earlier for a natter). Look for the group of friendly people in running gear (and probably some excited dogs)!\n\nAfterwards, we head to Gilt for a well-earned breakfast - but if you have to shoot off, that's fine too!",
+    "mapLink": "https://maps.app.goo.gl/kgxJTzQLhLivVE6T8",
+    "mapLinkText": "Open in Google Maps",
     "meeting": {
       "when": "Every Sunday @ 9:00 AM",
       "where": "Bingham Market Place",
       "distance": "2-10km (your choice!)",
       "after": "Brunch & Coffee at Gilt"
+    },
+    "parking": {
+      "heading": "Parking",
+      "options": [
+        {
+          "title": "Parallel Parking Bays",
+          "description": "Right on the market square. Free all day for unlimited time on Sundays."
+        },
+        {
+          "title": "Bay Parking",
+          "description": "Also on the market square. Note: These are 'No return within 1hr', so be careful."
+        },
+        {
+          "title": "Newgate Street Car Park",
+          "description": "A short walk away. Free for 2hrs (you just need to get a ticket)."
+        }
+      ]
     }
   }
 }

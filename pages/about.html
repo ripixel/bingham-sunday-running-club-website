@@ -147,6 +147,24 @@
               <div class="markdown-content">
                 {{content.pages.about.location.content}}
               </div>
+              {{#if content.pages.about.location.mapLink}}
+                <div class="location-actions" style="margin-top: 1.5rem;">
+                  <a href="{{content.pages.about.location.mapLink}}" class="btn btn-primary"
+                    target="_blank">{{content.pages.about.location.mapLinkText}}</a>
+                </div>
+              {{/if}}
+
+              <div class="parking-section">
+                <h3>{{content.pages.about.location.parking.heading}}</h3>
+                <div class="parking-grid">
+                  {{#each content.pages.about.location.parking.options}}
+                    <div class="parking-card">
+                      <h4>{{title}}</h4>
+                      <p>{{description}}</p>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
             </div>
 
           </div>

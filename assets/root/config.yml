@@ -193,6 +193,8 @@ collections:
             fields:
               - { label: "Heading", name: "heading", widget: "string", default: "When & Where" }
               - { label: "Content", name: "content", widget: "markdown" }
+              - { label: "Map Link URL", name: "mapLink", widget: "string", required: false, hint: "Full Google Maps URL" }
+              - { label: "Map Link Text", name: "mapLinkText", widget: "string", default: "Open in Google Maps", required: false }
               - label: "Meeting Details"
                 name: "meeting"
                 widget: "object"
@@ -201,6 +203,17 @@ collections:
                   - { label: "Location", name: "where", widget: "string", default: "Bingham Market Place" }
                   - { label: "Distance", name: "distance", widget: "string", default: "5-10km (your choice!)" }
                   - { label: "After Run", name: "after", widget: "string", default: "Brunch at a local café" }
+              - label: "Parking"
+                name: "parking"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string", default: "Parking" }
+                  - label: "Options"
+                    name: "options"
+                    widget: "list"
+                    fields:
+                      - { label: "Title", name: "title", widget: "string" }
+                      - { label: "Description", name: "description", widget: "string" }
 
           - label: "Meeting Info (for Contact Page)"
             name: "meeting"

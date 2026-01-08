@@ -321,7 +321,14 @@ var AboutPreview = createClass({
               // Location Section
               location ? h('div', { className: 'about-block' },
                 h('h2', {}, location.get('heading')),
-                h('div', { className: 'markdown-content' }, location.get('content'))
+                h('div', { className: 'markdown-content' }, location.get('content')),
+                location.get('mapLink') ? h('div', { className: 'location-actions', style: { marginTop: '1.5rem' } },
+                  h('a', {
+                    href: location.get('mapLink'),
+                    className: 'btn btn-primary',
+                    target: '_blank'
+                  }, location.get('mapLinkText') || 'Open in Google Maps')
+                ) : null
               ) : null
             )
           )

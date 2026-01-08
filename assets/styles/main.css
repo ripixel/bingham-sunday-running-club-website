@@ -1153,6 +1153,67 @@ strong {
   margin: 0;
 }
 
+/* Parking Section */
+.parking-section {
+  margin-top: var(--space-8);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-8);
+}
+
+.parking-section h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-6);
+  color: var(--color-text);
+}
+
+.parking-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .parking-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.parking-card {
+  background: var(--color-bg-elevated);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 3px solid var(--color-text-muted);
+  transition: transform var(--transition-base);
+}
+
+.parking-card:hover {
+  transform: translateY(-4px);
+}
+
+.parking-card h4 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.parking-card p {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.parking-card:nth-child(1) {
+  border-top-color: var(--color-green);
+}
+
+.parking-card:nth-child(2) {
+  border-top-color: var(--color-orange);
+}
+
+.parking-card:nth-child(3) {
+  border-top-color: var(--color-blue);
+}
+
 /* --------------------------------------------------------------------------
    Contact Page
    -------------------------------------------------------------------------- */
