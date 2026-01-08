@@ -85,14 +85,29 @@
     "note": "Grab yours at any Sunday meet. We take cash or bank transfer.",
     "items": [
       {
-        "name": "BSRC Tech Tee",
-        "price": "£20",
-        "image": "/images/merch-tee.jpg"
+        "name": "Baseball Cap",
+        "price": "£5",
+        "image": "/images/cap.png"
       },
       {
-        "name": "Club Hoodie",
-        "price": "£35",
-        "image": "/images/merch-hoodie.jpg"
+        "name": "Jumper",
+        "price": "£10",
+        "image": "/images/jumper.png"
+      },
+      {
+        "name": "T-Shirt",
+        "price": "£5",
+        "image": "/images/t-shirt.png"
+      },
+      {
+        "name": "Kid's Hoody",
+        "price": "£10",
+        "image": "/images/hoody.png"
+      },
+      {
+        "name": "Kid's T-Shirt",
+        "price": "5",
+        "image": "/images/kids-t-shirt.png"
       }
     ]
   },
@@ -101,28 +116,16 @@
     "description": "Celebrating our club records.",
     "records": [
       {
-        "name": "Sarah J.",
+        "name": "Rory",
         "distance": "5k",
-        "time": "21:45",
-        "date": "2024-03-15"
+        "time": "20:00",
+        "date": "September 10, 2025"
       },
       {
-        "name": "Mike T.",
+        "name": "Dean",
         "distance": "10k",
-        "time": "42:15",
-        "date": "2024-04-02"
-      },
-      {
-        "name": "Emma R.",
-        "distance": "Half Marathon",
-        "time": "1:45:30",
-        "date": "2024-05-10"
-      },
-      {
-        "name": "John D.",
-        "distance": "Marathon",
-        "time": "3:45:00",
-        "date": "2024-01-20"
+        "time": "44:22",
+        "date": "February 11, 2025"
       }
     ]
   }
