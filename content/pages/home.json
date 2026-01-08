@@ -2,18 +2,36 @@
   "hero": {
     "tagline": "All Paces. All Smiles. Just Show Up.",
     "ctaText": "Join Us On Strava",
-    "ctaLink": "https://www.strava.com/clubs/bingham-sunday-running-club",
+    "ctaLink": "https://www.strava.com/clubs/binghamsundayrunningclub",
     "heroImage": "/images/gemini_generated_image_abebp4abebp4abeb-edit.jpg"
   },
   "story": {
     "label": "Our Story",
     "title": "More Than Just Running",
-    "description": "Bingham’s easy-going Sunday run. No memberships or fees—just turn up! All paces welcome and we never leave anyone behind. Dogs, strollers, bikes, and kids are all welcome.",
-    "members": [
+    "description": "Bingham's easy-going Sunday run. No memberships or fees—just turn up! All paces welcome and we never leave anyone behind. Dogs, strollers, bikes, and kids are all welcome.",
+    "founder": {
+      "name": "Dean",
+      "tagline": "Founder & Chief Speaker Carrier",
+      "photo": "/images/dean.png"
+    },
+    "keyMembers": [
       {
-        "name": "Dean",
-        "tagline": "Founder & Chief Speaker Carrier",
-        "photo": "/images/dean.png"
+        "name": "Sarah",
+        "tagline": "5K Speed Demon",
+        "photo": "/images/placeholder-member.jpg",
+        "accentColor": "pink"
+      },
+      {
+        "name": "Mike",
+        "tagline": "Marathon Enthusiast",
+        "photo": "/images/placeholder-member.jpg",
+        "accentColor": "green"
+      },
+      {
+        "name": "Emma",
+        "tagline": "Trail Running Expert",
+        "photo": "/images/placeholder-member.jpg",
+        "accentColor": "blue"
       }
     ]
   },
@@ -24,8 +42,6 @@
         "title": "Meet Up & Move",
         "description": "",
         "icon": "👥",
-        "backgroundColor": "#f97316",
-        "textColor": "#ffffff",
         "buttonText": "View Full Schedule",
         "buttonLink": "/about",
         "openInNewTab": false
@@ -34,8 +50,6 @@
         "title": "Connect & Chat",
         "description": "",
         "icon": "📷",
-        "backgroundColor": "#ec4899",
-        "textColor": "#ffffff",
         "buttonText": "Follow Us",
         "buttonLink": "https://www.instagram.com/sundayrunclub_bingham",
         "openInNewTab": true
@@ -44,10 +58,8 @@
         "title": "Track & Share",
         "description": "Find Us On Strava",
         "icon": "🏃",
-        "backgroundColor": "#ffffff",
-        "textColor": "#1a1a1a",
         "buttonText": "Follow Our Socials",
-        "buttonLink": "https://www.strava.com/clubs/bingham-sunday-running-club",
+        "buttonLink": "https://www.strava.com/clubs/binghamsundayrunningclub",
         "openInNewTab": true
       }
     ]

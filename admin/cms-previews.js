@@ -55,20 +55,42 @@ var HomePreview = createClass({
                 h('h2', { className: 'section-title' }, story.get('title')),
                 h('p', { className: 'section-text' }, story.get('description'))
               ),
-              h('div', { className: 'member-avatars' },
-                (story.get('members') || []).map(function (member, index) {
-                  return h('div', { key: index, className: 'avatar-item' },
-                    h('div', { className: 'avatar-ring' },
-                      member.get('photo') ? h('img', {
-                        src: getAsset(member.get('photo')).toString(),
-                        alt: member.get('name'),
-                        className: 'avatar-image'
+              h('div', { className: 'story-team' },
+                // Founder
+                story.get('founder') ? h('div', { className: 'founder-section' },
+                  h('div', { className: 'founder-avatar' },
+                    h('div', { className: 'founder-ring' },
+                      story.getIn(['founder', 'photo']) ? h('img', {
+                        src: getAsset(story.getIn(['founder', 'photo'])).toString(),
+                        alt: story.getIn(['founder', 'name']),
+                        className: 'founder-image'
                       }) : null
-                    ),
-                    h('span', { className: 'avatar-name' }, member.get('name')),
-                    h('span', { className: 'avatar-role' }, member.get('tagline'))
-                  );
-                })
+                    )
+                  ),
+                  h('span', { className: 'founder-name' }, story.getIn(['founder', 'name'])),
+                  h('span', { className: 'founder-role' }, story.getIn(['founder', 'tagline']))
+                ) : null,
+
+                // Key Members
+                (story.get('keyMembers') && story.get('keyMembers').size > 0) ? h('div', { className: 'key-members' },
+                  h('h3', { className: 'key-members-title' }, 'Key Members'),
+                  h('div', { className: 'member-avatars' },
+                    story.get('keyMembers').map(function (member, index) {
+                      var accentColor = member.get('accentColor') || 'pink';
+                      return h('div', { key: index, className: 'avatar-item' },
+                        h('div', { className: 'avatar-ring avatar-ring-' + accentColor },
+                          member.get('photo') ? h('img', {
+                            src: getAsset(member.get('photo')).toString(),
+                            alt: member.get('name'),
+                            className: 'avatar-image'
+                          }) : null
+                        ),
+                        h('span', { className: 'avatar-name' }, member.get('name')),
+                        h('span', { className: 'avatar-role' }, member.get('tagline'))
+                      );
+                    })
+                  )
+                ) : null
               )
             )
           )
@@ -80,15 +102,12 @@ var HomePreview = createClass({
             h('h2', { className: 'section-title' }, vibe.get('title')),
             h('div', { className: 'vibe-grid' },
               (vibe.get('cards') || []).map(function (card, index) {
-                var bgColor = card.get('backgroundColor') || '#f97316';
-                var textColor = card.get('textColor') || '#ffffff';
                 var target = card.get('openInNewTab') ? '_blank' : undefined;
 
                 return h('a', {
                   key: index,
                   href: card.get('buttonLink'),
                   className: 'vibe-card',
-                  style: { background: bgColor, color: textColor },
                   target: target
                 },
                   h('h3', { className: 'vibe-title' }, card.get('title')),
@@ -132,14 +151,18 @@ var HomePreview = createClass({
         (pbs.get('records') && pbs.get('records').size > 0) ? h('section', { className: 'section section-pbs' },
           h('div', { className: 'container' },
             h('h2', { className: 'section-title' }, pbs.get('title')),
-            h('div', { className: 'pbs-list' },
+            h('div', { className: 'pbs-grid' },
               pbs.get('records').map(function (rec, i) {
-                return h('div', { key: i, className: 'pb-item' },
-                  h('span', { className: 'pb-distance' }, rec.get('distance')),
-                  h('div', { className: 'pb-details' },
-                    h('span', { className: 'pb-time' }, rec.get('time')),
-                    h('span', { className: 'pb-runner' }, rec.get('name')),
-                    h('span', { className: 'pb-date' }, rec.get('date'))
+                return h('div', { key: i, className: 'pb-card' },
+                  h('div', { className: 'pb-icon' }, '🏆'),
+                  h('div', { className: 'pb-content' },
+                    h('span', { className: 'pb-distance' }, rec.get('distance')),
+                    h('h3', { className: 'pb-time' }, rec.get('time')),
+                    h('div', { className: 'pb-meta' },
+                      h('span', { className: 'pb-runner' }, rec.get('name')),
+                      h('span', { className: 'pb-separator' }, '•'),
+                      h('span', { className: 'pb-date' }, rec.get('date'))
+                    )
                   )
                 );
               })

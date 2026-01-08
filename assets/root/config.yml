@@ -60,14 +60,22 @@ collections:
               - { label: "Section Label", name: "label", widget: "string", default: "Our Story" }
               - { label: "Title", name: "title", widget: "string", default: "More Than Just Running" }
               - { label: "Description", name: "description", widget: "text" }
-              - label: "Featured Member (Creator)"
-                name: "members"
-                widget: "list"
-                max: 1
+              - label: "Founder"
+                name: "founder"
+                widget: "object"
                 fields:
                   - { label: "Name", name: "name", widget: "string" }
                   - { label: "Tag Line", name: "tagline", widget: "string" }
                   - { label: "Photo", name: "photo", widget: "image", required: false }
+              - label: "Key Members"
+                name: "keyMembers"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Tag Line", name: "tagline", widget: "string" }
+                  - { label: "Photo", name: "photo", widget: "image", required: false }
+                  - { label: "Accent Color", name: "accentColor", widget: "select", options: ["pink", "green", "blue"], default: "pink" }
 
           - label: "Vibe Section"
             name: "vibe"
@@ -81,8 +89,6 @@ collections:
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Description", name: "description", widget: "string", required: false, hint: "Optional subtitle or label" }
                   - { label: "Icon (Emoji)", name: "icon", widget: "string", default: "🏃" }
-                  - { label: "Background Color", name: "backgroundColor", widget: "color", default: "#f97316" }
-                  - { label: "Text Color", name: "textColor", widget: "color", default: "#ffffff", hint: "Color for text and icons" }
                   - { label: "Button Text", name: "buttonText", widget: "string" }
                   - { label: "Button Link", name: "buttonLink", widget: "string" }
                   - { label: "Open in New Tab", name: "openInNewTab", widget: "boolean", default: false }

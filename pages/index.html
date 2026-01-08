@@ -42,16 +42,38 @@
                 {{content.pages.home.story.description}}
               </p>
             </div>
-            <div class="member-avatars">
-              {{#each content.pages.home.story.members}}
-                <div class="avatar-item">
-                  <div class="avatar-ring">
-                    <img src="{{photo}}" alt="{{name}}" class="avatar-image" />
+            <div class="story-team">
+              <!-- Founder -->
+              {{#if content.pages.home.story.founder}}
+                <div class="founder-section">
+                  <div class="founder-avatar">
+                    <div class="founder-ring">
+                      <img src="{{content.pages.home.story.founder.photo}}"
+                        alt="{{content.pages.home.story.founder.name}}" class="founder-image" />
+                    </div>
                   </div>
-                  <span class="avatar-name">{{name}}</span>
-                  <span class="avatar-role">{{tagline}}</span>
+                  <span class="founder-name">{{content.pages.home.story.founder.name}}</span>
+                  <span class="founder-role">{{content.pages.home.story.founder.tagline}}</span>
                 </div>
-              {{/each}}
+              {{/if}}
+
+              <!-- Key Members -->
+              {{#if content.pages.home.story.keyMembers.length}}
+                <div class="key-members">
+                  <h3 class="key-members-title">Key Members</h3>
+                  <div class="member-avatars">
+                    {{#each content.pages.home.story.keyMembers}}
+                      <div class="avatar-item">
+                        <div class="avatar-ring avatar-ring-{{accentColor}}">
+                          <img src="{{photo}}" alt="{{name}}" class="avatar-image" />
+                        </div>
+                        <span class="avatar-name">{{name}}</span>
+                        <span class="avatar-role">{{tagline}}</span>
+                      </div>
+                    {{/each}}
+                  </div>
+                </div>
+              {{/if}}
             </div>
           </div>
         </div>
@@ -63,8 +85,7 @@
           <h2 class="section-title">{{content.pages.home.vibe.title}}</h2>
           <div class="vibe-grid">
             {{#each content.pages.home.vibe.cards}}
-              <a href="{{buttonLink}}" class="vibe-card" style="background: {{backgroundColor}}; color: {{textColor}};"
-                {{#if openInNewTab}}target="_blank" {{/if}}>
+              <a href="{{buttonLink}}" class="vibe-card" {{#if openInNewTab}}target="_blank" {{/if}}>
                 <h3 class="vibe-title">{{title}}</h3>
                 <div class="vibe-icon">{{icon}}</div>
                 {{#if description}}
