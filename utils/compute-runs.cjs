@@ -67,8 +67,7 @@ function computeRuns(content) {
       dateObj: runDate,
       location: recurringRunDef.where,
       distance: recurringRunDef.distance, // Explicit distance field
-      body: `Join us for our regular Sunday run! High-visibility gear recommended in winter. Do as many 2km laps as you want—there is no minimum!`, // Standardize body
-      meetingNote: "Breakfast and coffee at Gilt afterwards.",
+      body: "Join us for our regular Sunday run! Do as many laps as you want—there is no minimum! Breakfast and coffee at Gilt afterwards.",
       isSpecial: false
     });
   }
