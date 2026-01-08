@@ -270,8 +270,7 @@ var ContactPreview = createClass({
                       target: '_blank'
                     },
                       h('div', {
-                        className: 'contact-icon',
-                        style: { backgroundColor: card.get('color') }
+                        className: 'contact-icon'
                       }, card.get('icon')),
                       h('div', { className: 'contact-text' },
                         h('h3', {}, card.get('title')),
