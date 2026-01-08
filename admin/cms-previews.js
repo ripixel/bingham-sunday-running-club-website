@@ -566,13 +566,14 @@ var EventsPreview = createClass({
                 ),
                 h('div', { className: 'event-details' },
                   h('h2', { className: 'event-title' }, title),
-                  // Special Event Badge
-                  h('span', { className: 'badge badge-special' }, 'Special Event'),
 
                   h('div', { className: 'event-meta' },
                     h('span', { className: 'meta-item location' }, '📍 ' + location),
                     distance ? h('span', { className: 'meta-item distance' }, '📏 ' + distance) : null
                   ),
+
+                  // Special Event Badge
+                  h('span', { className: 'badge badge-special' }, 'Special Event'),
 
                   // Description
                   body ? h('div', { className: 'event-body' },

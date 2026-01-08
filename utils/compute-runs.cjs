@@ -62,7 +62,7 @@ function computeRuns(content) {
     }
 
     recurringRuns.push({
-      title: "Sunday Run & Breakfast ☕",
+      title: "☕ Sunday Run & Breakfast",
       date: runDate.toISOString(),
       dateObj: runDate,
       location: recurringRunDef.where,
