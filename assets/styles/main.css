@@ -24,6 +24,7 @@
   --color-orange: #f97316;
   --color-green: #22c55e;
   --color-pink: #ec4899;
+  --color-blue: #3b82f6;
   --color-white: #ffffff;
   --color-strava: #FC4C02;
 
@@ -220,6 +221,23 @@ strong {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: var(--space-2);
+}
+
+/* Color-coded section labels */
+.section-story .section-label {
+  color: var(--color-pink);
+}
+
+.section-vibe .section-label {
+  color: var(--color-green);
+}
+
+.section-merch .section-label {
+  color: var(--color-blue);
+}
+
+.section-pbs .section-label {
+  color: var(--color-pink);
 }
 
 .section-title {
@@ -834,6 +852,15 @@ strong {
   background: var(--color-bg-elevated);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--color-pink);
+}
+
+.value-item:nth-child(2n) {
+  border-left-color: var(--color-green);
+}
+
+.value-item:nth-child(3n) {
+  border-left-color: var(--color-blue);
 }
 
 .value-icon {
@@ -890,12 +917,32 @@ strong {
   background: var(--color-bg-elevated);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--color-pink);
   transition: all var(--transition-base);
 }
 
 .contact-card:hover {
-  border-color: var(--color-primary);
+  border-left-color: var(--color-pink);
   transform: translateX(4px);
+  box-shadow: -4px 0 0 var(--color-pink);
+}
+
+.contact-card:nth-child(2) {
+  border-left-color: var(--color-green);
+}
+
+.contact-card:nth-child(2):hover {
+  border-left-color: var(--color-green);
+  box-shadow: -4px 0 0 var(--color-green);
+}
+
+.contact-card:nth-child(3) {
+  border-left-color: var(--color-blue);
+}
+
+.contact-card:nth-child(3):hover {
+  border-left-color: var(--color-blue);
+  box-shadow: -4px 0 0 var(--color-blue);
 }
 
 .contact-icon {
@@ -1037,7 +1084,15 @@ strong {
 }
 
 .footer-links a:hover {
-  color: var(--color-primary);
+  color: var(--color-pink);
+}
+
+.footer-links li:nth-child(2n) a:hover {
+  color: var(--color-green);
+}
+
+.footer-links li:nth-child(3n) a:hover {
+  color: var(--color-blue);
 }
 
 .social-icons {
@@ -1058,8 +1113,16 @@ strong {
 }
 
 .social-link:hover {
-  background: var(--color-primary);
+  background: var(--color-pink);
   color: white;
+}
+
+.social-link:nth-child(2):hover {
+  background: var(--color-green);
+}
+
+.social-link:nth-child(3):hover {
+  background: var(--color-blue);
 }
 
 .footer-bottom {
@@ -1103,49 +1166,68 @@ strong {
   align-items: center;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform var(--transition-base), border-color var(--transition-base);
+  border-left: 3px solid var(--color-pink);
+  transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
   position: relative;
   overflow: hidden;
 }
 
+.pb-card:nth-child(2n) {
+  border-left-color: var(--color-green);
+}
+
+.pb-card:nth-child(3n) {
+  border-left-color: var(--color-blue);
+}
+
 .pb-card:hover {
   transform: translateY(-4px);
-  border-color: var(--color-primary);
+  box-shadow: -4px 0 0 var(--color-pink);
 }
 
-.pb-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
-  opacity: 0;
-  transition: opacity var(--transition-base);
+.pb-card:nth-child(2n):hover {
+  box-shadow: -4px 0 0 var(--color-green);
 }
 
-.pb-card:hover::before {
-  opacity: 1;
+.pb-card:nth-child(3n):hover {
+  box-shadow: -4px 0 0 var(--color-blue);
 }
 
 .pb-icon {
   width: 48px;
   height: 48px;
-  background: rgba(249, 115, 22, 0.1);
-  color: var(--color-primary);
+  background: rgba(236, 72, 153, 0.15);
+  color: var(--color-pink);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-4);
-  transition: transform var(--transition-base);
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.pb-card:nth-child(2n) .pb-icon {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--color-green);
+}
+
+.pb-card:nth-child(3n) .pb-icon {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--color-blue);
 }
 
 .pb-card:hover .pb-icon {
   transform: scale(1.1);
-  background: var(--color-primary);
+  background: var(--color-pink);
   color: white;
+}
+
+.pb-card:nth-child(2n):hover .pb-icon {
+  background: var(--color-green);
+}
+
+.pb-card:nth-child(3n):hover .pb-icon {
+  background: var(--color-blue);
 }
 
 .pb-icon svg {
@@ -1165,7 +1247,15 @@ strong {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 600;
-  color: var(--color-primary);
+  color: var(--color-pink);
+}
+
+.pb-card:nth-child(2n) .pb-distance {
+  color: var(--color-green);
+}
+
+.pb-card:nth-child(3n) .pb-distance {
+  color: var(--color-blue);
 }
 
 .pb-time {
@@ -1233,30 +1323,30 @@ strong {
   border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--color-pink);
   transition: all var(--transition-base);
   position: relative;
 }
 
+.merch-card:nth-child(2n) {
+  border-left-color: var(--color-green);
+}
+
+.merch-card:nth-child(3n) {
+  border-left-color: var(--color-blue);
+}
+
 .merch-card:hover {
   transform: translateY(-8px);
-  border-color: var(--color-primary);
-  box-shadow: 0 12px 24px rgba(249, 115, 22, 0.2);
+  box-shadow: -4px 0 0 var(--color-pink), 0 12px 24px rgba(236, 72, 153, 0.2);
 }
 
-.merch-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
-  opacity: 0;
-  transition: opacity var(--transition-base);
+.merch-card:nth-child(2n):hover {
+  box-shadow: -4px 0 0 var(--color-green), 0 12px 24px rgba(34, 197, 94, 0.2);
 }
 
-.merch-card:hover::before {
-  opacity: 1;
+.merch-card:nth-child(3n):hover {
+  box-shadow: -4px 0 0 var(--color-blue), 0 12px 24px rgba(59, 130, 246, 0.2);
 }
 
 .merch-image {
