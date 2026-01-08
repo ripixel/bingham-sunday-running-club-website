@@ -1,10 +1,10 @@
 ---
-title: 🚌 Burghley 7 Road Race
+title: 🎂 Florence's Birthday Run
 date: 2026-03-01T09:00:00.000+00:00
-location: Burghley House, Stamford
-distance: 7 miles
-meetingNote: This is an external event, so you must purchase a ticket for £28
-link: Buy Ticket
-linkText: https://www.pacesetterevents.com/burghley7
+location: Bingham Market Place
+distance: 2-10km (your choice!)
+meetingNote: ""
+link: ""
+linkText: ""
 ---
-Bingham Sunday Running Club on tour! We're pushing ourselves to try a 7-miler (11.25km), but still not take it too seriously. A sensational course linking Burghley and Stamford, with incredible access to the private areas of the Burghley estate, a traffic free High street St Martins and a course that explores countless beautiful and unique locations.
+Usual time, usual place, but celebrating Florence's birthday! Come celebrate with everyone and have a big birthday breakfast afterwards at Gilt.
