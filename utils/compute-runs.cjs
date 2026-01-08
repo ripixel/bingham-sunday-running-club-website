@@ -93,14 +93,27 @@ function computeRuns(content) {
   const nextRun = upcomingRuns[0];
 
   // Calendar is the list (let's say next 10 items)
-  const eventsList = upcomingRuns.slice(0, 21).map(run => ({
-    ...run,
-    // Format date for display if needed here, or let Handlebars do it (better in Handlebars usually, but we might want pre-formatted strings)
-    displayDate: run.dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }),
-    displayTime: run.dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
-    // Color coding for calendar
-    color: run.isSpecial ? "pink" : "blue"
-  }));
+  // Calendar is the list (let's say next 10 items)
+  let specialEventIndex = 0;
+
+  const eventsList = upcomingRuns.slice(0, 21).map(run => {
+    let color = 'blue';
+
+    if (run.isSpecial) {
+      const colors = ['pink', 'green'];
+      color = colors[specialEventIndex % colors.length];
+      specialEventIndex++;
+    }
+
+    return {
+      ...run,
+      // Format date for display if needed here, or let Handlebars do it (better in Handlebars usually, but we might want pre-formatted strings)
+      displayDate: run.dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }),
+      displayTime: run.dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+      // Color coding for calendar
+      color
+    };
+  });
 
   if (nextRun) {
     nextRun.displayDate = nextRun.dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });

@@ -115,5 +115,19 @@
         }
       ]
     }
+  },
+  "postRun": {
+    "heading": "Post-Run Coffee & Breakfast",
+    "description": "The run is just the warm-up for the main event: breakfast. We head to Gilt for great coffee, full English breakfasts, and plenty of chat. It's super kid-friendly too, with pancakes and hot chocolates on tap.",
+    "venueName": "Gilt Café Bar",
+    "image": "/images/gilt.jpg",
+    "features": [
+      "Great Coffee",
+      "Full Breakfasts",
+      "Kid Friendly",
+      "Dog Friendly (Outside)",
+      "Pancakes",
+      "Milkshakes"
+    ]
   }
 }

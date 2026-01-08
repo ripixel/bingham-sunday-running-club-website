@@ -58,13 +58,21 @@
                       </div>
 
                       <!-- Meeting Note / Description -->
-                      <p class="event-body">
-                        {{#if nextRun.meetingNote}}
+                      {{#if nextRun.body}}
+                        <p class="event-body">{{nextRun.body}}</p>
+                      {{/if}}
+
+                      {{#if nextRun.meetingNote}}
+                        <p class="event-body" style="font-weight: 700; margin-top: var(--space-2);">
                           {{nextRun.meetingNote}}
-                        {{else}}
-                          {{content.pages.contact.meetingNote}}
-                        {{/if}}
-                      </p>
+                        </p>
+                      {{else}}
+                        {{#unless nextRun.isSpecial}}
+                          <p class="event-body">
+                            {{content.pages.contact.meetingNote}}
+                          </p>
+                        {{/unless}}
+                      {{/if}}
 
                       <!-- Action Link -->
                       {{#if nextRun.link}}

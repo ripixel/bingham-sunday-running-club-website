@@ -78,6 +78,13 @@
               <p class="section-text">
                 {{content.pages.home.story.description}}
               </p>
+              {{#if content.pages.home.story.buttons.length}}
+                <div class="story-buttons">
+                  {{#each content.pages.home.story.buttons}}
+                    <a href="{{link}}" class="btn btn-{{style}}">{{text}}</a>
+                  {{/each}}
+                </div>
+              {{/if}}
             </div>
             <div class="story-team">
               <!-- Founder -->
@@ -119,7 +126,12 @@
       <!-- Weekly Vibe Section -->
       <section class="section section-vibe">
         <div class="container">
-          <h2 class="section-title">{{content.pages.home.vibe.title}}</h2>
+          <div class="section-header">
+            <h2 class="section-title">{{content.pages.home.vibe.title}}</h2>
+            {{#if content.pages.home.vibe.description}}
+              <p class="section-subtitle">{{content.pages.home.vibe.description}}</p>
+            {{/if}}
+          </div>
           <div class="vibe-grid">
             {{#each content.pages.home.vibe.cards}}
               <a href="{{buttonLink}}" class="vibe-card" {{#if openInNewTab}}target="_blank" {{/if}}>
@@ -134,6 +146,44 @@
           </div>
         </div>
       </section>
+
+      <!-- Merch Section -->
+      <!-- Personal Bests Section -->
+      {{#if content.pages.home.pbs.records.length}}
+        <section class="section section-pbs">
+          <div class="container">
+            <div class="section-header">
+              <h2 class="section-title">{{content.pages.home.pbs.title}}</h2>
+              {{#if content.pages.home.pbs.description}}
+                <p class="section-subtitle">{{content.pages.home.pbs.description}}</p>
+              {{/if}}
+            </div>
+            <div class="pbs-grid">
+              {{#each content.pages.home.pbs.records}}
+                <div class="pb-card">
+                  <div class="pb-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-award">
+                      <circle cx="12" cy="8" r="7"></circle>
+                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                  </div>
+                  <div class="pb-content">
+                    <span class="pb-distance">{{distance}}</span>
+                    <h3 class="pb-time">{{time}}</h3>
+                    <div class="pb-meta">
+                      <span class="pb-runner">{{name}}</span>
+                      <span class="pb-separator">•</span>
+                      <span class="pb-date">{{date}}</span>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </section>
+      {{/if}}
 
       <!-- Merch Section -->
       {{#if content.pages.home.merch.items.length}}
@@ -160,38 +210,6 @@
               {{/each}}
             </div>
             <p class="merch-note">{{content.pages.home.merch.note}}</p>
-          </div>
-        </section>
-      {{/if}}
-
-      <!-- Personal Bests Section -->
-      {{#if content.pages.home.pbs.records.length}}
-        <section class="section section-pbs">
-          <div class="container">
-            <h2 class="section-title">{{content.pages.home.pbs.title}}</h2>
-            <div class="pbs-grid">
-              {{#each content.pages.home.pbs.records}}
-                <div class="pb-card">
-                  <div class="pb-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-award">
-                      <circle cx="12" cy="8" r="7"></circle>
-                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                    </svg>
-                  </div>
-                  <div class="pb-content">
-                    <span class="pb-distance">{{distance}}</span>
-                    <h3 class="pb-time">{{time}}</h3>
-                    <div class="pb-meta">
-                      <span class="pb-runner">{{name}}</span>
-                      <span class="pb-separator">•</span>
-                      <span class="pb-date">{{date}}</span>
-                    </div>
-                  </div>
-                </div>
-              {{/each}}
-            </div>
           </div>
         </section>
       {{/if}}

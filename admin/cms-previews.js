@@ -53,7 +53,17 @@ var HomePreview = createClass({
               h('div', { className: 'story-content' },
                 h('span', { className: 'section-label' }, story.get('label')),
                 h('h2', { className: 'section-title' }, story.get('title')),
-                h('p', { className: 'section-text' }, story.get('description'))
+                h('p', { className: 'section-text' }, story.get('description')),
+                // Buttons
+                (story.get('buttons') && story.get('buttons').size > 0) ? h('div', { className: 'story-buttons' },
+                  story.get('buttons').map(function (btn, i) {
+                    return h('a', {
+                      key: i,
+                      href: btn.get('link'),
+                      className: 'btn btn-' + (btn.get('style') || 'primary')
+                    }, btn.get('text'));
+                  })
+                ) : null
               ),
               h('div', { className: 'story-team' },
                 // Founder
@@ -99,7 +109,10 @@ var HomePreview = createClass({
         // Weekly Vibe Section
         h('section', { className: 'section section-vibe' },
           h('div', { className: 'container' },
-            h('h2', { className: 'section-title' }, vibe.get('title')),
+            h('div', { className: 'section-header' },
+              h('h2', { className: 'section-title' }, vibe.get('title')),
+              vibe.get('description') ? h('p', { className: 'section-subtitle' }, vibe.get('description')) : null
+            ),
             h('div', { className: 'vibe-grid' },
               (vibe.get('cards') || []).map(function (card, index) {
                 var target = card.get('openInNewTab') ? '_blank' : undefined;
@@ -119,6 +132,32 @@ var HomePreview = createClass({
             )
           )
         ),
+
+        // Personal Bests
+        (pbs.get('records') && pbs.get('records').size > 0) ? h('section', { className: 'section section-pbs' },
+          h('div', { className: 'container' },
+            h('div', { className: 'section-header' },
+              h('h2', { className: 'section-title' }, pbs.get('title')),
+              pbs.get('description') ? h('p', { className: 'section-subtitle' }, pbs.get('description')) : null
+            ),
+            h('div', { className: 'pbs-grid' },
+              pbs.get('records').map(function (rec, i) {
+                return h('div', { key: i, className: 'pb-card' },
+                  h('div', { className: 'pb-icon' }, '🏆'),
+                  h('div', { className: 'pb-content' },
+                    h('span', { className: 'pb-distance' }, rec.get('distance')),
+                    h('h3', { className: 'pb-time' }, rec.get('time')),
+                    h('div', { className: 'pb-meta' },
+                      h('span', { className: 'pb-runner' }, rec.get('name')),
+                      h('span', { className: 'pb-separator' }, '•'),
+                      h('span', { className: 'pb-date' }, rec.get('date'))
+                    )
+                  )
+                );
+              })
+            )
+          )
+        ) : null,
 
         // Merch Section
         (merch.get('items') && merch.get('items').size > 0) ? h('section', { className: 'section section-merch' },
@@ -144,29 +183,6 @@ var HomePreview = createClass({
               })
             ),
             h('p', { className: 'merch-note' }, merch.get('note'))
-          )
-        ) : null,
-
-        // Personal Bests
-        (pbs.get('records') && pbs.get('records').size > 0) ? h('section', { className: 'section section-pbs' },
-          h('div', { className: 'container' },
-            h('h2', { className: 'section-title' }, pbs.get('title')),
-            h('div', { className: 'pbs-grid' },
-              pbs.get('records').map(function (rec, i) {
-                return h('div', { key: i, className: 'pb-card' },
-                  h('div', { className: 'pb-icon' }, '🏆'),
-                  h('div', { className: 'pb-content' },
-                    h('span', { className: 'pb-distance' }, rec.get('distance')),
-                    h('h3', { className: 'pb-time' }, rec.get('time')),
-                    h('div', { className: 'pb-meta' },
-                      h('span', { className: 'pb-runner' }, rec.get('name')),
-                      h('span', { className: 'pb-separator' }, '•'),
-                      h('span', { className: 'pb-date' }, rec.get('date'))
-                    )
-                  )
-                );
-              })
-            )
           )
         ) : null
       )
@@ -325,10 +341,45 @@ var AboutPreview = createClass({
                 location.get('mapLink') ? h('div', { className: 'location-actions', style: { marginTop: '1.5rem' } },
                   h('a', {
                     href: location.get('mapLink'),
-                    className: 'btn btn-primary',
+                    className: 'btn btn-green',
                     target: '_blank'
                   }, location.get('mapLinkText') || 'Open in Google Maps')
+                ) : null,
+
+                // Parking Section
+                location.get('parking') ? h('div', { className: 'parking-section' },
+                  h('h3', {}, location.getIn(['parking', 'heading'])),
+                  h('div', { className: 'parking-grid' },
+                    (location.getIn(['parking', 'options']) || []).map(function (option, i) {
+                      return h('div', { key: i, className: 'parking-card' },
+                        h('h4', {}, option.get('title')),
+                        h('p', {}, option.get('description'))
+                      );
+                    })
+                  )
+                ) : null,
+
+                // Post-Run Section
+                entry.getIn(['data', 'postRun']) ? h('div', { className: 'section-post-run' },
+                  h('h3', {}, entry.getIn(['data', 'postRun', 'heading'])),
+                  h('p', { className: 'post-run-desc' }, entry.getIn(['data', 'postRun', 'description'])),
+                  h('div', { className: 'post-run-container' },
+                    h('div', { className: 'post-run-image' },
+                      entry.getIn(['data', 'postRun', 'image']) ? h('img', {
+                        src: getAsset(entry.getIn(['data', 'postRun', 'image'])).toString(),
+                        alt: entry.getIn(['data', 'postRun', 'venueName'])
+                      }) : null
+                    ),
+                    h('div', { className: 'post-run-content' },
+                      h('div', { className: 'post-run-features' },
+                        (entry.getIn(['data', 'postRun', 'features']) || []).map(function (feature, i) {
+                          return h('span', { key: i, className: 'feature-tag' }, feature);
+                        })
+                      )
+                    )
+                  )
                 ) : null
+
               ) : null
             )
           )

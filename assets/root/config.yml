@@ -60,6 +60,14 @@ collections:
               - { label: "Section Label", name: "label", widget: "string", default: "Our Story" }
               - { label: "Title", name: "title", widget: "string", default: "More Than Just Running" }
               - { label: "Description", name: "description", widget: "text" }
+              - label: "Action Buttons"
+                name: "buttons"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Button Text", name: "text", widget: "string" }
+                  - { label: "Button Link", name: "link", widget: "string" }
+                  - { label: "Style", name: "style", widget: "select", options: ["primary", "secondary", "fun"], default: "primary" }
               - label: "Founder"
                 name: "founder"
                 widget: "object"
@@ -82,6 +90,7 @@ collections:
             widget: "object"
             fields:
               - { label: "Title", name: "title", widget: "string", default: "Weekly Vibe" }
+              - { label: "Description", name: "description", widget: "text", required: false }
               - label: "Vibe Cards"
                 name: "cards"
                 widget: "list"
@@ -113,6 +122,7 @@ collections:
             widget: "object"
             fields:
               - { label: "Title", name: "title", widget: "string", default: "Club Records" }
+              - { label: "Description", name: "description", widget: "text", required: false }
               - label: "Records"
                 name: "records"
                 widget: "list"
@@ -214,6 +224,16 @@ collections:
                     fields:
                       - { label: "Title", name: "title", widget: "string" }
                       - { label: "Description", name: "description", widget: "string" }
+
+          - label: "Post-Run Section"
+            name: "postRun"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string", default: "Post-Run Coffee & Breakfast" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Venue Name", name: "venueName", widget: "string", default: "Gilt Café Bar" }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Features", name: "features", widget: "list" }
 
           - label: "Meeting Info (for Contact Page)"
             name: "meeting"

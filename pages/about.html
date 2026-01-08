@@ -149,7 +149,7 @@
               </div>
               {{#if content.pages.about.location.mapLink}}
                 <div class="location-actions" style="margin-top: 1.5rem;">
-                  <a href="{{content.pages.about.location.mapLink}}" class="btn btn-primary"
+                  <a href="{{content.pages.about.location.mapLink}}" class="btn btn-green"
                     target="_blank">{{content.pages.about.location.mapLinkText}}</a>
                 </div>
               {{/if}}
@@ -165,6 +165,27 @@
                   {{/each}}
                 </div>
               </div>
+
+              <!-- Post-Run Section -->
+              <div class="section-post-run">
+                <h3>{{content.pages.about.postRun.heading}}</h3>
+                <p class="post-run-desc">{{content.pages.about.postRun.description}}</p>
+
+                <div class="post-run-container">
+                  <div class="post-run-image">
+                    <img src="{{content.pages.about.postRun.image}}" alt="{{content.pages.about.postRun.venueName}}">
+                  </div>
+
+                  <div class="post-run-content">
+                    <div class="post-run-features">
+                      {{#each content.pages.about.postRun.features}}
+                        <span class="feature-tag">{{this}}</span>
+                      {{/each}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
