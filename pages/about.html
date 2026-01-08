@@ -14,11 +14,10 @@
         </div>
       </section>
 
-      <!-- About Content -->
+      <!-- About Content - Part 1 (Philosophy) -->
       <section class="section section-about">
         <div class="container">
           <div class="about-content">
-
             <!-- Philosophy Section -->
             <div class="about-block">
               <h2>{{content.pages.about.philosophy.heading}}</h2>
@@ -26,7 +25,80 @@
                 {{content.pages.about.philosophy.content}}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- Route Section (Moved) -->
+      <section class="section section-route">
+        <div class="container">
+          <div class="section-title">
+            <span class="section-label">THE COURSE</span>
+            <h2>{{content.pages.about.route.heading}}</h2>
+            <p class="section-text">{{content.pages.about.route.description}}</p>
+          </div>
+
+          <div class="route-container">
+            <!-- Route Controls -->
+            <div class="route-controls">
+              <div class="route-tabs">
+                {{#each content.pages.about.route.loops}}
+                  <button class="route-tab {{#if @first}}active{{/if}}" data-loop="{{id}}">
+                    <span class="tab-title">{{title}}</span>
+                    <span class="tab-dist">{{distance}}</span>
+                  </button>
+                {{/each}}
+              </div>
+
+              <div class="route-info">
+                <div class="approach-info">
+                  <h3>{{content.pages.about.route.approach.title}}</h3>
+                  <p>{{content.pages.about.route.approach.description}}</p>
+                </div>
+
+                {{#each content.pages.about.route.loops}}
+                  <div class="loop-info loop-info-{{id}} {{#if @first}}active{{/if}}">
+                    <h3>{{title}}</h3>
+                    <p>{{description}}</p>
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+
+            <!-- Route Map -->
+            <div class="route-map-container">
+              <svg class="route-svg" viewBox="-30 -50 656 1100" preserveAspectRatio="xMidYMid meet">
+                <!-- Abstract Map Background -->
+                <rect x="-1000" y="-1000" width="3000" height="3000" fill="#e5e7eb" />
+
+                <!-- Approach Path (Dashed) -->
+                <path id="path-approach" class="route-path path-approach"
+                  d="M223.5,1000.0 L140.7,995.1 L116.0,1000.0 L107.4,990.1 L106.2,986.4 L103.7,970.4 L96.3,961.7 L103.7,955.6 L103.7,953.1 L103.7,917.3 L103.7,867.9 L108.6,802.5 L101.2,740.7 L95.1,706.2 L96.3,695.1 L88.9,672.8 L88.9,656.8 L92.6,640.7 L113.6,613.6 L116.0,604.9 L116.0,606.2 L144.4,532.1 L153.1,497.5 L154.3,479.0 L165.4,422.2 L179.0,417.3 L193.8,402.5 L192.6,377.8" />
+
+                <!-- Loop Paths -->
+                <!-- Small Loop -->
+                <path id="path-loop-small" class="route-path path-loop path-loop-small active"
+                  d="M192.6,377.8 L167.9,344.4 L151.9,323.5 L140.7,297.5 L135.8,274.1 L130.9,238.3 L151.9,206.2 L151.9,207.4 L155.6,201.2 L167.9,192.6 L182.7,186.4 L200.0,182.7 L238.3,179.0 L314.8,172.8 L382.7,153.1 L417.3,142.0 L472.8,132.1 L504.9,133.3 L538.3,143.2 L543.2,146.9 L592.6,174.1 L593.8,193.8 L595.1,197.5 L577.8,240.7 L543.2,269.1 L542.0,269.1 L528.4,280.2 L519.8,290.1 L504.9,327.2 L498.8,343.2 L495.1,365.4 L480.2,380.2 L465.4,392.6 L446.9,402.5 L317.3,417.3 L316.0,417.3 L258.0,423.5 L245.7,421.0 L227.2,413.6 L222.2,408.6 L192.6,377.8" />
+
+                <!-- Medium Loop -->
+                <path id="path-loop-medium" class="route-path path-loop path-loop-medium"
+                  d="M192.6,377.8 L151.9,323.5 L140.7,297.5 L137.0,281.5 L128.4,214.8 L132.1,190.1 L132.1,191.4 L140.7,150.6 L155.6,108.6 L174.1,71.6 L163.0,92.6 L163.0,93.8 L174.1,71.6 L200.0,46.9 L232.1,22.2 L254.3,11.1 L291.4,1.2 L321.0,0.0 L384.0,7.4 L421.0,27.2 L456.8,43.2 L492.6,66.7 L522.2,87.7 L554.3,121.0 L555.6,121.0 L574.1,139.5 L592.6,174.1 L593.8,192.6 L593.8,193.8 L595.1,197.5 L577.8,240.7 L546.9,265.4 L546.9,266.7 L528.4,280.2 L519.8,290.1 L506.2,324.7 L504.9,324.7 L498.8,343.2 L495.1,365.4 L477.8,382.7 L477.8,384.0 L465.4,392.6 L446.9,402.5 L385.2,409.9 L387.7,409.9 L258.0,423.5 L242.0,421.0 L227.2,413.6 L192.6,377.8" />
+
+                <!-- Long Loop -->
+                <path id="path-loop-long" class="route-path path-loop path-loop-long"
+                  d="M192.6,377.8 L202.5,387.7 L192.6,377.8 L153.1,324.7 L140.7,297.5 L135.8,272.8 L130.9,240.7 L101.2,201.2 L54.3,167.9 L40.7,156.8 L25.9,135.8 L19.8,119.8 L11.1,79.0 L0.0,67.9 L1.2,59.3 L13.6,42.0 L21.0,42.0 L19.8,42.0 L34.6,39.5 L72.8,44.4 L113.6,49.4 L151.9,48.1 L150.6,48.1 L191.4,37.0 L232.1,22.2 L211.1,38.3 L209.9,38.3 L232.1,22.2 L254.3,11.1 L270.4,7.4 L269.1,7.4 L291.4,1.2 L321.0,0.0 L386.4,9.9 L461.7,46.9 L522.2,87.7 L553.1,119.8 L554.3,119.8 L574.1,139.5 L592.6,174.1 L593.8,196.3 L577.8,240.7 L553.1,261.7 L551.9,261.7 L570.4,248.1 L528.4,280.2 L519.8,290.1 L507.4,321.0 L507.4,322.2 L498.8,343.2 L495.1,365.4 L482.7,379.0 L481.5,379.0 L465.4,392.6 L446.9,402.5 L349.4,413.6 L348.1,413.6 L258.0,423.5 L245.7,422.2 L227.2,413.6 L192.6,377.8" />
+                <!-- Runner Dot (SVG) -->
+                <circle id="route-runner" class="route-runner" r="8" cx="0" cy="0" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Content - Part 2 (Vibes & Location) -->
+      <section class="section section-about">
+        <div class="container">
+          <div class="about-content">
             <!-- Vibes Section -->
             <div class="about-block">
               <h2>{{content.pages.about.vibes.heading}}</h2>
@@ -57,6 +129,9 @@
           </div>
         </div>
       </section>
+
+      <script src="/scripts/route-tabs.js"></script>
+
     </main>
 
     {{> footer}}

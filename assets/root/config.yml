@@ -135,7 +135,7 @@ collections:
         label: "About Page"
         file: "content/pages/about.json"
         fields:
-          - { label: "Page Title", name: "title", widget: "string", default: "About Us" }
+          - { label: "Page Title", name: "title", widget: "string", default: "About" }
           - { label: "Page Subtitle", name: "subtitle", widget: "string", default: "The chill philosophy behind the club" }
           - label: "Philosophy Section"
             name: "philosophy"

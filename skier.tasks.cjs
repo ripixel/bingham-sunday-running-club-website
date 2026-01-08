@@ -108,6 +108,12 @@ exports.tasks = [
     to: './public',
   }),
 
+  // Copy scripts
+  copyStaticTask({
+    from: './assets/scripts',
+    to: './public/scripts',
+  }),
+
   // Make content globally available
   setGlobalsTask({
     values: {

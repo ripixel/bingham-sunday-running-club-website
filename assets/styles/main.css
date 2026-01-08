@@ -1994,3 +1994,272 @@ strong {
   line-height: 1.5;
   margin-bottom: var(--space-2);
 }
+
+/* --------------------------------------------------------------------------
+   Route Section
+   -------------------------------------------------------------------------- */
+.section-route {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-12);
+  background: var(--color-bg-elevated);
+}
+
+.section-route .container {
+  max-width: 900px;
+  /* Match closer to .about-content (800px) but give map breathing room */
+}
+
+.route-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+@media (min-width: 900px) {
+  .route-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .route-map-container {
+    flex: 1;
+    /* Only grow on desktop row layout */
+  }
+}
+
+/* Route Controls (Tabs & Info) */
+.route-controls {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.route-tabs {
+  display: flex;
+  gap: var(--space-2);
+  background: var(--color-bg);
+  padding: var(--space-1);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.route-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition: all var(--transition-base);
+}
+
+.route-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text);
+}
+
+.route-tab.active {
+  background: var(--color-bg-card);
+  color: var(--color-text);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tab-title {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tab-dist {
+  font-size: var(--text-xs);
+  opacity: 0.7;
+}
+
+/* Tab Colors */
+.route-tab[data-loop="small"].active {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), transparent);
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  color: var(--color-pink);
+}
+
+.route-tab[data-loop="medium"].active {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), transparent);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: var(--color-green);
+}
+
+.route-tab[data-loop="long"].active {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: var(--color-blue);
+}
+
+.route-info {
+  background: var(--color-bg-card);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.approach-info {
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.approach-info h3,
+.loop-info h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.loop-info {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.loop-info.active {
+  display: block;
+}
+
+/* Route Map */
+.route-map-container {
+  width: 100%;
+  /* Ensure full width on mobile */
+
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #e5e7eb;
+  /* Fallback light gray */
+  box-shadow: var(--shadow-xl);
+  /* Force aspect ratio based on SVG viewBox 596x1000 ~ 0.6 */
+  aspect-ratio: 596 / 1000;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* map-background removed in favor of SVG background */
+
+.route-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  /* Make sure pointer events go through if map is interactive later */
+  pointer-events: none;
+}
+
+.route-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Approach Path Styling */
+.path-approach {
+  stroke: var(--color-orange);
+  stroke-width: 6;
+  stroke-dasharray: 10, 10;
+  opacity: 0.7;
+}
+
+/* Loop Path Styling */
+.path-loop {
+  stroke-width: 8;
+  opacity: 0;
+  /* Hidden by default */
+  transition: opacity var(--transition-base);
+}
+
+.path-loop.active {
+  opacity: 1;
+}
+
+.path-loop-small {
+  stroke: var(--color-pink);
+}
+
+.path-loop-medium {
+  stroke: var(--color-green);
+}
+
+.path-loop-long {
+  stroke: var(--color-blue);
+}
+
+/* Runner Dot Animation */
+.route-runner {
+  fill: var(--color-orange);
+  stroke: var(--color-white);
+  stroke-width: 2px;
+  /* Shadow not directly supported on SVG shape via box-shadow, using filter if needed,
+     but standard design usually omits it for map markers or uses SVG filters.
+     Keeping it clean for now. */
+
+  /* Important: offset-path is set via JS */
+  offset-rotate: auto;
+  pointer-events: none;
+  /* Initially hidden until animation starts */
+  opacity: 0;
+
+  /* Ensure it's rendered on top */
+  z-index: 20;
+  /* Note: z-index doesn't work inside SVG 1.1, paint order does.
+     It is last in DOM so it will be on top. */
+}
+
+.running-approach {
+  opacity: 1;
+  animation: runApproach 2s linear forwards;
+}
+
+.running-loop {
+  opacity: 1;
+  animation: runLoop 5s linear infinite;
+}
+
+/* Animation Keyframes */
+@keyframes drawRoute {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes runApproach {
+  from {
+    offset-distance: 0%;
+  }
+
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes runLoop {
+  from {
+    offset-distance: 0%;
+  }
+
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

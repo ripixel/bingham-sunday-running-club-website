@@ -33,11 +33,11 @@
     "title": "Quick Links",
     "cards": [
       {
-        "title": "About Us",
-        "description": "Learn more about the club!",
-        "icon": "👥",
-        "buttonText": "See the Schedule",
-        "buttonLink": "/about",
+        "title": "What's On",
+        "description": "See what we're doing next!",
+        "icon": "📅",
+        "buttonText": "See the schedule",
+        "buttonLink": "/events",
         "openInNewTab": false
       },
       {
