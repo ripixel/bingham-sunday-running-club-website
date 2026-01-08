@@ -35,29 +35,47 @@
               </div>
             </div>
 
-            <div class="contact-meeting">
-              <div class="meeting-card">
-                <h2>📍 Next Run</h2>
-                <div class="meeting-details">
-                  <div class="meeting-row">
-                    <span class="meeting-label">When</span>
-                    <span class="meeting-value">{{nextRun.displayDate}} @ {{nextRun.displayTime}}</span>
+            <!-- Next Run - Dynamic (Styled like Events page) -->
+            <div class="next-run-section">
+              <div class="next-run-highlight" style="margin-bottom: 0;">
+                <span class="highlight-label">Next Run</span>
+                {{#if nextRun}}
+                  <div class="event-card featured {{nextRun.color}}">
+                    <div class="event-date">
+                      <span class="date-day">{{nextRun.displayDate}}</span>
+                      <span class="date-time">{{nextRun.displayTime}}</span>
+                    </div>
+                    <div class="event-details">
+                      <h2 class="event-title">{{nextRun.title}}</h2>
+                      {{#if nextRun.isSpecial}}
+                        <span class="badge badge-special">Special Event</span>
+                      {{/if}}
+                      <div class="event-meta">
+                        <span class="meta-item location">📍 {{nextRun.location}}</span>
+                        {{#if nextRun.distance}}
+                          <span class="meta-item distance">📏 {{nextRun.distance}}</span>
+                        {{/if}}
+                      </div>
+
+                      <!-- Meeting Note / Description -->
+                      <p class="event-body">
+                        {{#if nextRun.meetingNote}}
+                          {{nextRun.meetingNote}}
+                        {{else}}
+                          {{content.pages.contact.meetingNote}}
+                        {{/if}}
+                      </p>
+
+                      <!-- Action Link -->
+                      {{#if nextRun.link}}
+                        <a href="{{nextRun.link}}" class="btn btn-small"
+                          style="background: white; color: var(--color-orange); width: fit-content; margin-top: var(--space-4);">
+                          {{#if nextRun.linkText}}{{nextRun.linkText}}{{else}}More Info{{/if}}
+                        </a>
+                      {{/if}}
+                    </div>
                   </div>
-                  <div class="meeting-row">
-                    <span class="meeting-label">Where</span>
-                    <span class="meeting-value">{{nextRun.location}}</span>
-                  </div>
-                  <div class="meeting-row">
-                    <span class="meeting-label">Distance</span>
-                    <span class="meeting-value">{{nextRun.distance}}</span>
-                  </div>
-                  <div class="meeting-row">
-                    <span class="meeting-label">Feature</span>
-                    <span class="meeting-value">{{#if nextRun.isSpecial}}Special Event! 🎉{{else}}Standard
-                        Loop{{/if}}</span>
-                  </div>
-                </div>
-                <p class="meeting-note">{{content.pages.contact.meetingNote}}</p>
+                {{/if}}
               </div>
             </div>
           </div>

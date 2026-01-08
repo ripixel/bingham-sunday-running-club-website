@@ -29,6 +29,14 @@
             </div>
           </div>
         </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+          <span class="scroll-text">Scroll</span>
+          <svg class="scroll-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </div>
       </section>
 
       <!-- Next Run Banner -->
@@ -38,7 +46,14 @@
             <div class="next-run-content">
               <span class="next-run-label">🏃‍♀️ Next Run</span>
               <div class="next-run-details">
-                <h2 class="next-run-title">{{nextRun.title}}</h2>
+                <h2 class="next-run-title">
+                  {{nextRun.title}}
+                  {{#if nextRun.link}}
+                    <span class="badge badge-action"
+                      style="vertical-align: middle; font-size: 0.5em; background: var(--color-orange); color: white; padding: 2px 6px; border-radius: 4px; margin-left: var(--space-2);">Sign
+                      Up Required</span>
+                  {{/if}}
+                </h2>
                 <div class="next-run-meta">
                   <span class="meta-date">{{nextRun.displayDate}} @ {{nextRun.displayTime}}</span>
                   <span class="meta-separator">•</span>
@@ -47,7 +62,7 @@
               </div>
             </div>
             <div class="next-run-action">
-              <a href="/events" class="btn btn-outline">View Calendar</a>
+              <a href="/events" class="btn btn-fun">View Calendar</a>
             </div>
           </div>
         </div>

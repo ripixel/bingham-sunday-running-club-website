@@ -28,7 +28,10 @@ function computeRuns(content) {
     when: "Every Sunday @ 9:00 AM",
     where: "Bingham Market Place",
     distance: "5-10km (your choice!)",
-    after: "Brunch at a local café ☕"
+    after: "Brunch at a local café ☕",
+    meetingNote: undefined,
+    link: undefined,
+    linkText: undefined
   };
 
   const specialEvents = Object.values(content.events || {}).map(event => ({
