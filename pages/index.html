@@ -31,6 +31,28 @@
         </div>
       </section>
 
+      <!-- Next Run Banner -->
+      <section class="section-next-run">
+        <div class="container">
+          <div class="next-run-banner {{#if nextRun.isSpecial}}special-event{{/if}}">
+            <div class="next-run-content">
+              <span class="next-run-label">🏃‍♀️ Next Run</span>
+              <div class="next-run-details">
+                <h2 class="next-run-title">{{nextRun.title}}</h2>
+                <div class="next-run-meta">
+                  <span class="meta-date">{{nextRun.displayDate}} @ {{nextRun.displayTime}}</span>
+                  <span class="meta-separator">•</span>
+                  <span class="meta-location">{{nextRun.location}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="next-run-action">
+              <a href="/events" class="btn btn-outline">View Calendar</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Our Story Section -->
       <section class="section section-story">
         <div class="container">

@@ -315,3 +315,68 @@ var ContactPreview = createClass({
 });
 
 CMS.registerPreviewTemplate("contact", ContactPreview);
+
+// Events Page Preview
+var EventsPreview = createClass({
+  render: function () {
+    var entry = this.props.entry;
+    var getAsset = this.props.getAsset;
+
+    return h('div', { className: 'dark-theme' },
+      h('main', {},
+        // Page Header
+        h('section', { className: 'section-header' },
+          h('div', { className: 'container' },
+            h('h1', { className: 'page-title' }, entry.getIn(['data', 'title'])),
+            h('p', { className: 'page-intro' }, entry.getIn(['data', 'intro']))
+          )
+        ),
+
+        // Events List (Mock)
+        h('section', { className: 'section section-events' },
+          h('div', { className: 'container' },
+            // Mock Next Run
+            h('div', { className: 'next-run-highlight' },
+              h('span', { className: 'highlight-label' }, 'Next Run'),
+              h('div', { className: 'event-card featured blue' },
+                h('div', { className: 'event-date' },
+                  h('span', { className: 'date-day' }, 'Sunday 12th May'),
+                  h('span', { className: 'date-time' }, '09:00')
+                ),
+                h('div', { className: 'event-details' },
+                  h('h2', { className: 'event-title' }, 'Sunday Club Run'),
+                  h('div', { className: 'event-meta' },
+                    h('span', { className: 'meta-item location' }, '📍 Bingham Market Place'),
+                    h('span', { className: 'meta-item distance' }, '📏 5-10km')
+                  )
+                )
+              )
+            ),
+
+            // Mock Upcoming
+            h('h2', { className: 'section-title' }, 'Upcoming Runs'),
+            h('div', { className: 'events-grid' },
+              [1, 2, 3].map(function (i) {
+                return h('div', { key: i, className: 'event-card blue' },
+                  h('div', { className: 'event-header' },
+                    h('span', { className: 'event-date-short' }, 'Sun ' + (12 + i * 7) + 'th May'),
+                    h('span', { className: 'event-time-short' }, '09:00')
+                  ),
+                  h('div', { className: 'event-body-content' },
+                    h('h3', { className: 'event-title-small' }, 'Sunday Club Run'),
+                    h('div', { className: 'event-meta-small' },
+                      h('span', {}, 'Bingham Market Place'),
+                      h('span', {}, '5-10km')
+                    )
+                  )
+                );
+              })
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
+CMS.registerPreviewTemplate("events", EventsPreview);

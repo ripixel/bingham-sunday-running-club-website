@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+
+  <body class="dark-theme">
+    {{> header}}
+
+    <main>
+      <!-- Page Header -->
+      <section class="section-header">
+        <div class="container">
+          <h1 class="page-title">{{content.pages.events.title}}</h1>
+          <p class="page-intro">{{content.pages.events.intro}}</p>
+        </div>
+      </section>
+
+      <!-- Events List -->
+      <section class="section section-events">
+        <div class="container">
+          <!-- Next Run Highlight -->
+          {{#if nextRun}}
+            <div class="next-run-highlight">
+              <span class="highlight-label">Next Run</span>
+              <div class="event-card featured {{nextRun.color}}">
+                <div class="event-date">
+                  <span class="date-day">{{nextRun.displayDate}}</span>
+                  <span class="date-time">{{nextRun.displayTime}}</span>
+                </div>
+                <div class="event-details">
+                  <h2 class="event-title">{{nextRun.title}}</h2>
+                  {{#if nextRun.isSpecial}}
+                    <span class="badge badge-special">Special Event</span>
+                  {{/if}}
+                  <div class="event-meta">
+                    <span class="meta-item location">📍 {{nextRun.location}}</span>
+                    {{#if nextRun.distance}}
+                      <span class="meta-item distance">📏 {{nextRun.distance}}</span>
+                    {{/if}}
+                  </div>
+                  {{#if nextRun.body}}
+                    <p class="event-body">{{nextRun.body}}</p>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          {{/if}}
+
+          <!-- Upcoming Events Grid -->
+          <h2 class="section-title">Upcoming Runs</h2>
+          <div class="events-grid">
+            {{#each eventsList}}
+              <!-- Skip the first one if it's the same as nextRun, handled by logic or just show all in grid too? Let's show all in list below -->
+              <div class="event-card {{color}}">
+                <div class="event-header">
+                  <span class="event-date-short">{{displayDate}}</span>
+                  <span class="event-time-short">{{displayTime}}</span>
+                </div>
+                <div class="event-body-content">
+                  <h3 class="event-title-small">{{title}}</h3>
+                  <div class="event-meta-small">
+                    <span>{{this.location}}</span>
+                    {{#if this.distance}}
+                      <span>{{this.distance}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </section>
+    </main>
+
+    {{> footer}}
+  </body>
+
+</html>

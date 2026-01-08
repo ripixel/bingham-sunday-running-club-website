@@ -41,19 +41,20 @@
                 <div class="meeting-details">
                   <div class="meeting-row">
                     <span class="meeting-label">When</span>
-                    <span class="meeting-value">{{content.pages.about.meeting.when}}</span>
+                    <span class="meeting-value">{{nextRun.displayDate}} @ {{nextRun.displayTime}}</span>
                   </div>
                   <div class="meeting-row">
                     <span class="meeting-label">Where</span>
-                    <span class="meeting-value">{{content.pages.about.meeting.where}}</span>
+                    <span class="meeting-value">{{nextRun.location}}</span>
                   </div>
                   <div class="meeting-row">
                     <span class="meeting-label">Distance</span>
-                    <span class="meeting-value">{{content.pages.about.meeting.distance}}</span>
+                    <span class="meeting-value">{{nextRun.distance}}</span>
                   </div>
                   <div class="meeting-row">
-                    <span class="meeting-label">Afterwards</span>
-                    <span class="meeting-value">{{content.pages.about.meeting.after}}</span>
+                    <span class="meeting-label">Feature</span>
+                    <span class="meeting-value">{{#if nextRun.isSpecial}}Special Event! 🎉{{else}}Standard
+                        Loop{{/if}}</span>
                   </div>
                 </div>
                 <p class="meeting-note">{{content.pages.contact.meetingNote}}</p>

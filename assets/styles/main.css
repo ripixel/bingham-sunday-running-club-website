@@ -325,9 +325,10 @@ strong {
   right: 0;
   height: 4px;
   background: linear-gradient(90deg,
-      var(--color-pink) 0%, var(--color-pink) 33.33%,
-      var(--color-green) 33.33%, var(--color-green) 66.66%,
-      var(--color-blue) 66.66%, var(--color-blue) 100%);
+      var(--color-orange) 0%, var(--color-orange) 25%,
+      var(--color-pink) 25%, var(--color-pink) 50%,
+      var(--color-green) 50%, var(--color-green) 75%,
+      var(--color-blue) 75%, var(--color-blue) 100%);
   z-index: 1001;
 }
 
@@ -1259,9 +1260,10 @@ strong {
   right: 0;
   height: 4px;
   background: linear-gradient(90deg,
-      var(--color-pink) 0%, var(--color-pink) 33.33%,
-      var(--color-green) 33.33%, var(--color-green) 66.66%,
-      var(--color-blue) 66.66%, var(--color-blue) 100%);
+      var(--color-orange) 0%, var(--color-orange) 25%,
+      var(--color-pink) 25%, var(--color-pink) 50%,
+      var(--color-green) 50%, var(--color-green) 75%,
+      var(--color-blue) 75%, var(--color-blue) 100%);
 }
 
 .footer-content {
@@ -1637,4 +1639,237 @@ strong {
   background: rgba(249, 115, 22, 0.1);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+/* --------------------------------------------------------------------------
+   Next Run Banner (Home Page)
+   -------------------------------------------------------------------------- */
+.section-next-run {
+  background: var(--color-bg-elevated);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.next-run-banner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .next-run-banner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    align-items: center;
+  }
+}
+
+.next-run-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-1);
+}
+
+.next-run-title {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.next-run-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 768px) {
+  .next-run-meta {
+    justify-content: flex-start;
+  }
+}
+
+.meta-separator {
+  color: var(--color-text-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   Events Page Styles
+   -------------------------------------------------------------------------- */
+.section-header .page-title {
+  font-family: var(--font-family-display);
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.section-header .page-intro {
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  max-width: 800px;
+}
+
+/* Featured Event (Orange Box) */
+.next-run-highlight {
+  margin-bottom: var(--space-12);
+}
+
+.highlight-label {
+  display: block;
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.event-card.featured {
+  background: var(--color-orange);
+  color: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  display: grid;
+  gap: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(249, 115, 22, 0.3);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.event-card.featured:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(249, 115, 22, 0.4);
+}
+
+.event-card.featured .event-title {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-2);
+  color: white;
+}
+
+.event-card.featured .event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-base);
+  font-weight: 500;
+  opacity: 0.9;
+  margin-bottom: var(--space-4);
+}
+
+.event-card.featured .event-body {
+  font-size: var(--text-lg);
+  max-width: 700px;
+  opacity: 0.95;
+  margin-bottom: 0;
+}
+
+.badge-special {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .event-card.featured {
+    padding: var(--space-10);
+  }
+}
+
+/* Events Grid */
+.events-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .events-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.event-card:not(.featured) {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-left: 4px solid transparent;
+  transition: all var(--transition-base);
+}
+
+.event-card:not(.featured):hover {
+  background: var(--color-bg-elevated);
+  transform: translateY(-2px);
+}
+
+/* Color Coding for List Items */
+.event-card.pink {
+  border-left-color: var(--color-pink);
+}
+
+.event-card.green {
+  border-left-color: var(--color-green);
+}
+
+.event-card.blue {
+  border-left-color: var(--color-blue);
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: var(--space-2);
+}
+
+.event-date-short {
+  font-weight: 700;
+  color: var(--color-text);
+  font-size: var(--text-base);
+}
+
+.event-time-short {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.event-title-small {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.event-meta-small {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
 }
