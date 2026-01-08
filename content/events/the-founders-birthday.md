@@ -1,10 +1,8 @@
 ---
-title: 🎂 Florence's Birthday Run
-date: 2026-03-01T09:00:00.000+00:00
+title: 🎂 The Founder's Birthday
+date: 2026-01-18T09:00:00.000+00:00
 location: Bingham Market Place
-distance: 2-10km (your choice!)
-meetingNote: ""
-link: ""
+distance: " 2-10km (your choice!)"
 linkText: ""
 ---
-Usual time, usual place, but celebrating Florence's birthday! Come celebrate with everyone and have a big birthday breakfast afterwards at Gilt.
+It's Dean's birthday! Usual time, usual place, but we sing Happy Birthday to him endlessly until he cracks.
