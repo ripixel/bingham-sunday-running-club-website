@@ -2098,6 +2098,105 @@ strong {
   color: var(--color-blue);
 }
 
+/* Distance Calculator */
+.route-calculator {
+  background: var(--color-bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-top: var(--space-2);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: var(--space-4);
+  font-family: var(--font-family-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.calc-equation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.calc-op {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.calc-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 2px var(--space-2);
+  gap: var(--space-1);
+}
+
+.calc-input {
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  width: 40px;
+  text-align: center;
+  font-family: inherit;
+  font-weight: 700;
+  padding: 0;
+  -moz-appearance: textfield;
+}
+
+.calc-input::-webkit-outer-spin-button,
+.calc-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.calc-input:focus {
+  outline: none;
+}
+
+.calc-label {
+  font-size: var(--text-xs);
+  opacity: 0.7;
+}
+
+.calc-result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  font-size: var(--text-base);
+}
+
+.calc-total-value {
+  color: var(--color-text);
+  font-weight: 700;
+  transition: color var(--transition-base);
+}
+
+/* Calculator Dynamic Themes */
+.route-calculator.theme-pink .calc-op,
+.route-calculator.theme-pink .calc-total-value {
+  color: var(--color-pink);
+}
+
+.route-calculator.theme-green .calc-op,
+.route-calculator.theme-green .calc-total-value {
+  color: var(--color-green);
+}
+
+.route-calculator.theme-blue .calc-op,
+.route-calculator.theme-blue .calc-total-value {
+  color: var(--color-blue);
+}
+
 .route-info {
   background: var(--color-bg-card);
   padding: var(--space-6);
@@ -2115,7 +2214,22 @@ strong {
 .loop-info h3 {
   font-size: var(--text-lg);
   margin-bottom: var(--space-2);
-  color: var(--color-text);
+}
+
+.approach-info h3 {
+  color: var(--color-orange);
+}
+
+.loop-info-small h3 {
+  color: var(--color-pink);
+}
+
+.loop-info-medium h3 {
+  color: var(--color-green);
+}
+
+.loop-info-long h3 {
+  color: var(--color-blue);
 }
 
 .loop-info {
@@ -2166,7 +2280,6 @@ strong {
 .path-approach {
   stroke: var(--color-orange);
   stroke-width: 6;
-  stroke-dasharray: 10, 10;
   opacity: 0.7;
 }
 

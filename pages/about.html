@@ -50,6 +50,23 @@
                 {{/each}}
               </div>
 
+              <!-- Distance Calculator -->
+              <div class="route-calculator">
+                <div class="calc-equation">
+                  <span class="calc-static">Approach (0.55km)</span>
+                  <span class="calc-op">+</span>
+                  <div class="calc-input-wrapper">
+                    <input type="number" id="lap-count" class="calc-input" value="1" min="1" max="20"
+                      aria-label="Number of laps">
+                    <span class="calc-label">laps</span>
+                  </div>
+                </div>
+                <div class="calc-result">
+                  <span class="calc-op">≈</span>
+                  <span id="calc-total" class="calc-total-value">1.35km</span>
+                </div>
+              </div>
+
               <div class="route-info">
                 <div class="approach-info">
                   <h3>{{content.pages.about.route.approach.title}}</h3>

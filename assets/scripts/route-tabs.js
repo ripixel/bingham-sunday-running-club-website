@@ -75,6 +75,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // But if it's the first load, we do approach first.
     // The startAnimation logic handles this check.
     startAnimation(loopId);
+    if (typeof updateCalculator === 'function') {
+      updateCalculator();
+    } else {
+      // Since updateCalculator is defined in the same scope below, hoisting might not work for const/let if using arrow functions or if structure is different.
+      // However, in this file structure, updateCalculator is defined inside the DOMContentLoaded callback adjacent to setActiveLoop.
+      // But setActiveLoop is defined BEFORE updateCalculator.
+      // Function declarations are hoisted, but let/const are not.
+      // I should move updateCalculator definition UP or use a function declaration.
+      // Let's rely on hoisting for function declaration if I change it to `function updateCalculator()`.
+      // The previous step defined it as `function updateCalculator()`.
+      updateCalculator();
+    }
   }
 
   tabs.forEach(tab => {
@@ -85,11 +97,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Calculator Logic
+  const lapInput = document.getElementById('lap-count');
+  const calcLoopName = document.getElementById('calc-loop-name');
+  const calcTotal = document.getElementById('calc-total');
+
+  // Distances in km
+  const distances = {
+    small: 0.8,
+    medium: 1.0,
+    long: 1.2,
+    approach: 0.55
+  };
+
+  const loopNames = {
+    small: 'Small Loop',
+    medium: 'Medium Loop',
+    long: 'Long Loop'
+  };
+
+  const distancesColors = {
+    small: 'pink',
+    medium: 'green',
+    long: 'blue'
+  };
+
+  function updateCalculator() {
+    if (!lapInput || !calcTotal) return;
+
+    const laps = parseInt(lapInput.value) || 0;
+    const loopDist = distances[currentLoopId];
+    // Formula: Approach + (Laps * Loop)
+    const total = distances.approach + (laps * loopDist);
+
+    // Update Text
+    if (calcLoopName) calcLoopName.textContent = loopNames[currentLoopId]; // Keep if element exists (though removed from HTML)
+    calcTotal.textContent = `${total.toFixed(2)}km`;
+
+    // Update Color Theme
+    const calculator = document.querySelector('.route-calculator');
+    if (calculator) {
+      // Remove all color classes
+      calculator.classList.remove('theme-pink', 'theme-green', 'theme-blue');
+      // Add current color class
+      calculator.classList.add(`theme-${distancesColors[currentLoopId]}`);
+    }
+  }
+
+  if (lapInput) {
+    lapInput.addEventListener('input', updateCalculator);
+    lapInput.addEventListener('change', updateCalculator);
+  }
+
   // Initial Start
   // Wait a moment for layout
   setTimeout(() => {
     // Find the initially active tab or default to small
     const initialLoop = document.querySelector('.route-tab.active')?.dataset.loop || 'small';
     setActiveLoop(initialLoop);
+    // Explicitly update calculator after layout and initial loop set
+    if (typeof updateCalculator === 'function') updateCalculator();
   }, 500);
 });
