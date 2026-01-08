@@ -101,7 +101,7 @@ exports.tasks = [
 
   // Hash admin assets
   {
-    run: async () => {
+    run: async (_, { logger }) => {
       const adminDir = path.join(__dirname, 'public/admin');
       const previewsJsPath = path.join(adminDir, 'cms-previews.js');
       const adminHtmlPath = path.join(adminDir, 'index.html');
@@ -117,14 +117,14 @@ exports.tasks = [
 
         // 3. Delete original (optional, but cleaner)
         fs.unlinkSync(previewsJsPath);
-        console.log(`Processed admin/cms-previews.js -> ${hashedJsName}`);
+        logger.info(`Processed admin/cms-previews.js -> ${hashedJsName}`);
 
         // 4. Update index.html to point to new JS
         if (fs.existsSync(adminHtmlPath)) {
           let htmlContent = fs.readFileSync(adminHtmlPath, 'utf8');
           htmlContent = htmlContent.replace('/admin/cms-previews.js', `/admin/${hashedJsName}`);
           fs.writeFileSync(adminHtmlPath, htmlContent);
-          console.log('Updated admin/index.html reference');
+          logger.info('Updated admin/index.html reference');
         }
       }
     }
@@ -150,7 +150,7 @@ exports.tasks = [
 
   // Hash scripts
   {
-    run: async () => {
+    run: async (_, { logger }) => {
       const scriptsDir = path.join(__dirname, 'public/scripts');
       if (fs.existsSync(scriptsDir)) {
         const files = fs.readdirSync(scriptsDir);
@@ -160,7 +160,7 @@ exports.tasks = [
             const newName = file.replace('.js', `.${cacheHash}.js`);
             const newPath = path.join(scriptsDir, newName);
             fs.renameSync(oldPath, newPath);
-            console.log(`Renamed ${file} to ${newName}`);
+            logger.info(`Renamed ${file} to ${newName}`);
           }
         });
       }
