@@ -49,6 +49,10 @@ jobs:
 
   deploy_to_firebase:
     executor: node-project
+    parameters:
+      deploy_mode:
+        type: string
+        default: "auto"
     steps:
       - checkout
       - restore_cache:
@@ -57,7 +61,12 @@ jobs:
           key: deploy-cache-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run:
           name: Deploy to Firebase Production Hosting
-          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
+          command: |
+             # Ensure the script is executable
+             chmod +x .circleci/deploy_check.sh
+             FLAGS=$(.circleci/deploy_check.sh << parameters.deploy_mode >>)
+             echo "Generated deployment flags: $FLAGS"
+             ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" $FLAGS
 
 workflows:
   build_and_deploy:
@@ -67,6 +76,7 @@ workflows:
           requires:
             - install_deps
       - deploy_to_firebase:
+          deploy_mode: auto
           filters:
             branches:
               only: main
@@ -87,5 +97,6 @@ workflows:
           requires:
             - install_deps
       - deploy_to_firebase:
+          deploy_mode: hosting_only
           requires:
             - build

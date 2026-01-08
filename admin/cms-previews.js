@@ -196,6 +196,7 @@ CMS.registerPreviewTemplate("home", HomePreview);
 var AboutPreview = createClass({
   render: function () {
     var entry = this.props.entry;
+    var getAsset = this.props.getAsset;
     var philosophy = entry.getIn(['data', 'philosophy']);
     var vibes = entry.getIn(['data', 'vibes']);
     var location = entry.getIn(['data', 'location']);
@@ -470,62 +471,138 @@ var ContactPreview = createClass({
 
 CMS.registerPreviewTemplate("contact", ContactPreview);
 
-// Events Page Preview
+// Events Preview - handles both Events Page and individual Special Events
 var EventsPreview = createClass({
   render: function () {
     var entry = this.props.entry;
     var getAsset = this.props.getAsset;
+
+    // Check if this is the Events Page (has 'intro') or a Special Event (has 'date')
+    var isEventsPage = entry.getIn(['data', 'intro']) !== undefined;
+
+    if (isEventsPage) {
+      // Events Page Preview
+      return h('div', { className: 'dark-theme' },
+        h('main', {},
+          // Page Header
+          h('section', { className: 'page-header' },
+            h('div', { className: 'container' },
+              h('h1', { className: 'page-title' }, entry.getIn(['data', 'title'])),
+              h('p', { className: 'page-subtitle' }, entry.getIn(['data', 'intro']))
+            )
+          ),
+
+          // Mock Events Section
+          h('section', { className: 'section section-events' },
+            h('div', { className: 'container' },
+              h('p', { style: { textAlign: 'center', color: '#999', padding: '3rem 0' } },
+                'Events will be dynamically populated from the Special Events collection.'
+              )
+            )
+          )
+        )
+      );
+    }
+
+    // Special Event Preview
+
+    // Extract data
+    var title = entry.getIn(['data', 'title']) || 'Event Title';
+    var dateStr = entry.getIn(['data', 'date']);
+    var location = entry.getIn(['data', 'location']) || 'Bingham Market Place';
+    var distance = entry.getIn(['data', 'distance']);
+    var meetingNote = entry.getIn(['data', 'meetingNote']);
+    var body = entry.getIn(['data', 'body']); // Description
+    var link = entry.getIn(['data', 'link']); // Sign up link
+    var linkText = entry.getIn(['data', 'linkText']) || 'Sign Up / Info';
+
+    // Format Date
+    var displayDate = 'Date TBD';
+    var displayTime = '09:00';
+
+    if (dateStr) {
+      var dateObj = new Date(dateStr);
+      var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      var dayName = days[dateObj.getDay()];
+      var dayNum = dateObj.getDate();
+      var monthName = months[dateObj.getMonth()];
+
+      // Suffix for day
+      var suffix = 'th';
+      if (dayNum === 1 || dayNum === 21 || dayNum === 31) suffix = 'st';
+      else if (dayNum === 2 || dayNum === 22) suffix = 'nd';
+      else if (dayNum === 3 || dayNum === 23) suffix = 'rd';
+
+      displayDate = dayName + ' ' + dayNum + suffix + ' ' + monthName;
+
+      var hours = dateObj.getHours().toString().padStart(2, '0');
+      var minutes = dateObj.getMinutes().toString().padStart(2, '0');
+      displayTime = hours + ':' + minutes;
+    }
 
     return h('div', { className: 'dark-theme' },
       h('main', {},
         // Page Header
         h('section', { className: 'section-header' },
           h('div', { className: 'container' },
-            h('h1', { className: 'page-title' }, entry.getIn(['data', 'title'])),
-            h('p', { className: 'page-intro' }, entry.getIn(['data', 'intro']))
+            h('h1', { className: 'page-title' }, title),
+            h('p', { className: 'page-intro' }, 'Preview of how this event will appear as the "Next Run"')
           )
         ),
 
-        // Events List (Mock)
+        // Events List (with "Next Run" populated by this event)
         h('section', { className: 'section section-events' },
           h('div', { className: 'container' },
-            // Mock Next Run
+
+            // Next Run Highlight (Card Style)
             h('div', { className: 'next-run-highlight' },
               h('span', { className: 'highlight-label' }, 'Next Run'),
-              h('div', { className: 'event-card featured blue' },
+              h('div', { className: 'event-card featured orange' }, // Orange background
                 h('div', { className: 'event-date' },
-                  h('span', { className: 'date-day' }, 'Sunday 12th May'),
-                  h('span', { className: 'date-time' }, '09:00')
+                  h('span', { className: 'date-day' }, displayDate),
+                  h('span', { className: 'date-time' }, displayTime)
                 ),
                 h('div', { className: 'event-details' },
-                  h('h2', { className: 'event-title' }, 'Sunday Club Run'),
+                  h('h2', { className: 'event-title' }, title),
+                  // Special Event Badge
+                  h('span', { className: 'badge badge-special' }, 'Special Event'),
+
                   h('div', { className: 'event-meta' },
-                    h('span', { className: 'meta-item location' }, '📍 Bingham Market Place'),
-                    h('span', { className: 'meta-item distance' }, '📏 5-10km')
-                  )
+                    h('span', { className: 'meta-item location' }, '📍 ' + location),
+                    distance ? h('span', { className: 'meta-item distance' }, '📏 ' + distance) : null
+                  ),
+
+                  // Description
+                  body ? h('div', { className: 'event-body' },
+                    // Basic markdown rendering or just text. CMS raw value is markdown.
+                    // Since we don't have a markdown processor easily here, we'll just dump text or use widget preview if possible.
+                    // For now, simple text display is better than nothing.
+                    body
+                  ) : null,
+
+                  // Meeting Note
+                  meetingNote ? h('p', {
+                    className: 'event-body',
+                    style: { fontWeight: '700', marginTop: 'var(--space-2)' }
+                  }, meetingNote) : null,
+
+                  // Action Link
+                  link ? h('a', {
+                    href: link,
+                    className: 'btn btn-small',
+                    style: {
+                      background: 'white',
+                      color: 'var(--color-orange)',
+                      width: 'fit-content',
+                      marginTop: 'var(--space-4)'
+                    }
+                  }, linkText) : null
                 )
               )
-            ),
-
-            // Mock Upcoming
-            h('h2', { className: 'section-title' }, 'Upcoming Runs'),
-            h('div', { className: 'events-grid' },
-              [1, 2, 3].map(function (i) {
-                return h('div', { key: i, className: 'event-card blue' },
-                  h('div', { className: 'event-header' },
-                    h('span', { className: 'event-date-short' }, 'Sun ' + (12 + i * 7) + 'th May'),
-                    h('span', { className: 'event-time-short' }, '09:00')
-                  ),
-                  h('div', { className: 'event-body-content' },
-                    h('h3', { className: 'event-title-small' }, 'Sunday Club Run'),
-                    h('div', { className: 'event-meta-small' },
-                      h('span', {}, 'Bingham Market Place'),
-                      h('span', {}, '5-10km')
-                    )
-                  )
-                );
-              })
             )
+            // No upcoming runs section
           )
         )
       )
