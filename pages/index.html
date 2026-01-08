@@ -13,18 +13,20 @@
           <div class="hero-overlay"></div>
         </div>
         <div class="hero-content container">
-          <div class="hero-title-group">
-            <span class="pre-title">Bingham</span>
-            <h1 class="hero-title">
-              <span class="title-line">Sunday</span>
-              <span class="title-line">Running</span>
-              <span class="title-line">Club</span>
-            </h1>
-          </div>
-          <p class="hero-tagline">{{content.pages.home.hero.tagline}}</p>
-          <div class="hero-actions">
-            <a href="{{content.pages.home.hero.ctaLink}}" class="btn btn-primary"
-              target="_blank">{{content.pages.home.hero.ctaText}}</a>
+          <div class="hero-text-box">
+            <div class="hero-title-group">
+              <span class="pre-title">Bingham</span>
+              <h1 class="hero-title">
+                <span class="title-line">Sunday</span>
+                <span class="title-line">Running</span>
+                <span class="title-line">Club</span>
+              </h1>
+            </div>
+            <p class="hero-tagline">{{content.pages.home.hero.tagline}}</p>
+            <div class="hero-actions">
+              <a href="{{content.pages.home.hero.ctaLink}}" class="btn btn-primary"
+                target="_blank">{{content.pages.home.hero.ctaText}}</a>
+            </div>
           </div>
         </div>
       </section>
@@ -60,49 +62,17 @@
         <div class="container">
           <h2 class="section-title">{{content.pages.home.vibe.title}}</h2>
           <div class="vibe-grid">
-            <!-- Schedule Card -->
-            <div class="vibe-card vibe-orange">
-              <h3 class="vibe-title">{{content.pages.home.vibe.scheduleCard.title}}</h3>
-              <div class="vibe-icon">
-                <svg viewBox="0 0 64 64" fill="currentColor">
-                  <circle cx="32" cy="16" r="8" />
-                  <path d="M32 28c-8 0-16 4-16 12v8h32v-8c0-8-8-12-16-12z" />
-                </svg>
-              </div>
-              <a href="{{content.pages.home.vibe.scheduleCard.buttonLink}}"
-                class="btn btn-small">{{content.pages.home.vibe.scheduleCard.buttonText}}</a>
-            </div>
-
-            <!-- Instagram Card -->
-            <div class="vibe-card vibe-pink">
-              <h3 class="vibe-title">{{content.pages.home.vibe.instagramCard.title}}</h3>
-              <div class="vibe-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="feather feather-instagram">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-              </div>
-              <a href="{{content.pages.home.vibe.instagramCard.buttonLink}}" target="_blank"
-                class="btn btn-small">{{content.pages.home.vibe.instagramCard.buttonText}}</a>
-            </div>
-
-            <!-- Strava Card -->
-            <div class="vibe-card vibe-white">
-              <h3 class="vibe-title">{{content.pages.home.vibe.stravaCard.title}}</h3>
-              <div class="vibe-icon strava-icon">
-                <svg viewBox="0 0 24 24" fill="#FC4C02">
-                  <path
-                    d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169" />
-                </svg>
-              </div>
-              <span class="vibe-label">{{content.pages.home.vibe.stravaCard.label}}</span>
-              <a href="{{content.pages.home.vibe.stravaCard.buttonLink}}" target="_blank"
-                class="btn btn-small btn-orange">{{content.pages.home.vibe.stravaCard.buttonText}}</a>
-            </div>
-
+            {{#each content.pages.home.vibe.cards}}
+              <a href="{{buttonLink}}" class="vibe-card" style="background: {{backgroundColor}}; color: {{textColor}};"
+                {{#if openInNewTab}}target="_blank" {{/if}}>
+                <h3 class="vibe-title">{{title}}</h3>
+                <div class="vibe-icon">{{icon}}</div>
+                {{#if description}}
+                  <span class="vibe-label">{{description}}</span>
+                {{/if}}
+                <span class="btn btn-small">{{buttonText}}</span>
+              </a>
+            {{/each}}
           </div>
         </div>
       </section>
@@ -141,14 +111,25 @@
         <section class="section section-pbs">
           <div class="container">
             <h2 class="section-title">{{content.pages.home.pbs.title}}</h2>
-            <div class="pbs-list">
+            <div class="pbs-grid">
               {{#each content.pages.home.pbs.records}}
-                <div class="pb-item">
-                  <span class="pb-distance">{{distance}}</span>
-                  <div class="pb-details">
-                    <span class="pb-time">{{time}}</span>
-                    <span class="pb-runner">{{name}}</span>
-                    <span class="pb-date">{{date}}</span>
+                <div class="pb-card">
+                  <div class="pb-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-award">
+                      <circle cx="12" cy="8" r="7"></circle>
+                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                  </div>
+                  <div class="pb-content">
+                    <span class="pb-distance">{{distance}}</span>
+                    <h3 class="pb-time">{{time}}</h3>
+                    <div class="pb-meta">
+                      <span class="pb-runner">{{name}}</span>
+                      <span class="pb-separator">•</span>
+                      <span class="pb-date">{{date}}</span>
+                    </div>
                   </div>
                 </div>
               {{/each}}

@@ -19,22 +19,38 @@
   },
   "vibe": {
     "title": "Weekly Vibe",
-    "scheduleCard": {
-      "title": "Meet Up & Move",
-      "buttonText": "View Full Schedule",
-      "buttonLink": "/about"
-    },
-    "instagramCard": {
-      "title": "Connect & Chat",
-      "buttonText": "Follow Us",
-      "buttonLink": "https://www.instagram.com/sundayrunclub_bingham"
-    },
-    "stravaCard": {
-      "title": "Track & Share",
-      "label": "Find Us On Strava",
-      "buttonText": "Follow Our Socials",
-      "buttonLink": "https://www.strava.com/clubs/bingham-sunday-running-club"
-    }
+    "cards": [
+      {
+        "title": "Meet Up & Move",
+        "description": "",
+        "icon": "👥",
+        "backgroundColor": "#f97316",
+        "textColor": "#ffffff",
+        "buttonText": "View Full Schedule",
+        "buttonLink": "/about",
+        "openInNewTab": false
+      },
+      {
+        "title": "Connect & Chat",
+        "description": "",
+        "icon": "📷",
+        "backgroundColor": "#ec4899",
+        "textColor": "#ffffff",
+        "buttonText": "Follow Us",
+        "buttonLink": "https://www.instagram.com/sundayrunclub_bingham",
+        "openInNewTab": true
+      },
+      {
+        "title": "Track & Share",
+        "description": "Find Us On Strava",
+        "icon": "🏃",
+        "backgroundColor": "#ffffff",
+        "textColor": "#1a1a1a",
+        "buttonText": "Follow Our Socials",
+        "buttonLink": "https://www.strava.com/clubs/bingham-sunday-running-club",
+        "openInNewTab": true
+      }
+    ]
   },
   "merch": {
     "title": "Club Merch",

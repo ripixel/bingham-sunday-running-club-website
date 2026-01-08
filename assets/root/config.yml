@@ -74,28 +74,18 @@ collections:
             widget: "object"
             fields:
               - { label: "Title", name: "title", widget: "string", default: "Weekly Vibe" }
-              - label: "Schedule Card"
-                name: "scheduleCard"
-                widget: "object"
+              - label: "Vibe Cards"
+                name: "cards"
+                widget: "list"
                 fields:
-                  - { label: "Title", name: "title", widget: "string", default: "Meet Up & Move" }
-                  - { label: "Button Text", name: "buttonText", widget: "string", default: "View Full Schedule" }
-                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
-              - label: "Instagram Card"
-                name: "instagramCard"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", default: "Connect & Chat" }
-                  - { label: "Button Text", name: "buttonText", widget: "string", default: "Follow Us" }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Description", name: "description", widget: "string", required: false, hint: "Optional subtitle or label" }
+                  - { label: "Icon (Emoji)", name: "icon", widget: "string", default: "🏃" }
+                  - { label: "Background Color", name: "backgroundColor", widget: "color", default: "#f97316" }
+                  - { label: "Text Color", name: "textColor", widget: "color", default: "#ffffff", hint: "Color for text and icons" }
+                  - { label: "Button Text", name: "buttonText", widget: "string" }
                   - { label: "Button Link", name: "buttonLink", widget: "string" }
-              - label: "Strava Card"
-                name: "stravaCard"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", default: "Track & Share" }
-                  - { label: "Label", name: "label", widget: "string", default: "Find Us On Strava" }
-                  - { label: "Button Text", name: "buttonText", widget: "string", default: "Follow Our Socials" }
-                  - { label: "Button Link", name: "buttonLink", widget: "string", required: false }
+                  - { label: "Open in New Tab", name: "openInNewTab", widget: "boolean", default: false }
 
           - label: "Merch Section"
             name: "merch"
