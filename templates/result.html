@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+
+  <body class="dark-theme">
+    {{> header}}
+
+    <main>
+      <!-- Hero Section - Inline Image -->
+      <section class="section result-hero-section">
+        <div class="container">
+          {{#if result.isSpecialEvent}}
+            <span class="badge badge-special">✨ Special Event</span>
+          {{/if}}
+          <h1 class="page-title">{{result.title}}</h1>
+          {{#if result.eventTitle}}
+            <p class="result-event-name">{{result.eventTitle}}</p>
+          {{/if}}
+          <div class="result-meta">
+            <span class="result-date">📅 {{result.displayDate}}</span>
+            <span class="meta-separator">•</span>
+            <span class="result-location">📍 {{result.location}}</span>
+            {{#if result.weather}}
+              <span class="meta-separator">•</span>
+              <span class="result-weather">{{result.weather}}</span>
+            {{/if}}
+          </div>
+          <div class="result-hero-image">
+            <img src="{{result.mainPhoto}}" alt="{{result.title}}" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Headline Stats -->
+      <section class="section section-result-stats">
+        <div class="container">
+          <div class="result-stats-grid">
+            <div class="stat-card stat-card-pink">
+              <span class="stat-icon">👥</span>
+              <span class="stat-value">{{resultStats.totalAttendees}}</span>
+              <span class="stat-label">Runners</span>
+            </div>
+            <div class="stat-card stat-card-green">
+              <span class="stat-icon">📏</span>
+              <span class="stat-value">{{resultStats.totalDistance}}km</span>
+              <span class="stat-label">Total Distance</span>
+            </div>
+            <div class="stat-card stat-card-blue">
+              <span class="stat-icon">⏱️</span>
+              <span class="stat-value">{{resultStats.avgPace}}</span>
+              <span class="stat-label">Avg Pace (min/km)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Table -->
+      <section class="section section-results-table">
+        <div class="container">
+          <h2>Results</h2>
+          <div class="results-table-wrapper">
+            <table class="results-table zebra-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Attendance</th>
+                  <th>Route</th>
+                  <th>Distance</th>
+                  <th>Time</th>
+                  <th>Pace</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each participants}}
+                  <tr>
+                    <td class="name-cell">
+                      {{#if runnerProfile.photo}}
+                        <div class="avatar-ring-small avatar-ring-{{colorClass}}">
+                          <img src="{{runnerProfile.photo}}" alt="{{displayName}}" class="runner-avatar-small" />
+                        </div>
+                      {{/if}}
+                      {{#if hasProfile}}
+                        <a href="/runners/{{runnerId}}/"
+                          class="runner-link runner-link-{{colorClass}}">{{displayName}}</a>
+                      {{else}}
+                        <span class="runner-name-plain">{{displayName}}</span>
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{#if hasProfile}}
+                        {{attendanceCount}}
+                      {{else}}
+                        —
+                      {{/if}}
+                    </td>
+                    <td class="route-cell">{{{routeHtml}}}</td>
+                    <td>{{distance}}km</td>
+                    <td>{{time}}</td>
+                    <td>{{pace}}</td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Race Comments -->
+      {{#if result.body}}
+        <section class="section section-race-comments">
+          <div class="container">
+            <h2>Race Comments</h2>
+            <div class="race-comments-content">
+              {{result.body}}
+            </div>
+          </div>
+        </section>
+      {{/if}}
+
+      <!-- Back to Results -->
+      <section class="section section-back">
+        <div class="container" style="text-align: center;">
+          <a href="/results/" class="btn btn-secondary">← All Results</a>
+        </div>
+      </section>
+
+    </main>
+
+    {{> footer}}
+  </body>
+
+</html>

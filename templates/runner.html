@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+
+  <body class="dark-theme">
+    {{> header}}
+
+    <main>
+      <!-- Page Header -->
+      <section class="page-header runner-header">
+        <div class="container">
+          <div class="runner-hero">
+            {{#if runner.photo}}
+              <div class="runner-photo">
+                <img src="{{runner.photo}}" alt="{{runner.name}}" />
+              </div>
+            {{else}}
+              <div class="runner-photo runner-photo-placeholder">
+                <span class="runner-initial">{{runner.name.[0]}}</span>
+              </div>
+            {{/if}}
+            <div class="runner-info">
+              <h1 class="page-title">{{runner.name}}</h1>
+              {{#if runner.joinedDate}}
+                <p class="runner-joined">Member since {{runner.joinedDate}}</p>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Runner Stats -->
+      <section class="section section-runner-stats">
+        <div class="container">
+          <div class="runner-stats-grid">
+            <div class="stat-card stat-card-pink">
+              <span class="stat-icon">🏃</span>
+              <span class="stat-value">{{runnerStats.totalRuns}}</span>
+              <span class="stat-label">Total Runs</span>
+            </div>
+            <div class="stat-card stat-card-green">
+              <span class="stat-icon">📏</span>
+              <span class="stat-value">{{runnerStats.totalDistance}}km</span>
+              <span class="stat-label">Total Distance</span>
+            </div>
+            <div class="stat-card stat-card-blue">
+              <span class="stat-icon">⏱️</span>
+              <span class="stat-value">{{runnerStats.avgPace}}</span>
+              <span class="stat-label">Avg Pace (min/km)</span>
+            </div>
+            <div class="stat-card stat-card-orange">
+              <span class="stat-icon">⏳</span>
+              <span class="stat-value">{{runnerStats.totalTime}}</span>
+              <span class="stat-label">Total Time</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Run History -->
+      {{#if runnerStats.runHistory.length}}
+        <section class="section section-run-history">
+          <div class="container">
+            <h2>Run History</h2>
+            <div class="run-history-table-wrapper">
+              <table class="run-history-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Event</th>
+                    <th>Route</th>
+                    <th>Distance</th>
+                    <th>Time</th>
+                    <th>Pace</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each runnerStats.runHistory}}
+                    <tr>
+                      <td>
+                        <a href="/results/{{slug}}/">{{displayDate}}</a>
+                      </td>
+                      <td>{{title}}</td>
+                      <td>{{{routeHtml}}}</td>
+                      <td>{{distance}}km</td>
+                      <td>{{time}}</td>
+                      <td>{{pace}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      {{else}}
+        <section class="section section-run-history">
+          <div class="container">
+            <h2>Run History</h2>
+            <p class="no-data">No recorded runs yet. Check back after the next Sunday run!</p>
+          </div>
+        </section>
+      {{/if}}
+
+      <!-- Back to Results -->
+      <section class="section section-back">
+        <div class="container" style="text-align: center;">
+          <a href="/results/" class="btn btn-secondary">← Back to All Results</a>
+        </div>
+      </section>
+
+    </main>
+
+    {{> footer}}
+  </body>
+
+</html>

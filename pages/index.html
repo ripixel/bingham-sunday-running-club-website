@@ -123,6 +123,46 @@
         </div>
       </section>
 
+      <!-- Latest Run Section -->
+      {{#if latestResult}}
+        <section class="section section-latest-run">
+          <div class="container">
+            <div class="section-header section-header-compact">
+              <span class="section-label">{{content.pages.home.latestRun.sectionLabel}}</span>
+              <h2 class="section-title">{{content.pages.home.latestRun.sectionTitle}}</h2>
+            </div>
+            <a href="{{latestResult.link}}" class="latest-run-card">
+              <div class="latest-run-image">
+                <img src="{{latestResult.mainPhoto}}" alt="{{latestResult.title}}" />
+              </div>
+              <div class="latest-run-content">
+                <h3 class="latest-run-title">{{latestResult.title}}</h3>
+                {{#if latestResult.eventTitle}}
+                  <p class="latest-run-event">{{latestResult.eventTitle}}</p>
+                {{/if}}
+                <p class="latest-run-date">{{latestResult.displayDate}} {{#if latestResult.location}}• 📍
+                    {{latestResult.location}}{{/if}}</p>
+                <div class="latest-run-stats">
+                  <div class="latest-run-stat">
+                    <span class="latest-run-stat-value">{{latestResult.totalAttendees}}</span>
+                    <span class="latest-run-stat-label">Runners</span>
+                  </div>
+                  <div class="latest-run-stat">
+                    <span class="latest-run-stat-value">{{latestResult.totalDistance}}km</span>
+                    <span class="latest-run-stat-label">Total Distance</span>
+                  </div>
+                  <div class="latest-run-stat">
+                    <span class="latest-run-stat-value">{{latestResult.avgPace}}</span>
+                    <span class="latest-run-stat-label">Avg Pace</span>
+                  </div>
+                </div>
+                <span class="btn btn-fun">{{content.pages.home.latestRun.ctaText}} →</span>
+              </div>
+            </a>
+          </div>
+        </section>
+      {{/if}}
+
       <!-- Weekly Vibe Section -->
       <section class="section section-vibe">
         <div class="container">
@@ -158,28 +198,74 @@
                 <p class="section-subtitle">{{content.pages.home.pbs.description}}</p>
               {{/if}}
             </div>
-            <div class="pbs-grid">
-              {{#each content.pages.home.pbs.records}}
-                <div class="pb-card">
-                  <div class="pb-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-award">
-                      <circle cx="12" cy="8" r="7"></circle>
-                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                    </svg>
-                  </div>
-                  <div class="pb-content">
-                    <span class="pb-distance">{{distance}}</span>
-                    <h3 class="pb-time">{{time}}</h3>
-                    <div class="pb-meta">
-                      <span class="pb-runner">{{name}}</span>
-                      <span class="pb-separator">•</span>
-                      <span class="pb-date">{{date}}</span>
+
+            <!-- BSRC Legends (computed from run results) -->
+            {{#if legends.mostEvents}}
+              <div class="legends-section">
+                <h3 class="legends-title">{{content.pages.home.pbs.legends.title}}</h3>
+                <p class="legends-subtitle">{{content.pages.home.pbs.legends.subtitle}}</p>
+                <div class="legends-grid">
+                  {{#if legends.mostEvents}}
+                    <a href="/runners/{{legends.mostEvents.id}}/" class="legend-card legend-card-pink">
+                      <div class="legend-icon">{{legends.mostEvents.icon}}</div>
+                      <div class="legend-content">
+                        <span class="legend-category">Most Events</span>
+                        <h4 class="legend-name">{{legends.mostEvents.name}}</h4>
+                        <span class="legend-stat">{{legends.mostEvents.stat}} {{legends.mostEvents.label}}</span>
+                      </div>
+                    </a>
+                  {{/if}}
+                  {{#if legends.fastestPace}}
+                    <a href="/runners/{{legends.fastestPace.id}}/" class="legend-card legend-card-green">
+                      <div class="legend-icon">{{legends.fastestPace.icon}}</div>
+                      <div class="legend-content">
+                        <span class="legend-category">Fastest Pace</span>
+                        <h4 class="legend-name">{{legends.fastestPace.name}}</h4>
+                        <span class="legend-stat">{{legends.fastestPace.stat}} {{legends.fastestPace.label}}</span>
+                      </div>
+                    </a>
+                  {{/if}}
+                  {{#if legends.mostDistance}}
+                    <a href="/runners/{{legends.mostDistance.id}}/" class="legend-card legend-card-blue">
+                      <div class="legend-icon">{{legends.mostDistance.icon}}</div>
+                      <div class="legend-content">
+                        <span class="legend-category">Most Distance</span>
+                        <h4 class="legend-name">{{legends.mostDistance.name}}</h4>
+                        <span class="legend-stat">{{legends.mostDistance.stat}} {{legends.mostDistance.label}}</span>
+                      </div>
+                    </a>
+                  {{/if}}
+                </div>
+              </div>
+            {{/if}}
+
+            <!-- All-Time PBs -->
+            <div class="pbs-section">
+              <h3 class="legends-title">{{content.pages.home.pbs.allTimePbs.title}}</h3>
+              <p class="legends-subtitle">{{content.pages.home.pbs.allTimePbs.subtitle}}</p>
+              <div class="pbs-grid">
+                {{#each content.pages.home.pbs.records}}
+                  <div class="pb-card">
+                    <div class="pb-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-award">
+                        <circle cx="12" cy="8" r="7"></circle>
+                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                      </svg>
+                    </div>
+                    <div class="pb-content">
+                      <span class="pb-distance">{{distance}}</span>
+                      <h3 class="pb-time">{{time}}</h3>
+                      <div class="pb-meta">
+                        <span class="pb-runner">{{name}}</span>
+                        <span class="pb-separator">•</span>
+                        <span class="pb-date">{{date}}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              {{/each}}
+                {{/each}}
+              </div>
             </div>
           </div>
         </section>

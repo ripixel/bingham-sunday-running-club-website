@@ -115,6 +115,12 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 img {
@@ -1854,6 +1860,125 @@ strong {
 }
 
 /* --------------------------------------------------------------------------
+   BSRC Legends Section
+   -------------------------------------------------------------------------- */
+.legends-section,
+.pbs-section {
+  margin-bottom: var(--space-10);
+}
+
+.legends-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  text-align: center;
+}
+
+.legends-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.legends-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .legends-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.legend-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-card);
+  border-left: 4px solid transparent;
+  text-decoration: none;
+  transition: all var(--transition-base);
+}
+
+.legend-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.legend-card-pink {
+  border-left-color: var(--color-pink);
+}
+
+.legend-card-pink:hover {
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.2);
+}
+
+.legend-card-green {
+  border-left-color: var(--color-green);
+}
+
+.legend-card-green:hover {
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.2);
+}
+
+.legend-card-blue {
+  border-left-color: var(--color-blue);
+}
+
+.legend-card-blue:hover {
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+}
+
+.legend-icon {
+  font-size: var(--text-3xl);
+  line-height: 1;
+}
+
+.legend-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.legend-category {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.legend-name {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.legend-card-pink .legend-name {
+  color: var(--color-pink);
+}
+
+.legend-card-green .legend-name {
+  color: var(--color-green);
+}
+
+.legend-card-blue .legend-name {
+  color: var(--color-blue);
+}
+
+.legend-stat {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
    Merch Section
    -------------------------------------------------------------------------- */
 .section-merch {
@@ -2693,4 +2818,556 @@ strong {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* --------------------------------------------------------------------------
+   Runner Profile Page
+   -------------------------------------------------------------------------- */
+.runner-header {
+  padding-bottom: var(--space-4);
+}
+
+.runner-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .runner-hero {
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
+.runner-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 4px solid var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
+}
+
+.runner-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.runner-photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-card);
+}
+
+.runner-initial {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.runner-info {
+  flex: 1;
+}
+
+.runner-joined {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  margin: 0;
+}
+
+/* Runner Stats Grid */
+.runner-stats-grid,
+.result-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .runner-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .result-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stat-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  text-align: center;
+  border-left: 4px solid transparent;
+  transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-card-pink {
+  border-left-color: var(--color-pink);
+}
+
+.stat-card-green {
+  border-left-color: var(--color-green);
+}
+
+.stat-card-blue {
+  border-left-color: var(--color-blue);
+}
+
+.stat-card-orange {
+  border-left-color: var(--color-orange);
+}
+
+.stat-icon {
+  font-size: var(--text-2xl);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.stat-value {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+.stat-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+/* Run History Table */
+.run-history-table-wrapper,
+.results-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.run-history-table,
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.run-history-table th,
+.run-history-table td,
+.results-table th,
+.results-table td {
+  padding: var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.run-history-table th,
+.results-table th {
+  background: var(--color-bg-elevated);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.run-history-table tbody tr:hover,
+.results-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.run-history-table a,
+.results-table a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.run-history-table a:hover,
+.results-table a:hover {
+  text-decoration: underline;
+}
+
+.no-data {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: var(--space-8);
+}
+
+.section-back {
+  padding: var(--space-8) 0;
+}
+
+/* --------------------------------------------------------------------------
+   Run Result Detail Page
+   -------------------------------------------------------------------------- */
+.result-hero-section {
+  padding-top: calc(60px + var(--space-12));
+  padding-bottom: var(--space-8);
+}
+
+.result-hero-section .page-title {
+  margin-bottom: var(--space-2);
+}
+
+.result-event-name {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-6);
+}
+
+.result-hero-image {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.result-hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.result-hero-section .badge-special {
+  margin-bottom: var(--space-4);
+  display: inline-block;
+  background: var(--color-pink);
+  border-left: none;
+}
+
+.section-result-stats,
+.section-results-table,
+.section-race-comments {
+  padding: var(--space-8) 0;
+}
+
+.section-result-stats {
+  background: var(--color-bg-elevated);
+}
+
+.section-results-table h2,
+.section-race-comments h2,
+.section-run-history h2 {
+  margin-bottom: var(--space-6);
+}
+
+/* Zebra striping for table */
+.results-table.zebra-striped tbody tr:nth-child(even) {
+  background-color: rgba(249, 115, 22, 0.05);
+}
+
+/* Runner avatars in table */
+.name-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.runner-avatar-small {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Color cycling for runner links */
+.runner-link {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.runner-link-pink {
+  color: var(--color-pink);
+}
+
+.runner-link-pink:hover {
+  text-decoration: underline;
+}
+
+.runner-link-green {
+  color: var(--color-green);
+}
+
+.runner-link-green:hover {
+  text-decoration: underline;
+}
+
+.runner-link-blue {
+  color: var(--color-blue);
+}
+
+.runner-link-blue:hover {
+  text-decoration: underline;
+}
+
+.runner-name-plain {
+  color: var(--color-text-muted);
+}
+
+/* Route colors matching About page loops */
+.route-small {
+  color: var(--color-pink);
+  font-weight: 500;
+}
+
+.route-medium {
+  color: var(--color-green);
+  font-weight: 500;
+}
+
+.route-long {
+  color: var(--color-blue);
+  font-weight: 500;
+}
+
+.route-other {
+  color: var(--color-orange);
+  font-weight: 500;
+}
+
+/* Race Comments section */
+.race-comments-content {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   Results Archive Page
+   -------------------------------------------------------------------------- */
+.section-results-archive {
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+.results-archive-grid {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .results-archive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .results-archive-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.result-card {
+  display: block;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.result-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary);
+}
+
+.result-card-image {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.result-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.result-card:hover .result-card-image img {
+  transform: scale(1.05);
+}
+
+.result-card-image .badge-special {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  margin: 0;
+  background: var(--color-pink);
+  border-left: none;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.result-card-content {
+  padding: var(--space-5);
+}
+
+.result-card-date {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.result-card-title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-3);
+}
+
+.result-card-stats {
+  display: flex;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.stat-separator {
+  color: var(--color-text-subtle);
+}
+
+.no-results {
+  text-align: center;
+  padding: var(--space-16) var(--space-8);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+}
+
+.no-results p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+}
+
+/* --------------------------------------------------------------------------
+   Homepage Latest Run Section
+   -------------------------------------------------------------------------- */
+.section-latest-run {
+  padding: var(--space-8) 0;
+  background: var(--color-bg);
+}
+
+.section-header-compact {
+  padding-top: 0;
+  text-align: left;
+  margin-bottom: var(--space-6);
+}
+
+.latest-run-card {
+  display: grid;
+  gap: var(--space-6);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all var(--transition-base);
+}
+
+.latest-run-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-xl);
+}
+
+@media (min-width: 768px) {
+  .latest-run-card {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.latest-run-image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .latest-run-image {
+    aspect-ratio: auto;
+    min-height: 300px;
+  }
+}
+
+.latest-run-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.latest-run-content {
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.latest-run-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-2);
+}
+
+.latest-run-title {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-1);
+}
+
+.latest-run-event {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.latest-run-date {
+  color: var(--color-text-subtle);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+
+.latest-run-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.latest-run-stat {
+  text-align: center;
+}
+
+.latest-run-stat-value {
+  display: block;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.latest-run-stat-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
 }

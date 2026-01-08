@@ -1,0 +1,27 @@
+{
+  "name": "Bingham Sunday Running Club",
+  "short_name": "BSRC",
+  "description": "A free, friendly running group in Bingham, Nottinghamshire. All paces welcome.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": [
+    "sports",
+    "fitness",
+    "lifestyle"
+  ]
+}

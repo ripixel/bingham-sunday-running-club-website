@@ -53,6 +53,14 @@ collections:
               - { label: "CTA Button Link", name: "ctaLink", widget: "string" }
               - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
 
+          - label: "Latest Run Section"
+            name: "latestRun"
+            widget: "object"
+            fields:
+              - { label: "Section Label", name: "sectionLabel", widget: "string", default: "Latest Adventure" }
+              - { label: "Section Title", name: "sectionTitle", widget: "string", default: "Our Last Sunday Run" }
+              - { label: "CTA Button Text", name: "ctaText", widget: "string", default: "View Full Results" }
+
           - label: "Story Section"
             name: "story"
             widget: "object"
@@ -121,8 +129,20 @@ collections:
             name: "pbs"
             widget: "object"
             fields:
-              - { label: "Title", name: "title", widget: "string", default: "Club Records" }
+              - { label: "Title", name: "title", widget: "string", default: "Wall of Fame" }
               - { label: "Description", name: "description", widget: "text", required: false }
+              - label: "Legends Section"
+                name: "legends"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "🏆 Sunday Run Legends" }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", default: "Top performers from our weekly runs" }
+              - label: "All-Time PBs Section"
+                name: "allTimePbs"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "🎖️ All-Time PBs" }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", default: "Personal bests across any event" }
               - label: "Records"
                 name: "records"
                 widget: "list"
@@ -300,3 +320,51 @@ collections:
       - { label: "Action Link URL", name: "link", widget: "string", required: false, hint: "External link for signup/tickets" }
       - { label: "Action Link Text", name: "linkText", widget: "string", default: "Sign Up / Info", required: false }
       - { label: "Description", name: "body", widget: "markdown" }
+
+  # Runners Collection
+  - name: "runners"
+    label: "Runners"
+    label_singular: "Runner"
+    description: "Club member profiles"
+    folder: "content/runners"
+    create: true
+    identifier_field: "id"
+    slug: "{{id}}"
+    extension: "json"
+    format: "json"
+    fields:
+      - { label: "ID (URL Slug)", name: "id", widget: "string", hint: "Lowercase, no spaces (e.g. 'james')" }
+      - { label: "Name", name: "name", widget: "string", hint: "First name only (e.g. 'James')" }
+      - { label: "Anonymous", name: "anonymous", widget: "boolean", default: false, hint: "If true, shown as 'Runner #X' in results" }
+      - { label: "Photo", name: "photo", widget: "image", required: false }
+      - { label: "Joined Date", name: "joinedDate", widget: "datetime", format: "YYYY-MM-DD", required: false }
+
+  # Run Results Collection
+  - name: "results"
+    label: "Run Results"
+    label_singular: "Run Result"
+    description: "Weekly run results and photos"
+    folder: "content/results"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}"
+    extension: "md"
+    fields:
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Title", name: "title", widget: "string", default: "Sunday Run", hint: "The title for this specific result" }
+      - { label: "Event Name", name: "eventTitle", widget: "string", default: "☕ Sunday Run & Breakfast", hint: "The original event name" }
+      - { label: "Event Description", name: "eventDescription", widget: "text", required: false, hint: "Description from the original event" }
+      - { label: "Location", name: "location", widget: "string", default: "Bingham Market Place" }
+      - { label: "Main Photo", name: "mainPhoto", widget: "image" }
+      - { label: "Weather", name: "weather", widget: "string", required: false }
+      - { label: "Is Special Event", name: "isSpecialEvent", widget: "boolean", default: false, hint: "Show special event badge" }
+      - label: "Participants"
+        name: "participants"
+        widget: "list"
+        fields:
+          - { label: "Runner ID", name: "runner", widget: "string", hint: "Runner slug (e.g. 'james') or 'guest'" }
+          - { label: "Distance (km)", name: "distance", widget: "number", value_type: "float" }
+          - { label: "Small Loops (0.8km)", name: "smallLoops", widget: "number", default: 0 }
+          - { label: "Medium Loops (1km)", name: "mediumLoops", widget: "number", default: 0 }
+          - { label: "Long Loops (1.2km)", name: "longLoops", widget: "number", default: 0 }
+          - { label: "Time (MM:SS)", name: "time", widget: "string" }
+      - { label: "Race Comments", name: "body", widget: "markdown", required: false }

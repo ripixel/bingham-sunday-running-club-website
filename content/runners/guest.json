@@ -1,0 +1,6 @@
+{
+  "id": "guest",
+  "name": "Guest",
+  "anonymous": true,
+  "joinedDate": ""
+}

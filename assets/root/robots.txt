@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://binghamsundayrunningclub.co.uk/sitemap.xml

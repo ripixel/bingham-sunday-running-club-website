@@ -3,19 +3,40 @@
   <meta charset="utf-8" />
   <title>{{siteName}} | {{pageTitle}}</title>
   <meta name="description" content="{{description}}" />
+  <meta name="keywords" content="{{keywords}}" />
+  <meta name="author" content="Bingham Sunday Running Club" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Geo tags for local SEO -->
+  <meta name="geo.region" content="GB-NTT" />
+  <meta name="geo.placename" content="Bingham, Nottinghamshire" />
+
   {{{noindex}}}
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{siteUrl}}{{canonicalPath}}" />
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="/images/icons/site.webmanifest" />
+  <meta name="theme-color" content="#1a1a2e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="BSRC" />
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" />
 
   <!-- Social sharing meta -->
   <meta property="og:title" content="{{siteName}} | {{pageTitle}}" />
   <meta property="og:site_name" content="{{siteName}}" />
   <meta property="og:description" content="{{description}}" />
-  <meta property="og:image" content="{{siteUrl}}/images/og-image.jpg" />
+  <meta property="og:image" content="{{siteUrl}}/images/og-image.png" />
+  <meta property="og:url" content="{{siteUrl}}{{canonicalPath}}" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png" />
+  <link rel="shortcut icon" href="/images/icons/favicon.ico" />
 
   <!-- Fonts - Inter for a friendly, modern feel -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,4 +47,26 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.min.{{cacheHash}}.css" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsClub",
+    "name": "Bingham Sunday Running Club",
+    "url": "https://binghamsundayrunningclub.co.uk",
+    "description": "A friendly, inclusive running club in Bingham, UK. All paces welcome. No memberships, no pressure, just good vibes.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bingham",
+      "addressRegion": "Nottinghamshire",
+      "addressCountry": "GB"
+    },
+    "sport": "Running",
+    "sameAs": [
+      "https://www.strava.com/clubs/binghamsundayrunningclub",
+      "https://www.instagram.com/sundayrunclub_bingham"
+    ]
+  }
+  </script>
 </head>

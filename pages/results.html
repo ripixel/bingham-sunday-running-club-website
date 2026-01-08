@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+
+  <body class="dark-theme">
+    {{> header}}
+
+    <main>
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="container">
+          <h1 class="page-title">Run Results</h1>
+          <p class="page-subtitle">A look back at our Sunday adventures</p>
+        </div>
+      </section>
+
+      <!-- Results Grid -->
+      <section class="section section-results-archive">
+        <div class="container">
+          {{#if allResultsSummary.length}}
+            <div class="results-archive-grid">
+              {{#each allResultsSummary}}
+                <a href="{{link}}" class="result-card">
+                  <div class="result-card-image">
+                    <img src="{{mainPhoto}}" alt="{{title}}" />
+                    {{#if isSpecialEvent}}
+                      <span class="badge badge-special">✨ Special</span>
+                    {{/if}}
+                  </div>
+                  <div class="result-card-content">
+                    <span class="result-card-date">{{displayDate}}</span>
+                    <h3 class="result-card-title">{{title}}</h3>
+                    <div class="result-card-stats">
+                      <span>{{totalAttendees}} runners</span>
+                      <span class="stat-separator">•</span>
+                      <span>{{totalDistance}}km</span>
+                    </div>
+                  </div>
+                </a>
+              {{/each}}
+            </div>
+          {{else}}
+            <div class="no-results">
+              <p>No run results recorded yet. Check back after our next Sunday run!</p>
+              <a href="/events/" class="btn btn-primary">View Upcoming Runs</a>
+            </div>
+          {{/if}}
+        </div>
+      </section>
+
+    </main>
+
+    {{> footer}}
+  </body>
+
+</html>

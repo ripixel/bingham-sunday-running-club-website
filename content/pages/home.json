@@ -5,6 +5,11 @@
     "ctaLink": "https://www.strava.com/clubs/binghamsundayrunningclub",
     "heroImage": "/images/screenshot-2026-01-08-184356.png"
   },
+  "latestRun": {
+    "sectionLabel": "Latest Adventure",
+    "sectionTitle": "Our Last Sunday Run",
+    "ctaText": "View Full Results"
+  },
   "story": {
     "label": "What We're About",
     "title": "Not taking ourselves seriously",
@@ -114,6 +119,14 @@
   "pbs": {
     "title": "Wall of Fame",
     "description": "Celebrating our club records.",
+    "legends": {
+      "title": "🏆 Sunday Run Legends",
+      "subtitle": "Top performers from our weekly runs"
+    },
+    "allTimePbs": {
+      "title": "🎖️ All-Time PBs",
+      "subtitle": "Personal bests across any event"
+    },
     "records": [
       {
         "name": "Rory",
