@@ -1767,6 +1767,13 @@ strong {
 /* --------------------------------------------------------------------------
    Events Page Styles
    -------------------------------------------------------------------------- */
+.section-header {
+  padding-top: calc(80px + var(--space-12));
+  /* Clear fixed header */
+  padding-bottom: var(--space-8);
+  text-align: center;
+}
+
 .section-header .page-title {
   font-family: var(--font-family-display);
   font-size: var(--text-4xl);
