@@ -25,6 +25,23 @@
                 <p class="runner-joined">Member since {{runner.joinedDate}}</p>
               {{/if}}
             </div>
+
+            {{#if clubRecords.length}}
+              <div class="runner-header-badges">
+                <h3 class="badges-title">Club Records Held</h3>
+                <div class="badges-grid">
+                  {{#each clubRecords}}
+                    <div class="record-badge">
+                      <span class="record-icon">🏆</span>
+                      <div class="record-details">
+                        <span class="record-distance">{{distance}}</span>
+                        <span class="record-time">{{time}}</span>
+                      </div>
+                    </div>
+                  {{/each}}
+                </div>
+              </div>
+            {{/if}}
           </div>
         </div>
       </section>
@@ -54,6 +71,8 @@
               <span class="stat-label">Total Time</span>
             </div>
           </div>
+
+
         </div>
       </section>
 

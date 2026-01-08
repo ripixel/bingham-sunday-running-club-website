@@ -74,16 +74,22 @@
                 {{#each participants}}
                   <tr>
                     <td class="name-cell">
-                      {{#if runnerProfile.photo}}
-                        <div class="avatar-ring-small avatar-ring-{{colorClass}}">
-                          <img src="{{runnerProfile.photo}}" alt="{{displayName}}" class="runner-avatar-small" />
-                        </div>
-                      {{/if}}
                       {{#if hasProfile}}
-                        <a href="/runners/{{runnerId}}/"
-                          class="runner-link runner-link-{{colorClass}}">{{displayName}}</a>
+                        <a href="/runners/{{runnerId}}/" class="runner-link-wrapper runner-link-{{colorClass}}">
+                          {{#if runnerProfile.photo}}
+                            <div class="avatar-ring-small avatar-ring-{{colorClass}}">
+                              <img src="{{runnerProfile.photo}}" alt="{{displayName}}" class="runner-avatar-small" />
+                            </div>
+                          {{/if}}
+                          <span class="runner-name">{{displayName}}</span>
+                        </a>
                       {{else}}
-                        <span class="runner-name-plain">{{displayName}}</span>
+                        <div class="runner-info-wrapper">
+                          {{#if runnerProfile.photo}}
+                            <img src="{{runnerProfile.photo}}" alt="{{displayName}}" class="runner-avatar-small" />
+                          {{/if}}
+                          <span class="runner-name-plain">{{displayName}}</span>
+                        </div>
                       {{/if}}
                     </td>
                     <td>

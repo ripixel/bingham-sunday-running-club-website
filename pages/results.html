@@ -14,29 +14,74 @@
         </div>
       </section>
 
+      <!-- Featured Latest Run -->
+      {{#if latestResult}}
+        <section class="section section-featured-result">
+          <div class="container">
+            <div class="section-header section-header-compact">
+              <span class="section-label">{{content.pages.results_page.featuredLabel}}</span>
+              <h2 class="section-title">{{latestResult.title}}</h2>
+            </div>
+            <a href="{{latestResult.link}}" class="latest-run-card">
+              <div class="latest-run-image">
+                <img src="{{latestResult.mainPhoto}}" alt="{{latestResult.title}}" />
+              </div>
+              <div class="latest-run-content">
+                <h3 class="latest-run-title">{{latestResult.title}}</h3>
+                {{#if latestResult.eventTitle}}
+                  <p class="latest-run-event">{{latestResult.eventTitle}}</p>
+                {{/if}}
+                <p class="latest-run-date">{{latestResult.displayDate}} {{#if latestResult.location}}• 📍
+                    {{latestResult.location}}{{/if}}</p>
+                <div class="latest-run-stats">
+                  <div class="latest-run-stat">
+                    <span class="latest-run-stat-value">{{latestResult.totalAttendees}}</span>
+                    <span class="latest-run-stat-label">Runners</span>
+                  </div>
+                  <div class="latest-run-stat">
+                    <span class="latest-run-stat-value">{{latestResult.totalDistance}}km</span>
+                    <span class="latest-run-stat-label">Total Distance</span>
+                  </div>
+                  <div class="latest-run-stat">
+                    <span class="latest-run-stat-value">{{latestResult.avgPace}}</span>
+                    <span class="latest-run-stat-label">Avg Pace</span>
+                  </div>
+                </div>
+                <span class="btn btn-fun">View Full Results →</span>
+              </div>
+            </a>
+          </div>
+        </section>
+      {{/if}}
+
       <!-- Results Grid -->
       <section class="section section-results-archive">
         <div class="container">
-          {{#if allResultsSummary.length}}
+          <div class="section-header section-header-compact">
+            <h2 class="section-title">Previous Runs</h2>
+          </div>
+          {{#if allResultsSummary}}
             <div class="results-archive-grid">
               {{#each allResultsSummary}}
-                <a href="{{link}}" class="result-card">
-                  <div class="result-card-image">
-                    <img src="{{mainPhoto}}" alt="{{title}}" />
-                    {{#if isSpecialEvent}}
-                      <span class="badge badge-special">✨ Special</span>
-                    {{/if}}
-                  </div>
-                  <div class="result-card-content">
-                    <span class="result-card-date">{{displayDate}}</span>
-                    <h3 class="result-card-title">{{title}}</h3>
-                    <div class="result-card-stats">
-                      <span>{{totalAttendees}} runners</span>
-                      <span class="stat-separator">•</span>
-                      <span>{{totalDistance}}km</span>
+                {{#unless @first}}
+                  <a href="{{link}}" class="result-card result-card-{{colorClass}}">
+                    <div class="result-card-image">
+                      <img src="{{mainPhoto}}" alt="{{title}}" />
+                      {{#if isSpecialEvent}}
+                        <span class="badge badge-special">✨ Special</span>
+                      {{/if}}
                     </div>
-                  </div>
-                </a>
+                    <div class="result-card-content">
+                      <span class="result-card-date">{{displayDate}}</span>
+                      <h3 class="result-card-title">{{title}}</h3>
+                      <div class="result-card-stats">
+                        <span>{{totalAttendees}} runners</span>
+                        <span class="stat-separator">•</span>
+                        <span>{{totalDistance}}km</span>
+                      </div>
+                    </div>
+                  </a>
+                {{/unless}}
               {{/each}}
             </div>
           {{else}}

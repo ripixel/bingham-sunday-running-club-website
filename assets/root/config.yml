@@ -40,11 +40,11 @@ collections:
     description: "Edit site pages content"
     files:
       # Homepage
-      - name: "home"
-        label: "Homepage"
-        file: "content/pages/home.json"
-        fields:
-          - label: "Hero Section"
+          - label: "Homepage"
+            name: "home"
+            file: "content/pages/home.json"
+            fields:
+              - label: "Hero Section"
             name: "hero"
             widget: "object"
             fields:
@@ -117,13 +117,50 @@ collections:
               - { label: "Title", name: "title", widget: "string", default: "Club Merch" }
               - { label: "Description", name: "description", widget: "text", required: false }
               - { label: "Note", name: "note", widget: "string", default: "Available to purchase at the usual Sunday run. Cash or bank transfer accepted." }
-              - label: "Items"
-                name: "items"
+              - label: "Featured Members"
+                name: "featuredMembers"
                 widget: "list"
                 fields:
                   - { label: "Name", name: "name", widget: "string" }
-                  - { label: "Price", name: "price", widget: "string" }
-                  - { label: "Image", name: "image", widget: "image", required: false }
+                  - { label: "Role", name: "role", widget: "string" }
+                  - { label: "Image", name: "image", widget: "image" }
+
+          - label: "Personal Bests"
+            name: "pbs"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string", default: "Wall of Fame" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - label: "Legends Section"
+                name: "legends"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "🏆 Sunday Run Legends" }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", default: "Top performers from our weekly runs" }
+              - label: "All-Time PBs Section"
+                name: "allTimePbs"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "🎖️ All-Time PBs" }
+                  - { label: "Subtitle", name: "subtitle", widget: "string", default: "Personal bests across any event" }
+              - label: "Records"
+                name: "records"
+                widget: "list"
+                fields:
+                  - { label: "Runner Name", name: "name", widget: "string" }
+                  - { label: "Runner ID", name: "runner", widget: "string", required: false, hint: "Runner slug for photo/link (e.g. 'james')" }
+                  - { label: "Distance", name: "distance", widget: "select", options: ["5k", "10k", "Half Marathon", "Marathon"] }
+                  - { label: "Time", name: "time", widget: "string" }
+                  - { label: "Date", name: "date", widget: "datetime", format: "MMMM D, YYYY" }
+
+      # Results Page
+      - name: "results_page"
+        label: "Results Page"
+        file: "content/pages/results.json"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", default: "Run Results" }
+          - { label: "Page Subtitle", name: "subtitle", widget: "string", default: "A look back at our Sunday adventures" }
+          - { label: "Featured Label", name: "featuredLabel", widget: "string", default: "Latest Adventure", required: false }
 
           - label: "Personal Bests"
             name: "pbs"

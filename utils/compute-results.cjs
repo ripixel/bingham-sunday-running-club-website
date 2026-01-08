@@ -63,8 +63,12 @@ function formatRoute(participant) {
     parts.push(`${participant.longLoops}x Long`);
   }
 
-  // If no loops specified (e.g., special event), return empty
-  return parts.length > 0 ? parts.join(', ') : '';
+  // If no loops specified (e.g., special event), return custom route or default
+  if (parts.length === 0) {
+    return participant.route || 'Other route';
+  }
+
+  return parts.join(', ');
 }
 
 /**
@@ -83,12 +87,13 @@ function formatRouteHtml(participant) {
     parts.push(`<span class="route-long">${participant.longLoops}x Long</span>`);
   }
 
-  // If no standard loops, show "Other route" in orange
-  if (parts.length === 0 && participant.distance > 0) {
-    return `<span class="route-other">Other route</span>`;
+  // If no standard loops, use route name or fallback, styled as "Other" (Orange)
+  if (parts.length === 0) {
+    const routeText = participant.route || 'Other route';
+    return `<span class="route-other">${routeText}</span>`;
   }
 
-  return parts.length > 0 ? parts.join(', ') : '—';
+  return parts.join(', ');
 }
 
 /**
@@ -194,7 +199,7 @@ function computeRunnerStats(runnerId, allResults) {
             month: 'short',
             year: 'numeric'
           }),
-          title: result.title,
+          title: result.title || result.eventTitle || 'Sunday Run',
           slug: result.slug,
           distance: p.distance,
           time: p.time,
@@ -244,6 +249,8 @@ function getLatestResult(results, runners) {
  * Get all results summaries for archive page
  */
 function getAllResultsSummary(results, runners) {
+  const colorClasses = ['pink', 'green', 'blue'];
+
   return Object.entries(results || {})
     .map(([slug, result]) => {
       const dateObj = new Date(result.date);
@@ -252,6 +259,7 @@ function getAllResultsSummary(results, runners) {
       return {
         slug,
         ...result,
+        title: result.title || result.eventTitle || 'Sunday Run',
         ...stats,
         dateObj,
         displayDate: dateObj.toLocaleDateString('en-GB', {
@@ -263,7 +271,11 @@ function getAllResultsSummary(results, runners) {
         link: `/results/${slug}/`
       };
     })
-    .sort((a, b) => b.dateObj - a.dateObj);
+    .sort((a, b) => b.dateObj - a.dateObj)
+    .map((result, index) => ({
+      ...result,
+      colorClass: colorClasses[index % colorClasses.length]
+    }));
 }
 
 /**

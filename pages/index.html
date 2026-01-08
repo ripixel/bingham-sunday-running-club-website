@@ -245,30 +245,46 @@
               <p class="legends-subtitle">{{content.pages.home.pbs.allTimePbs.subtitle}}</p>
               <div class="pbs-grid">
                 {{#each content.pages.home.pbs.records}}
-                  <div class="pb-card">
-                    <div class="pb-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="feather feather-award">
-                        <circle cx="12" cy="8" r="7"></circle>
-                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                      </svg>
-                    </div>
-                    <div class="pb-content">
-                      <span class="pb-distance">{{distance}}</span>
-                      <h3 class="pb-time">{{time}}</h3>
-                      <div class="pb-meta">
-                        <span class="pb-runner">{{name}}</span>
-                        <span class="pb-separator">•</span>
-                        <span class="pb-date">{{date}}</span>
+                  {{#if runner}}
+                    <a href="/runners/{{runner}}/" class="pb-card pb-card-link">
+                  {{else}}
+                    <div class="pb-card">
+                  {{/if}}
+                  <!-- Medallion (Always visible) -->
+                  <div class="pb-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-award">
+                      <circle cx="12" cy="8" r="7"></circle>
+                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                  </div>
+
+                  <div class="pb-content">
+                    <span class="pb-distance pb-distance-large">{{distance}}</span>
+                    <h3 class="pb-time">{{time}}</h3>
+
+                    <div class="pb-meta">
+                      <div class="pb-runner-info">
+                        {{#if photo}}
+                          <img src="{{photo}}" alt="{{name}}" class="pb-mini-avatar" />
+                        {{/if}}
+                        <span class="pb-runner-name">{{name}}</span>
                       </div>
+                      <span class="pb-separator">·</span>
+                      <span class="pb-date">{{date}}</span>
                     </div>
                   </div>
-                {{/each}}
+                  {{#if runner}}
+                    </a>
+                  {{else}}
               </div>
-            </div>
-          </div>
-        </section>
+      {{/if}}
+      {{/each}}
+      </div>
+      </div>
+      </div>
+      </section>
       {{/if}}
 
       <!-- Merch Section -->

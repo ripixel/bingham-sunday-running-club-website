@@ -67,6 +67,49 @@ const computeResults = require('./utils/compute-results.cjs');
 // Generate a hash for cache busting (using timestamp)
 const cacheHash = Date.now().toString(36);
 
+// Define global values to share across tasks
+const globalValues = {
+  siteName: 'Bingham Sunday Running Club',
+  siteUrl: 'https://binghamsundayrunningclub.co.uk/',
+  year: new Date().getFullYear(),
+  noindex: process.env.NODE_ENV === 'production' ? '' : '<meta name="robots" content="noindex">',
+  cacheHash: cacheHash,
+
+  // Inject all content into global scope
+  content: content,
+  // Shortcuts for settings
+  settings: content.settings || {},
+
+  // Dynamic Run Data
+  ...require('./utils/compute-runs.cjs').computeRuns(content),
+
+  // Results Data
+  latestResult: computeResults.getLatestResult(content.results, content.runners),
+  allResultsSummary: computeResults.getAllResultsSummary(content.results, content.runners),
+  allRunners: content.runners,
+
+  // BSRC Legends for Wall of Fame
+  legends: computeResults.computeLegends(content.results, content.runners),
+
+  // Club Records (enriched)
+  clubRecordsMap: (() => {
+    const records = content.pages.home?.pbs?.records || [];
+    const heldBy = {};
+
+    // Enrich records with photos in place
+    records.forEach(r => {
+      if (r.runner && content.runners[r.runner]) {
+        r.photo = content.runners[r.runner].photo;
+
+        if (!heldBy[r.runner]) heldBy[r.runner] = [];
+        heldBy[r.runner].push(r);
+      }
+    });
+
+    return heldBy;
+  })(),
+};
+
 exports.tasks = [
   // Clean & Create output directory
   prepareOutputTask({
@@ -163,29 +206,7 @@ exports.tasks = [
 
   // Make content globally available
   setGlobalsTask({
-    values: {
-      siteName: 'Bingham Sunday Running Club',
-      siteUrl: 'https://binghamsundayrunningclub.co.uk/',
-      year: new Date().getFullYear(),
-      noindex: process.env.NODE_ENV === 'production' ? '' : '<meta name="robots" content="noindex">',
-      cacheHash: cacheHash,
-
-      // Inject all content into global scope
-      content: content,
-      // Shortcuts for settings
-      settings: content.settings || {},
-
-      // Dynamic Run Data
-      ...require('./utils/compute-runs.cjs').computeRuns(content),
-
-      // Results Data
-      latestResult: computeResults.getLatestResult(content.results, content.runners),
-      allResultsSummary: computeResults.getAllResultsSummary(content.results, content.runners),
-      allRunners: content.runners,
-
-      // BSRC Legends for Wall of Fame
-      legends: computeResults.computeLegends(content.results, content.runners),
-    },
+    values: globalValues,
   }),
 
   // Generate HTML pages
@@ -280,11 +301,14 @@ exports.tasks = [
         if (slug === 'guest') continue; // Skip guest profile
 
         const runnerStats = computeResults.computeRunnerStats(slug, content.results);
+        const clubRecords = globalValues.clubRecordsMap ? globalValues.clubRecordsMap[slug] : [];
 
         const pageVars = {
-          ...vars,
+          ...globalValues,
+          ...(vars || {}),
           runner,
           runnerStats,
+          clubRecords,
           pageTitle: runner.name,
           isRunnerPage: true,
           cacheHash,
