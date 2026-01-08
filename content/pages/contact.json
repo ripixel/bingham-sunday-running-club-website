@@ -1,16 +1,9 @@
 {
-  "title": "Contact",
+  "title": "Reach Out",
   "subtitle": "Get in touch or just show up!",
-  "sectionTitle": "Join the Conversation",
-  "intro": "The easiest way to get involved is to join our Instagram or Strava club. We share route updates, post-run brunch locations, and the occasional terrible joke.",
+  "sectionTitle": "Join the Fun",
+  "intro": "The easiest way to get involved is to jump onto our Instagram or join the Strava club. We use those to share route updates, post-run brunch spots, and the occasional terrible running joke.",
   "cards": [
-    {
-      "icon": "📧",
-      "color": "#E91E63",
-      "title": "Email Us",
-      "description": "hello@binghamsundayrunningclub.co.uk",
-      "link": "mailto:hello@binghamsundayrunningclub.co.uk"
-    },
     {
       "icon": "📸",
       "color": "#E4405F",
@@ -22,9 +15,9 @@
       "icon": "🏃",
       "color": "#FC4C02",
       "title": "Strava Club",
-      "description": "Join us on Strava",
+      "description": "Join the crew on Strava",
       "link": "https://www.strava.com/clubs/binghamsundayrunningclub"
     }
   ],
-  "meetingNote": "No sign-up needed. Just show up and look for the friendly runners!"
+  "meetingNote": "No need to sign up for anything. Just show up and look for the friendly faces!"
 }

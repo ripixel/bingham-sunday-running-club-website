@@ -1,50 +1,54 @@
 {
-  "title": "About Us",
-  "subtitle": "The chill philosophy behind the club",
+  "title": "The Sunday Lowdown",
+  "subtitle": "How we roll on a Sunday morning",
   "philosophy": {
-    "heading": "Our Philosophy",
-    "content": "We started this club with a simple idea: running shouldn't be a chore. It should be the best part of your week.\n\nWhether you're training for your first 5k or your fiftieth marathon, you have a place here. We don't care about splits or PBs on Sunday mornings. We care about fresh air, good company, and the promise of a hot coffee at the finish line."
+    "heading": "The Sunday Vibe",
+    "content": "Honestly, we're just here for the fresh air and the post-run coffee and bacon. Running by yourself can be a bit of a slog, so we get together to make it more of a social thing. No one's checking their watch, no one's comparing PBs (even if they're tracking them!), and we definitely aren't checking your ID at the door. If you just fancy getting moving on a Sunday morning, you're one of us."
   },
   "vibes": {
-    "heading": "No Pressure, Just Vibes",
-    "content": "Forget the watch. Forget the pace. This run is for you.\n\nWe loop back, we chat, and we make sure no one runs alone (unless they want to!). It's not about how fast you go, but that you went at all.",
+    "heading": "No Pressure, Just Hangs",
+    "content": "Leave the pressure at home. Sunday is our day to switch off the 'serious runner' brain (if you have one). We loop back, we wait for the back of the pack, and we talk... a lot. It’s basically a coffee morning that happens to involve some light jogging.",
     "values": [
       {
         "icon": "🏃",
         "title": "All Paces Welcome",
-        "description": "From walkers to speedsters, everyone's welcome."
+        "description": "Whether you're a speedster or more of a saunterer, you'll fit right in."
       },
       {
         "icon": "☕",
-        "title": "Coffee & Brunch",
-        "description": "We always end with food. It's the best motivation."
+        "title": "Post-Run Breakfast/Coffee",
+        "description": "We always end with coffee and chats. It's the real reason we turn up."
       },
       {
         "icon": "🌧️",
-        "title": "Rain or Shine",
-        "description": "We run every Sunday. The weather is just scenery."
+        "title": "Always Out There",
+        "description": "We're there every Sunday, come rain or shine. Getting a bit muddy is part of the fun."
       },
       {
         "icon": "👋",
-        "title": "Drop In Anytime",
-        "description": "No sign-up, no commitment. Just show up!"
+        "title": "Just Turn Up",
+        "description": "No sign-ups, no fees, no awkward intros. Just show up and say hi!"
+      },
+      {
+        "icon": "🎂",
+        "title": "Birthday Runs",
+        "description": "We're always up for a birthday run, so let us know if you'd like to join us for a special run with cake!"
+      },
+      {
+        "icon": "✨",
+        "title": "Special Events",
+        "description": "We're always up for a special event, like Christmas Day Parkruns or charity runs - keep an eye on our Events page for more info."
       }
     ]
   },
   "location": {
-    "heading": "When & Where",
-    "content": "We meet every Sunday at **9:00 AM** at the Bingham Market Place. Look for the group of slightly tired but enthusiastic people in running gear!\n\nAfter the run, we grab breakfast at one of the local cafés. It's not optional – it's the most important part of the workout.",
+    "heading": "Where to Find Us",
+    "content": "We set off every Sunday at 9:00 AM from the Bingham Market Place (there'll always be some folks there a little earlier for a natter). Look for the group of friendly people in running gear (and probably some excited dogs)!\n\nAfterwards, we head to Gilt for a well-earned breakfast - but if you have to shoot off, that's fine too!",
     "meeting": {
       "when": "Every Sunday @ 9:00 AM",
       "where": "Bingham Market Place",
-      "distance": "5-10km (your choice!)",
-      "after": "Brunch at a local café ☕"
+      "distance": "2-10km (your choice!)",
+      "after": "Brunch & Coffee at Gilt"
     }
-  },
-  "meeting": {
-    "when": "Every Sunday @ 9:00 AM",
-    "where": "Bingham Market Place",
-    "distance": "5-10km (your choice!)",
-    "after": "Brunch at a local café ☕"
   }
 }

@@ -1,14 +1,14 @@
 {
   "hero": {
     "tagline": "All Paces. All Smiles.",
-    "ctaText": "Join Us On Strava",
+    "ctaText": "Join Our Crew",
     "ctaLink": "https://www.strava.com/clubs/binghamsundayrunningclub",
     "heroImage": "/images/gemini_generated_image_abebp4abebp4abeb-edit.jpg"
   },
   "story": {
     "label": "Our Story",
     "title": "More Than Just Running",
-    "description": "Bingham's easy-going Sunday run. No memberships or fees—just turn up! All paces welcome and we never leave anyone behind. Dogs, strollers, bikes, and kids are all welcome.",
+    "description": "We're a group of friends who just happen to run together. No memberships, no bib numbers, just good vibes. All paces are welcome, and we promise to never leave anyone behind. Dogs, strollers, and tiny humans on bikes are all part of the crew!",
     "founder": {
       "name": "Dean",
       "tagline": "Founder & Chief Speaker Carrier",
@@ -16,58 +16,60 @@
     },
     "keyMembers": [
       {
-        "name": "Sarah",
-        "tagline": "5K Speed Demon",
-        "photo": "/images/placeholder-member.jpg",
+        "name": "Charlotte",
+        "tagline": "Swag Seller",
+        "photo": "/images/charlotte.png",
         "accentColor": "pink"
       },
       {
-        "name": "Mike",
-        "tagline": "Marathon Enthusiast",
-        "photo": "/images/placeholder-member.jpg",
+        "name": "James",
+        "tagline": "Website Nerd",
+        "photo": "/images/james.png",
         "accentColor": "green"
-      },
-      {
-        "name": "Emma",
-        "tagline": "Trail Running Expert",
-        "photo": "/images/placeholder-member.jpg",
-        "accentColor": "blue"
       }
     ]
   },
   "vibe": {
-    "title": "Weekly Vibe",
+    "title": "Quick Links",
     "cards": [
       {
-        "title": "Meet Up & Move",
-        "description": "",
+        "title": "About Us",
+        "description": "Learn more about the club!",
         "icon": "👥",
-        "buttonText": "View Full Schedule",
+        "buttonText": "See the Schedule",
         "buttonLink": "/about",
         "openInNewTab": false
       },
       {
-        "title": "Connect & Chat",
-        "description": "",
+        "title": "Catch the Highlights",
+        "description": "See what we've been up to.",
         "icon": "📷",
-        "buttonText": "Follow Us",
+        "buttonText": "Follow on Insta",
         "buttonLink": "https://www.instagram.com/sundayrunclub_bingham",
         "openInNewTab": true
       },
       {
-        "title": "Track & Share",
-        "description": "Find Us On Strava",
+        "title": "Share Your Run",
+        "description": "Give out some kudos!",
         "icon": "🏃",
-        "buttonText": "Follow Our Socials",
+        "buttonText": "Join Us On Strava",
         "buttonLink": "https://www.strava.com/clubs/binghamsundayrunningclub",
+        "openInNewTab": true
+      },
+      {
+        "title": "Get some training",
+        "description": "Speak to Dean!",
+        "icon": "💪",
+        "buttonText": "DM on Insta",
+        "buttonLink": "https://www.instagram.com/dmmich_pt/",
         "openInNewTab": true
       }
     ]
   },
   "merch": {
-    "title": "Club Merch",
-    "description": "Look the part with our official club gear.",
-    "note": "Available to purchase at the run. Cash or card accepted.",
+    "title": "Club Swag",
+    "description": "Represent the club with our comfy gear.",
+    "note": "Grab yours at any Sunday meet. We take cash or bank transfer.",
     "items": [
       {
         "name": "BSRC Tech Tee",
@@ -82,7 +84,7 @@
     ]
   },
   "pbs": {
-    "title": "Club Records",
+    "title": "Wall of Fame",
     "records": [
       {
         "name": "Sarah J.",
@@ -101,6 +103,12 @@
         "distance": "Half Marathon",
         "time": "1:45:30",
         "date": "2024-05-10"
+      },
+      {
+        "name": "John D.",
+        "distance": "Marathon",
+        "time": "3:45:00",
+        "date": "2024-01-20"
       }
     ]
   }

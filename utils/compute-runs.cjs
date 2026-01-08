@@ -24,15 +24,10 @@ function getNextSunday(date) {
 }
 
 function computeRuns(content) {
-  const recurringRunDef = content.pages.about?.meeting || {
-    when: "Every Sunday @ 9:00 AM",
-    where: "Bingham Market Place",
-    distance: "5-10km (your choice!)",
-    after: "Brunch at a local café ☕",
-    meetingNote: undefined,
-    link: undefined,
-    linkText: undefined
-  };
+  const recurringRunDef = content.pages.about?.location?.meeting;
+  if (!recurringRunDef) {
+    throw new Error("Missing recurring run definition in content/pages/about.json");
+  }
 
   const specialEvents = Object.values(content.events || {}).map(event => ({
     ...event,
