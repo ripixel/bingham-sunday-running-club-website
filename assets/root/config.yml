@@ -144,6 +144,35 @@ collections:
               - { label: "Heading", name: "heading", widget: "string", default: "Our Philosophy" }
               - { label: "Content", name: "content", widget: "markdown" }
 
+          - label: "Route Section"
+            name: "route"
+            widget: "object"
+            fields:
+              - { label: "Heading", name: "heading", widget: "string", default: "What's the route?" }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Approach"
+                name: "approach"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "The Approach" }
+                  - { label: "Distance", name: "distance", widget: "string", default: "1km" }
+                  - { label: "Description", name: "description", widget: "string" }
+              - label: "Finishing"
+                name: "finishing"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", default: "Back for Breakfast" }
+                  - { label: "Description", name: "description", widget: "string" }
+              - label: "Loops"
+                name: "loops"
+                widget: "list"
+                fields:
+                  - { label: "ID", name: "id", widget: "string", hint: "unique id (e.g. small)" }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Distance", name: "distance", widget: "string" }
+                  - { label: "Description", name: "description", widget: "string" }
+                  - { label: "Color", name: "color", widget: "select", options: ["pink", "green", "blue"], default: "pink" }
+
           - label: "Vibes Section"
             name: "vibes"
             widget: "object"

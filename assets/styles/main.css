@@ -2232,6 +2232,28 @@ strong {
   color: var(--color-blue);
 }
 
+.loop-info-long h3 {
+  color: var(--color-blue);
+}
+
+.finishing-info {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0.7;
+}
+
+.finishing-info h3 {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-1);
+}
+
+.finishing-info p {
+  font-size: var(--text-sm);
+  margin-bottom: 0;
+}
+
 .loop-info {
   display: none;
   animation: fadeIn 0.3s ease;

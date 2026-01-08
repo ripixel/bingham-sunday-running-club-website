@@ -205,6 +205,102 @@ var AboutPreview = createClass({
                 h('div', { className: 'markdown-content' }, philosophy.get('content'))
               ) : null,
 
+              // Route Section
+              (entry.getIn(['data', 'route'])) ? h('section', { className: 'section section-route' },
+                h('div', { className: 'container' },
+                  h('div', { className: 'section-title' },
+                    h('span', { className: 'section-label' }, 'THE COURSE'),
+                    h('h2', {}, entry.getIn(['data', 'route', 'heading'])),
+                    h('p', { className: 'section-text' }, entry.getIn(['data', 'route', 'description']))
+                  ),
+
+                  h('div', { className: 'route-container' },
+                    // Controls
+                    h('div', { className: 'route-controls' },
+                      // Tabs
+                      h('div', { className: 'route-tabs' },
+                        (entry.getIn(['data', 'route', 'loops']) || []).map(function (loop, i) {
+                          return h('button', { key: i, className: 'route-tab ' + (i === 0 ? 'active' : '') },
+                            h('span', { className: 'tab-title' }, loop.get('title')),
+                            h('span', { className: 'tab-dist' }, loop.get('distance'))
+                          );
+                        })
+                      ),
+
+                      // Calculator (Static Mock)
+                      h('div', { className: 'route-calculator theme-pink' },
+                        h('div', { className: 'calc-equation' },
+                          h('span', { className: 'calc-static' }, 'Approach (0.55km)'),
+                          h('span', { className: 'calc-op' }, '+'),
+                          h('div', { className: 'calc-input-wrapper' },
+                            h('input', { type: 'number', className: 'calc-input', value: '1', disabled: true }),
+                            h('span', { className: 'calc-label' }, 'laps')
+                          ),
+                        ),
+                        h('div', { className: 'calc-result' },
+                          h('span', { className: 'calc-op' }, '≈'),
+                          h('span', { className: 'calc-total-value' }, '1.35km')
+                        )
+                      ),
+
+                      // Info
+                      h('div', { className: 'route-info' },
+                        // Approach
+                        h('div', { className: 'approach-info' },
+                          h('h3', {}, entry.getIn(['data', 'route', 'approach', 'title'])),
+                          h('p', {}, entry.getIn(['data', 'route', 'approach', 'description']))
+                        ),
+
+                        // Loops
+                        (entry.getIn(['data', 'route', 'loops']) || []).map(function (loop, i) {
+                          // Always show all loops in preview for editing, or just the first?
+                          // Let's show all but maybe styled as if they are lists for the preview sake,
+                          // or just show the active one. The user asked to update preview to account for changes.
+                          // Live site hides inactive ones. For CMS it's often better to see all content.
+                          // Let's force them distinct by adding color classes directly or just listing them.
+                          // Actually, the CSS hides .loop-info that isn't active.
+                          // Let's mimic the structure but force display for preview context or just active first.
+                          // Simplest is to render them all but override display style inline if needed,
+                          // OR just render them as a list for the editor to see.
+                          // Let's adhere to the "active" visual.
+                          var isActive = i === 0;
+                          return h('div', {
+                            key: i,
+                            className: 'loop-info loop-info-' + loop.get('id') + (isActive ? ' active' : ''),
+                            style: { display: isActive ? 'block' : 'none' } // Force display logic if CSS relies on JS
+                          },
+                            h('h3', {}, loop.get('title')),
+                            h('p', {}, loop.get('description'))
+                          );
+                        }),
+
+                        // Finishing
+                        h('div', { className: 'finishing-info' },
+                          h('h3', {}, entry.getIn(['data', 'route', 'finishing', 'title'])),
+                          h('p', {}, entry.getIn(['data', 'route', 'finishing', 'description']))
+                        )
+                      )
+                    ),
+
+                    // Map Placeholder
+                    h('div', { className: 'route-map-container' },
+                      h('div', {
+                        style: {
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#999',
+                          fontSize: '1.5rem',
+                          background: '#e5e7eb'
+                        }
+                      }, 'Interactive Map Preview')
+                    )
+                  )
+                )
+              ) : null,
+
               // Vibes Section
               vibes ? h('div', { className: 'about-block' },
                 h('h2', {}, vibes.get('heading')),
