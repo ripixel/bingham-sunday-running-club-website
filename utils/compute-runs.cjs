@@ -42,19 +42,33 @@ function computeRuns(content) {
   // Start from next upcoming Sunday
   let nextSunday = getNextSunday(currentDate);
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 21; i++) {
     const runDate = new Date(nextSunday);
     runDate.setDate(nextSunday.getDate() + (i * 7));
     runDate.setHours(9, 0, 0, 0);
 
+    // Check for "clash" with special events
+    // A clash is a special event on the same Sunday that starts before 10:00 AM
+    const hasClash = specialEvents.some(event => {
+      const isSameDay = event.dateObj.getFullYear() === runDate.getFullYear() &&
+        event.dateObj.getMonth() === runDate.getMonth() &&
+        event.dateObj.getDate() === runDate.getDate();
+      const isBefore10AM = event.dateObj.getHours() < 10;
+      return isSameDay && isBefore10AM;
+    });
+
+    if (hasClash) {
+      continue; // Skip the regular Sunday run if there's a clash
+    }
+
     recurringRuns.push({
-      title: "Sunday Club Run",
+      title: "Sunday Run & Breakfast ☕",
       date: runDate.toISOString(),
       dateObj: runDate,
       location: recurringRunDef.where,
       distance: recurringRunDef.distance, // Explicit distance field
-      body: `Join us for our regular Sunday run! ${recurringRunDef.distance}`, // Standardize body
-      description: recurringRunDef.distance, // Keep for backward compat or specific UI use if needed
+      body: `Join us for our regular Sunday run! High-visibility gear recommended in winter. Do as many 2km laps as you want—there is no minimum!`, // Standardize body
+      meetingNote: "Breakfast and coffee at Gilt afterwards.",
       isSpecial: false
     });
   }
@@ -79,7 +93,7 @@ function computeRuns(content) {
   const nextRun = upcomingRuns[0];
 
   // Calendar is the list (let's say next 10 items)
-  const eventsList = upcomingRuns.slice(0, 10).map(run => ({
+  const eventsList = upcomingRuns.slice(0, 21).map(run => ({
     ...run,
     // Format date for display if needed here, or let Handlebars do it (better in Handlebars usually, but we might want pre-formatted strings)
     displayDate: run.dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }),

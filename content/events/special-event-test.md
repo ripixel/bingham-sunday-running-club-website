@@ -1,6 +1,6 @@
 ---
 title: Special Event Test
-date: 2026-01-11T09:00:00.000+00:00
+date: 2026-01-11T10:00:00.000+00:00
 location: Bingham Market Place
 distance: 5km Loop
 link: "https://example.com/signup"

@@ -3,11 +3,11 @@
   "subtitle": "How we roll on a Sunday morning",
   "philosophy": {
     "heading": "The Sunday Vibe",
-    "content": "Honestly, we're just here for the fresh air and the post-run coffee and bacon. Running by yourself can be a bit of a slog, so we get together to make it more of a social thing. No one's checking their watch, no one's comparing PBs (even if they're tracking them!), and we definitely aren't checking your ID at the door. If you just fancy getting moving on a Sunday morning, you're one of us."
+    "content": "Honestly, we're just here for the fresh air and the post-run coffee and bacon. Running by yourself can be a bit of a slog, so we get together to make it more of a social thing. No one's checking their watch, no one's comparing PBs (even if they're tracking them!), and we definitely aren't checking your ID at the door. It's a 0.8-1.2km lap (there's three loops to choose from!), so you can do as many as you want—there's no minimum at all. If you just fancy getting moving on a Sunday morning, you're one of us."
   },
   "vibes": {
     "heading": "No Pressure, Just Hangs",
-    "content": "Leave the pressure at home. Sunday is our day to switch off the 'serious runner' brain (if you have one). We loop back, we wait for the back of the pack, and we talk... a lot. It’s basically a coffee morning that happens to involve some light jogging.",
+    "content": "Leave the pressure at home. Sunday is our day to switch off the 'serious runner' brain (if you have one). We loop back, we wait for the back of the pack, and we talk... a lot. Whether you're doing one lap or five, it’s basically a coffee morning that happens to involve some light jogging.",
     "values": [
       {
         "icon": "🏃",
@@ -30,14 +30,24 @@
         "description": "No sign-ups, no fees, no awkward intros. Just show up and say hi!"
       },
       {
-        "icon": "🎂",
-        "title": "Birthday Runs",
-        "description": "We're always up for a birthday run, so let us know if you'd like to join us for a special run with cake!"
-      },
-      {
         "icon": "✨",
         "title": "Special Events",
-        "description": "We're always up for a special event, like Christmas Day Parkruns or charity runs - keep an eye on our Events page for more info."
+        "description": "We're always up for a special event, like Christmas Day Parkruns or external runs - keep an eye on our Events page for more info."
+      },
+      {
+        "icon": "🛝",
+        "title": "Kids Welcome",
+        "description": "There's a playground on site for kids to run around and play if they get bored of the adults - and Gilt does great hot chocolates and milkshakes!"
+      },
+      {
+        "icon": "🐕",
+        "title": "Dogs Welcome",
+        "description": "We welcome dogs on runs, but please keep them on a lead."
+      },
+      {
+        "icon": "🍼",
+        "title": "Prams & Strollers Welcome",
+        "description": "We welcome prams and strollers on runs if you're up for the challenge!"
       }
     ]
   },
