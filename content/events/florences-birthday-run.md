@@ -1,6 +1,6 @@
 ---
 title: 🎂 Florence's Birthday Run
-date: 2026-03-01T09:00:00.000+00:00
+date: 2026-03-22T09:00:00.000+00:00
 location: Bingham Market Place
 distance: 2-10km (your choice!)
 meetingNote: ""
