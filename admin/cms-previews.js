@@ -1,11 +1,11 @@
-/* global CMS, React */
+/* global CMS */
 
 // Register the main stylesheet and fonts
 CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@700;800&display=swap");
 CMS.registerPreviewStyle("/styles.min.css");
 
-// Helper to make React calls less verbose
-const h = React.createElement;
+// Helper to make React calls less verbose - use CMS's built-in React
+const h = CMS.h || window.h;
 
 const HomePreview = ({ entry, getAsset }) => {
   const data = entry.getIn(['data']).toJS();
