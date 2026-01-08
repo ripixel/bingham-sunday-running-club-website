@@ -9,6 +9,13 @@ backend:
   base_url: https://binghamsundayrunningclub.co.uk
   auth_endpoint: api/auth
   api_root: https://api.github.com
+  commit_messages:
+    create: "feat(content): Create {{collection}} “{{slug}}”"
+    update: "feat(content): Update {{collection}} “{{slug}}”"
+    delete: "feat(content): Delete {{collection}} “{{slug}}”"
+    uploadMedia: "feat(media): Upload “{{path}}”"
+    deleteMedia: "feat(media): Delete “{{path}}”"
+    openAuthoring: '{{message}}'
 
 # Media files storage
 media_folder: "assets/images"
