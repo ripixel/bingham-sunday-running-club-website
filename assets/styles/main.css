@@ -1692,6 +1692,16 @@ strong {
   .pbs-grid {
     grid-template-columns: repeat(4, 1fr);
   }
+
+  /* When there are exactly 2 items, show 2 columns */
+  .pbs-grid:has(.pb-card:nth-child(2):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* When there are exactly 3 items, show 1 column */
+  .pbs-grid:has(.pb-card:nth-child(3):last-child) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .pb-card {
@@ -1876,14 +1886,8 @@ strong {
 .merch-grid {
   display: grid;
   gap: var(--space-6);
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   margin-bottom: var(--space-8);
-}
-
-@media (min-width: 640px) {
-  .merch-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (min-width: 1024px) {
