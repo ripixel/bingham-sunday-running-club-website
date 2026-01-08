@@ -70,6 +70,9 @@ const content = {
   merch: loadContentDir('merch'), // If we add separate files for merch later
 };
 
+// Generate a hash for cache busting (using timestamp)
+const cacheHash = Date.now().toString(36);
+
 exports.tasks = [
   // Clean & Create output directory
   prepareOutputTask({
@@ -80,7 +83,7 @@ exports.tasks = [
   bundleCssTask({
     from: './assets/styles',
     to: './public',
-    output: 'styles.min.css',
+    output: `styles.min.${cacheHash}.css`,
     minify: true,
   }),
 
@@ -114,6 +117,25 @@ exports.tasks = [
     to: './public/scripts',
   }),
 
+  // Hash scripts
+  {
+    run: async () => {
+      const scriptsDir = path.join(__dirname, 'public/scripts');
+      if (fs.existsSync(scriptsDir)) {
+        const files = fs.readdirSync(scriptsDir);
+        files.forEach(file => {
+          if (file.endsWith('.js')) {
+            const oldPath = path.join(scriptsDir, file);
+            const newName = file.replace('.js', `.${cacheHash}.js`);
+            const newPath = path.join(scriptsDir, newName);
+            fs.renameSync(oldPath, newPath);
+            console.log(`Renamed ${file} to ${newName}`);
+          }
+        });
+      }
+    }
+  },
+
   // Make content globally available
   setGlobalsTask({
     values: {
@@ -121,6 +143,7 @@ exports.tasks = [
       siteUrl: 'https://binghamsundayrunningclub.co.uk/',
       year: new Date().getFullYear(),
       noindex: process.env.NODE_ENV === 'production' ? '' : '<meta name="robots" content="noindex">',
+      cacheHash: cacheHash,
 
       // Inject all content into global scope
       content: content,

@@ -72,3 +72,20 @@ workflows:
               only: main
           requires:
             - build
+
+  scheduled_build_and_deploy:
+    triggers:
+      - schedule:
+          cron: "0 10,18 * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - install_deps
+      - build:
+          requires:
+            - install_deps
+      - deploy_to_firebase:
+          requires:
+            - build

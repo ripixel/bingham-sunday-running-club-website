@@ -11,7 +11,7 @@
     "description": "We're a group of friends who just happen to run together. No memberships, no bib numbers, just good vibes. All paces are welcome, and we promise to never leave anyone behind. Our route is lap-based, so you can do as many laps as you want—there's absolutely no minimum! Dogs, strollers, and tiny humans on bikes are all part of the crew",
     "buttons": [
       {
-        "text": "Read Our Philosophy",
+        "text": "Find out more",
         "link": "/about",
         "style": "primary"
       },
