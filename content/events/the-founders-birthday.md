@@ -1,8 +1,8 @@
 ---
-title: 🎂 The Founder's Birthday
-date: 2026-01-18T09:00:00.000+00:00
+title: 💘 Valentine's Va-va-voom
+date: 2026-02-15T09:00:00.000+00:00
 location: Bingham Market Place
 distance: " 2-10km (your choice!)"
 linkText: ""
 ---
-It's Dean's birthday! Usual time, usual place, but we sing Happy Birthday to him endlessly until he cracks.
+Everyone in red/pink, and extra points for dressing up as something (who knows what though - keep it PG...)! Usual time, usual place.
