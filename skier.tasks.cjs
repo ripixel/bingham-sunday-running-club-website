@@ -1,55 +1,25 @@
 // @ts-check
+require('ts-node').register();
+
 const {
   prepareOutputTask,
   bundleCssTask,
   copyStaticTask,
   setGlobalsTask,
   generatePagesTask,
-  generateItemsTask,
-  generateSitemapTask,
 } = require('skier');
-const fs = require('fs');
 const path = require('path');
 
-// Helper to load all JSON files from a directory
-function loadContentDir(dirName) {
-  const content = {};
-  const dirPath = path.resolve(__dirname, 'content', dirName);
+// Import TS helpers
+const { loadContentDir } = require('./utils/content-loader.cts');
+const { computeClubRecords } = require('./utils/club-records.cts');
 
-  if (fs.existsSync(dirPath)) {
-    const files = fs.readdirSync(dirPath);
-    files.forEach(file => {
-      const ext = path.extname(file);
-      const name = path.basename(file, ext);
-
-      if (ext === '.json') {
-        try {
-          const data = JSON.parse(fs.readFileSync(path.join(dirPath, file), 'utf8'));
-          content[name] = data;
-        } catch (e) {
-          console.warn(`Error loading content ${dirName}/${file}:`, e);
-        }
-      } else if (ext === '.md') {
-        try {
-          const fileContent = fs.readFileSync(path.join(dirPath, file), 'utf8');
-          // Parse frontmatter using js-yaml
-          const match = fileContent.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-          if (match) {
-            const frontmatter = match[1];
-            const body = match[2];
-            const yaml = require('js-yaml');
-            const data = yaml.load(frontmatter) || {};
-            data.body = body.trim();
-            content[name] = data;
-          }
-        } catch (e) {
-          console.warn(`Error loading markdown content ${dirName}/${file}:`, e);
-        }
-      }
-    });
-  }
-  return content;
-}
+// Import TS tasks
+const { createHashAdminAssetsTask } = require('./tasks/hash-admin-assets.cts');
+const { createHashScriptsTask } = require('./tasks/hash-scripts.cts');
+const { createGenerateRunnerPagesTask } = require('./tasks/generate-runner-pages.cts');
+const { createGenerateResultPagesTask } = require('./tasks/generate-result-pages.cts');
+const { createGenerateSitemapTask } = require('./tasks/generate-sitemap.cts');
 
 // Load content upfront
 const content = {
@@ -69,45 +39,8 @@ const cacheHash = Date.now().toString(36);
 
 // Pre-compute Legends and Records
 const legends = computeResults.computeLegends(content.results, content.runners);
-
-const clubRecordsMap = (() => {
-  const records = content.pages.home?.pbs?.records || [];
-  const heldBy = {};
-
-  // 1. Enrich Manual Records (All-Time PBs)
-  records.forEach(r => {
-    if (r.runner && content.runners[r.runner]) {
-      r.photo = content.runners[r.runner].photo;
-      if (!heldBy[r.runner]) heldBy[r.runner] = [];
-      heldBy[r.runner].push(r);
-    }
-  });
-
-  // 2. Add Legends as Records
-  Object.entries(legends).forEach(([key, item]) => {
-    // Legends returns single object per key (item is the object), not array
-    if (item && item.runner && content.runners[item.runner]) {
-
-      // Enrich with photo if missing (though compute-results might have it)
-      if (!item.photo) item.photo = content.runners[item.runner].photo;
-
-      if (!heldBy[item.runner]) heldBy[item.runner] = [];
-
-      let title = "Legend";
-      // Use icon from legend definition or default to trophy
-      let icon = item.icon || "🏆";
-      let val = "";
-
-      if (key === 'mostEvents') { title = "Most Events"; val = `${item.totalRuns} runs`; }
-      if (key === 'mostDistance') { title = "Most Distance"; val = `${item.totalDistanceFormatted}km`; }
-      if (key === 'fastestPace') { title = "Fastest Pace"; val = item.avgPace || item.pace; }
-
-      heldBy[item.runner].push({ distance: title, time: val, icon: icon });
-    }
-  });
-
-  return heldBy;
-})();
+const records = content.pages.home?.pbs?.records || [];
+const clubRecordsMap = computeClubRecords(records, content.runners, legends);
 
 // Define global values to share across tasks
 const globalValues = {
@@ -164,35 +97,7 @@ exports.tasks = [
   }),
 
   // Hash admin assets
-  {
-    run: async (_, { logger }) => {
-      const adminDir = path.join(__dirname, 'public/admin');
-      const previewsJsPath = path.join(adminDir, 'cms-previews.js');
-      const adminHtmlPath = path.join(adminDir, 'index.html');
-
-      if (fs.existsSync(previewsJsPath)) {
-        // 1. Update generated CSS link in cms-previews.js
-        let jsContent = fs.readFileSync(previewsJsPath, 'utf8');
-        jsContent = jsContent.replace('/styles.min.css', `/styles.min.${cacheHash}.css`);
-
-        // 2. Write to new hashed filename
-        const hashedJsName = `cms-previews.${cacheHash}.js`;
-        fs.writeFileSync(path.join(adminDir, hashedJsName), jsContent);
-
-        // 3. Delete original (optional, but cleaner)
-        fs.unlinkSync(previewsJsPath);
-        logger.info(`Processed admin/cms-previews.js -> ${hashedJsName}`);
-
-        // 4. Update index.html to point to new JS
-        if (fs.existsSync(adminHtmlPath)) {
-          let htmlContent = fs.readFileSync(adminHtmlPath, 'utf8');
-          htmlContent = htmlContent.replace('/admin/cms-previews.js', `/admin/${hashedJsName}`);
-          fs.writeFileSync(adminHtmlPath, htmlContent);
-          logger.info('Updated admin/index.html reference');
-        }
-      }
-    }
-  },
+  createHashAdminAssetsTask(cacheHash),
 
   // Copy content folder
   copyStaticTask({
@@ -213,23 +118,7 @@ exports.tasks = [
   }),
 
   // Hash scripts
-  {
-    run: async (_, { logger }) => {
-      const scriptsDir = path.join(__dirname, 'public/scripts');
-      if (fs.existsSync(scriptsDir)) {
-        const files = fs.readdirSync(scriptsDir);
-        files.forEach(file => {
-          if (file.endsWith('.js')) {
-            const oldPath = path.join(scriptsDir, file);
-            const newName = file.replace('.js', `.${cacheHash}.js`);
-            const newPath = path.join(scriptsDir, newName);
-            fs.renameSync(oldPath, newPath);
-            logger.info(`Renamed ${file} to ${newName}`);
-          }
-        });
-      }
-    }
-  },
+  createHashScriptsTask(cacheHash),
 
   // Make content globally available
   setGlobalsTask({
@@ -293,174 +182,11 @@ exports.tasks = [
   }),
 
   // Generate individual runner profile pages
-  {
-    run: async (vars, { logger }) => {
-      const Handlebars = require('handlebars');
-      const runnersDir = path.join(__dirname, 'content/runners');
-      const templatePath = path.join(__dirname, 'templates/runner.html');
-      const partialsDir = path.join(__dirname, 'partials');
-      const outDir = path.join(__dirname, 'public/runners');
-
-      // Skip if template doesn't exist yet
-      if (!fs.existsSync(templatePath)) {
-        logger.info('Runner template not found, skipping runner page generation');
-        return;
-      }
-
-      // Register partials
-      if (fs.existsSync(partialsDir)) {
-        fs.readdirSync(partialsDir).forEach(file => {
-          if (file.endsWith('.html')) {
-            const name = path.basename(file, '.html');
-            const partialContent = fs.readFileSync(path.join(partialsDir, file), 'utf8');
-            Handlebars.registerPartial(name, partialContent);
-          }
-        });
-      }
-
-      // Load template
-      const templateContent = fs.readFileSync(templatePath, 'utf8');
-      const template = Handlebars.compile(templateContent);
-
-      // Generate a page for each runner (except guest)
-      const runners = Object.entries(content.runners || {});
-      for (const [slug, runner] of runners) {
-        if (slug === 'guest') continue; // Skip guest profile
-
-        const runnerStats = computeResults.computeRunnerStats(slug, content.results);
-        const clubRecords = globalValues.clubRecordsMap ? globalValues.clubRecordsMap[slug] : [];
-
-        const pageVars = {
-          ...globalValues,
-          ...(vars || {}),
-          runner,
-          runnerStats,
-          clubRecords,
-          pageTitle: runner.name,
-          isRunnerPage: true,
-          cacheHash,
-          content,
-        };
-
-        const html = template(pageVars);
-        const outPath = path.join(outDir, slug, 'index.html');
-        fs.mkdirSync(path.dirname(outPath), { recursive: true });
-        fs.writeFileSync(outPath, html);
-        logger.info(`Generated runner page: ${slug}`);
-      }
-    }
-  },
+  createGenerateRunnerPagesTask(content, globalValues, cacheHash, computeResults),
 
   // Generate individual result detail pages
-  {
-    run: async (vars, { logger }) => {
-      const Handlebars = require('handlebars');
-      const resultsDir = path.join(__dirname, 'content/results');
-      const templatePath = path.join(__dirname, 'templates/result.html');
-      const partialsDir = path.join(__dirname, 'partials');
-      const outDir = path.join(__dirname, 'public/results');
-
-      // Skip if template doesn't exist yet
-      if (!fs.existsSync(templatePath)) {
-        logger.info('Result template not found, skipping result page generation');
-        return;
-      }
-
-      // Register partials
-      if (fs.existsSync(partialsDir)) {
-        fs.readdirSync(partialsDir).forEach(file => {
-          if (file.endsWith('.html')) {
-            const name = path.basename(file, '.html');
-            const partialContent = fs.readFileSync(path.join(partialsDir, file), 'utf8');
-            Handlebars.registerPartial(name, partialContent);
-          }
-        });
-      }
-
-      // Load template
-      const templateContent = fs.readFileSync(templatePath, 'utf8');
-      const template = Handlebars.compile(templateContent);
-
-      // Generate a page for each result
-      const results = Object.entries(content.results || {});
-      for (const [slug, result] of results) {
-        const resultStats = computeResults.computeResultStats(result);
-        const enrichedParticipants = computeResults.enrichParticipants(
-          result.participants,
-          content.runners,
-          content.results
-        );
-        const dateObj = new Date(result.date);
-
-        const pageVars = {
-          ...vars,
-          result: {
-            ...result,
-            slug,
-            dateObj,
-            displayDate: dateObj.toLocaleDateString('en-GB', {
-              weekday: 'long',
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric'
-            }),
-            displayTime: dateObj.toLocaleTimeString('en-GB', {
-              hour: '2-digit',
-              minute: '2-digit'
-            }),
-          },
-          resultStats,
-          participants: enrichedParticipants,
-          pageTitle: result.title,
-          isResultPage: true,
-          cacheHash,
-          content,
-        };
-
-        const html = template(pageVars);
-        const outPath = path.join(outDir, slug, 'index.html');
-        fs.mkdirSync(path.dirname(outPath), { recursive: true });
-        fs.writeFileSync(outPath, html);
-        logger.info(`Generated result page: ${slug}`);
-      }
-    }
-  },
+  createGenerateResultPagesTask(content, globalValues, cacheHash, computeResults),
 
   // Generate sitemap.xml (excluding admin pages)
-  {
-    run: async (_, { logger }) => {
-      const siteUrl = 'https://binghamsundayrunningclub.co.uk';
-      const publicDir = path.join(__dirname, 'public');
-
-      // Find all HTML files
-      const findHtmlFiles = (dir, files = []) => {
-        const items = fs.readdirSync(dir);
-        for (const item of items) {
-          const fullPath = path.join(dir, item);
-          const stat = fs.statSync(fullPath);
-          if (stat.isDirectory()) {
-            findHtmlFiles(fullPath, files);
-          } else if (item.endsWith('.html')) {
-            files.push(fullPath);
-          }
-        }
-        return files;
-      };
-
-      const htmlFiles = findHtmlFiles(publicDir);
-
-      // Filter out admin pages and generate sitemap entries
-      const sitemapEntries = htmlFiles
-        .map(file => file.replace(publicDir, '').replace(/\\/g, '/'))
-        .filter(urlPath => !urlPath.includes('/admin/'))
-        .map(urlPath => `<url><loc>${siteUrl}${urlPath}</loc></url>`)
-        .join('\n    ');
-
-      const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n    ${sitemapEntries}\n</urlset>\n`;
-
-      const outPath = path.join(publicDir, 'sitemap.xml');
-      fs.writeFileSync(outPath, xml);
-      logger.info(`Generated sitemap.xml (excluding admin pages)`);
-    }
-  },
+  createGenerateSitemapTask('https://binghamsundayrunningclub.co.uk'),
 ];
