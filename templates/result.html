@@ -100,9 +100,9 @@
                       {{/if}}
                     </td>
                     <td class="route-cell">{{{routeHtml}}}</td>
-                    <td>{{distance}}km</td>
+                    <td>{{distance}}km{{#if distanceMedal}} {{distanceMedal}}{{/if}}</td>
                     <td>{{time}}</td>
-                    <td>{{pace}}</td>
+                    <td>{{pace}}{{#if paceMedal}} {{paceMedal}}{{/if}}</td>
                   </tr>
                 {{/each}}
               </tbody>

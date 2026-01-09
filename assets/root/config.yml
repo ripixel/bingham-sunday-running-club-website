@@ -40,11 +40,11 @@ collections:
     description: "Edit site pages content"
     files:
       # Homepage
-          - label: "Homepage"
-            name: "home"
-            file: "content/pages/home.json"
-            fields:
-              - label: "Hero Section"
+      - label: "Homepage"
+        name: "home"
+        file: "content/pages/home.json"
+        fields:
+          - label: "Hero Section"
             name: "hero"
             widget: "object"
             fields:

@@ -101,16 +101,17 @@
                       </td>
                       <td>{{title}}</td>
                       <td>{{{routeHtml}}}</td>
-                      <td>{{distance}}km</td>
-                      <td>{{time}}</td>
-                      <td>{{pace}}</td>
-                    </tr>
-                  {{/each}}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
+                      <td>{{distance}}km{{#if distanceMedal}} {{distanceMedal}}
+      {{/if}}</td>
+      <td>{{time}}</td>
+      <td>{{pace}}{{#if paceMedal}} {{paceMedal}}{{/if}}</td>
+      </tr>
+      {{/each}}
+      </tbody>
+      </table>
+      </div>
+      </div>
+      </section>
       {{else}}
         <section class="section section-run-history">
           <div class="container">
@@ -118,14 +119,14 @@
             <p class="no-data">No recorded runs yet. Check back after the next Sunday run!</p>
           </div>
         </section>
-      {{/if}}
+        {{/if}}
 
-      <!-- Back to Results -->
-      <section class="section section-back">
-        <div class="container" style="text-align: center;">
-          <a href="/results/" class="btn btn-secondary">← Back to All Results</a>
-        </div>
-      </section>
+        <!-- Back to Results -->
+        <section class="section section-back">
+          <div class="container" style="text-align: center;">
+            <a href="/results/" class="btn btn-secondary">← Back to All Results</a>
+          </div>
+        </section>
 
     </main>
 

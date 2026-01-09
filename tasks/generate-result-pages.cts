@@ -45,7 +45,8 @@ export const createGenerateResultPagesTask = (
       const enrichedParticipants = computeResults.enrichParticipants(
         result.participants,
         content.runners,
-        content.results
+        content.results,
+        result.date
       );
       const dateObj = new Date(result.date);
 

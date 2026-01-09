@@ -118,7 +118,7 @@ function computeResultStats(result) {
 /**
  * Enrich participants with runner profiles and computed values
  */
-function enrichParticipants(participants, runners, allResults) {
+function enrichParticipants(participants, runners, allResults, currentResultDate) {
   let anonymousCounter = 1;
   const colorClasses = ['pink', 'green', 'blue'];
   let colorIndex = 0;
@@ -143,6 +143,52 @@ function enrichParticipants(participants, runners, allResults) {
     const hasProfile = !!runner && p.runner !== 'guest';
     const colorClass = hasProfile ? colorClasses[colorIndex++ % colorClasses.length] : null;
 
+    // Determine if this is in the top 3 performances (gold/silver/bronze)
+    let distanceMedal = null;
+    let paceMedal = null;
+
+    if (hasProfile && currentResultDate) {
+      // Get all previous runs for this runner (before current result)
+      const previousRuns = [];
+      const currentDate = new Date(currentResultDate);
+
+      Object.entries(allResults || {}).forEach(([slug, result]) => {
+        const resultDate = new Date(result.date);
+        if (resultDate < currentDate) {
+          (result.participants || []).forEach(participant => {
+            if (participant.runner === p.runner) {
+              const runTimeSeconds = parseTime(participant.time);
+              const runPaceSeconds = runTimeSeconds / (participant.distance || 1);
+              previousRuns.push({
+                distance: participant.distance || 0,
+                paceSeconds: runPaceSeconds
+              });
+            }
+          });
+        }
+      });
+
+      const currentPaceSeconds = timeSeconds / (p.distance || 1);
+
+      // Rank distance (higher is better)
+      const allDistances = [...previousRuns.map(r => r.distance), p.distance];
+      const sortedDistances = [...new Set(allDistances)].sort((a, b) => b - a);
+      const distanceRank = sortedDistances.indexOf(p.distance) + 1;
+
+      if (distanceRank === 1) distanceMedal = '🥇';
+      else if (distanceRank === 2) distanceMedal = '🥈';
+      else if (distanceRank === 3) distanceMedal = '🥉';
+
+      // Rank pace (lower is better = faster)
+      const allPaces = [...previousRuns.map(r => r.paceSeconds), currentPaceSeconds];
+      const sortedPaces = [...new Set(allPaces)].sort((a, b) => a - b);
+      const paceRank = sortedPaces.indexOf(currentPaceSeconds) + 1;
+
+      if (paceRank === 1) paceMedal = '🥇';
+      else if (paceRank === 2) paceMedal = '🥈';
+      else if (paceRank === 3) paceMedal = '🥉';
+    }
+
     return {
       ...p,
       displayName,
@@ -153,7 +199,9 @@ function enrichParticipants(participants, runners, allResults) {
       routeHtml,
       attendanceCount,
       hasProfile,
-      colorClass
+      colorClass,
+      distanceMedal,
+      paceMedal
     };
   });
 }
@@ -249,6 +297,44 @@ function computeRunnerStats(runnerId, allResults, runner) {
     const paceSeconds = parseTime(runner.startingValues.avgPace);
     totalTimeSeconds = paceSeconds * runner.startingValues.totalKm;
   }
+
+  // Add top 3 performance tracking to run history
+  // Process runs chronologically (oldest first) to track rankings
+  const chronologicalHistory = [...runHistory].reverse();
+
+  chronologicalHistory.forEach((run, index) => {
+    const runTimeSeconds = parseTime(run.time);
+    const runPaceSeconds = runTimeSeconds / (run.distance || 1);
+
+    // Get all runs up to and including this one
+    const runsUpToNow = chronologicalHistory.slice(0, index + 1);
+
+    // Rank distance (higher is better)
+    const distances = runsUpToNow.map(r => r.distance);
+    const sortedDistances = [...new Set(distances)].sort((a, b) => b - a);
+    const distanceRank = sortedDistances.indexOf(run.distance) + 1;
+
+    if (distanceRank === 1) run.distanceMedal = '🥇';
+    else if (distanceRank === 2) run.distanceMedal = '🥈';
+    else if (distanceRank === 3) run.distanceMedal = '🥉';
+    else run.distanceMedal = null;
+
+    // Rank pace (lower is better = faster)
+    const paces = runsUpToNow.map(r => {
+      const t = parseTime(r.time);
+      return t / (r.distance || 1);
+    });
+    const sortedPaces = [...new Set(paces)].sort((a, b) => a - b);
+    const paceRank = sortedPaces.indexOf(runPaceSeconds) + 1;
+
+    if (paceRank === 1) run.paceMedal = '🥇';
+    else if (paceRank === 2) run.paceMedal = '🥈';
+    else if (paceRank === 3) run.paceMedal = '🥉';
+    else run.paceMedal = null;
+  });
+
+  // Reverse back to descending order for display
+  runHistory.reverse();
 
   return {
     totalRuns,
