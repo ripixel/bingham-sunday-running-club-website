@@ -1,11 +1,11 @@
 {
-  "id": "james",
-  "name": "James",
+  "id": "sarah",
+  "name": "Sarah",
   "anonymous": false,
   "joinedDate": "2025-10-24",
   "startingValues": {
     "eventsAttended": 11,
-    "totalKm": 57.2,
-    "avgPace": "05:40"
+    "totalKm": 55,
+    "avgPace": "06:10"
   }
 }

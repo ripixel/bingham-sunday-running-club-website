@@ -1,0 +1,11 @@
+{
+  "id": "victoria",
+  "name": "Victoria",
+  "anonymous": false,
+  "joinedDate": "2025-10-03",
+  "startingValues": {
+    "eventsAttended": 14,
+    "totalKm": 60,
+    "avgPace": "06:00"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "daisy",
+  "name": "Daisy",
+  "anonymous": false,
+  "joinedDate": "2025-12-19",
+  "startingValues": {
+    "eventsAttended": 3,
+    "totalKm": 15,
+    "avgPace": "06:30"
+  }
+}

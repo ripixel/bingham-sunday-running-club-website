@@ -137,7 +137,7 @@ function enrichParticipants(participants, runners, allResults) {
     }
 
     // Count total attendance for this runner
-    const attendanceCount = countRunnerAttendance(p.runner, allResults);
+    const attendanceCount = countRunnerAttendance(p.runner, allResults, runner);
 
     // Color cycling for linked runners
     const hasProfile = !!runner && p.runner !== 'guest';
@@ -161,8 +161,15 @@ function enrichParticipants(participants, runners, allResults) {
 /**
  * Count how many times a runner has participated
  */
-function countRunnerAttendance(runnerId, allResults) {
+function countRunnerAttendance(runnerId, allResults, runner) {
   let count = 0;
+
+  // Add starting values if available
+  if (runner?.startingValues?.eventsAttended) {
+    count += runner.startingValues.eventsAttended;
+  }
+
+  // Count from actual results
   Object.values(allResults || {}).forEach(result => {
     (result.participants || []).forEach(p => {
       if (p.runner === runnerId) count++;
@@ -174,10 +181,11 @@ function countRunnerAttendance(runnerId, allResults) {
 /**
  * Compute stats for a runner across all results
  */
-function computeRunnerStats(runnerId, allResults) {
-  let totalRuns = 0;
-  let totalDistance = 0;
-  let totalTimeSeconds = 0;
+function computeRunnerStats(runnerId, allResults, runner) {
+  // Initialize with starting values if available
+  let totalRuns = runner?.startingValues?.eventsAttended || 0;
+  let totalDistance = runner?.startingValues?.totalKm || 0;
+
   const runHistory = [];
 
   // Sort results by date descending
@@ -185,12 +193,20 @@ function computeRunnerStats(runnerId, allResults) {
     .map(([slug, result]) => ({ slug, ...result, dateObj: new Date(result.date) }))
     .sort((a, b) => b.dateObj - a.dateObj);
 
+  // Track actual race data separately
+  let actualDistance = 0;
+  let actualTimeSeconds = 0;
+
   sortedResults.forEach(result => {
     (result.participants || []).forEach(p => {
       if (p.runner === runnerId) {
         totalRuns++;
-        totalDistance += p.distance || 0;
-        totalTimeSeconds += parseTime(p.time);
+        const distance = p.distance || 0;
+        const timeSeconds = parseTime(p.time);
+
+        totalDistance += distance;
+        actualDistance += distance;
+        actualTimeSeconds += timeSeconds;
 
         runHistory.push({
           date: result.date,
@@ -203,7 +219,7 @@ function computeRunnerStats(runnerId, allResults) {
           slug: result.slug,
           distance: p.distance,
           time: p.time,
-          pace: calculatePace(p.distance, parseTime(p.time)),
+          pace: calculatePace(p.distance, timeSeconds),
           route: formatRoute(p),
           routeHtml: formatRouteHtml(p)
         });
@@ -211,11 +227,34 @@ function computeRunnerStats(runnerId, allResults) {
     });
   });
 
+  // Calculate average pace:
+  // - If no actual results: use starting pace (if available)
+  // - If actual results exist: calculate from actual data only
+  let avgPace;
+  if (runHistory.length === 0 && runner?.startingValues?.avgPace) {
+    // No actual results - use starting pace
+    avgPace = runner.startingValues.avgPace;
+  } else if (runHistory.length > 0) {
+    // Has actual results - calculate from actual data only
+    avgPace = calculatePace(actualDistance, actualTimeSeconds);
+  } else {
+    avgPace = '--:--';
+  }
+
+  // Calculate total time for display
+  // Note: This is only used for display purposes, not for pace calculation
+  let totalTimeSeconds = actualTimeSeconds;
+  if (runHistory.length === 0 && runner?.startingValues?.totalKm && runner?.startingValues?.avgPace) {
+    // No actual results - calculate time from starting values for display
+    const paceSeconds = parseTime(runner.startingValues.avgPace);
+    totalTimeSeconds = paceSeconds * runner.startingValues.totalKm;
+  }
+
   return {
     totalRuns,
     totalDistance: totalDistance.toFixed(1),
     totalTime: formatTime(totalTimeSeconds),
-    avgPace: calculatePace(totalDistance, totalTimeSeconds),
+    avgPace,
     runHistory
   };
 }
@@ -285,6 +324,30 @@ function computeLegends(results, runners) {
   // Build stats for each runner (excluding guest)
   const runnerStats = {};
 
+  // First, initialize all runners with starting values
+  Object.entries(runners || {}).forEach(([runnerId, runner]) => {
+    if (runnerId === 'guest') return; // Skip guests
+    if (runner.anonymous) return; // Skip anonymous runners
+    if (!runner.startingValues) return; // Skip runners without starting values
+
+    const startingRuns = runner.startingValues.eventsAttended || 0;
+    const startingDistance = runner.startingValues.totalKm || 0;
+
+    runnerStats[runnerId] = {
+      id: runnerId,
+      runner: runnerId,
+      name: runner.name,
+      photo: runner.photo,
+      totalRuns: startingRuns,
+      totalDistance: startingDistance,
+      actualDistance: 0,
+      actualTimeSeconds: 0,
+      hasActualResults: false,
+      startingPace: runner.startingValues.avgPace || null
+    };
+  });
+
+  // Then, process actual race results
   Object.values(results || {}).forEach(result => {
     (result.participants || []).forEach(p => {
       const runnerId = p.runner;
@@ -294,6 +357,7 @@ function computeLegends(results, runners) {
       if (!runner || runner.anonymous) return; // Skip anonymous runners too
 
       if (!runnerStats[runnerId]) {
+        // Initialize runner if not already in stats (no starting values)
         runnerStats[runnerId] = {
           id: runnerId,
           runner: runnerId,
@@ -301,25 +365,56 @@ function computeLegends(results, runners) {
           photo: runner.photo,
           totalRuns: 0,
           totalDistance: 0,
-          totalTimeSeconds: 0
+          actualDistance: 0,
+          actualTimeSeconds: 0,
+          hasActualResults: false,
+          startingPace: null
         };
       }
 
+      const distance = p.distance || 0;
+      const timeSeconds = parseTime(p.time);
+
       runnerStats[runnerId].totalRuns++;
-      runnerStats[runnerId].totalDistance += p.distance || 0;
-      runnerStats[runnerId].totalTimeSeconds += parseTime(p.time);
+      runnerStats[runnerId].totalDistance += distance;
+      runnerStats[runnerId].actualDistance += distance;
+      runnerStats[runnerId].actualTimeSeconds += timeSeconds;
+      runnerStats[runnerId].hasActualResults = true;
     });
   });
 
   // Convert to array and compute derived stats
   const statsArray = Object.values(runnerStats)
-    .filter(s => s.totalRuns > 0 && s.totalDistance > 0 && s.totalTimeSeconds > 0)
-    .map(s => ({
-      ...s,
-      avgPaceSeconds: s.totalTimeSeconds / s.totalDistance,
-      avgPace: calculatePace(s.totalDistance, s.totalTimeSeconds),
-      totalDistanceFormatted: s.totalDistance.toFixed(1)
-    }));
+    .filter(s => s.totalRuns > 0 && s.totalDistance > 0)
+    .map(s => {
+      // Calculate average pace:
+      // - If no actual results: use starting pace (if available)
+      // - If actual results exist: calculate from actual data only
+      let avgPaceSeconds;
+      let avgPace;
+
+      if (!s.hasActualResults && s.startingPace) {
+        // No actual results - use starting pace
+        avgPace = s.startingPace;
+        avgPaceSeconds = parseTime(s.startingPace);
+      } else if (s.hasActualResults && s.actualDistance > 0 && s.actualTimeSeconds > 0) {
+        // Has actual results - calculate from actual data only
+        avgPaceSeconds = s.actualTimeSeconds / s.actualDistance;
+        avgPace = calculatePace(s.actualDistance, s.actualTimeSeconds);
+      } else {
+        // No valid data for pace calculation
+        avgPaceSeconds = Infinity;
+        avgPace = '--:--';
+      }
+
+      return {
+        ...s,
+        avgPaceSeconds,
+        avgPace,
+        totalDistanceFormatted: s.totalDistance.toFixed(1)
+      };
+    })
+    .filter(s => s.avgPaceSeconds !== Infinity); // Filter out runners without valid pace
 
   if (statsArray.length === 0) {
     return { mostEvents: null, fastestPace: null, mostDistance: null };

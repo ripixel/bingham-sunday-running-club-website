@@ -44,7 +44,7 @@ export const createGenerateRunnerPagesTask = (
     for (const [slug, runner] of runners as [string, any][]) {
       if (slug === 'guest') continue; // Skip guest profile
 
-      const runnerStats = computeResults.computeRunnerStats(slug, content.results);
+      const runnerStats = computeResults.computeRunnerStats(slug, content.results, runner);
       const clubRecords = globalValues.clubRecordsMap ? globalValues.clubRecordsMap[slug] : [];
 
       const pageVars = {

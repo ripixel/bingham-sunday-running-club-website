@@ -2,5 +2,10 @@
   "id": "rory",
   "name": "Rory",
   "anonymous": false,
-  "joinedDate": "2025-01-05"
+  "joinedDate": "2025-12-26",
+  "startingValues": {
+    "eventsAttended": 2,
+    "totalKm": 12,
+    "avgPace": "04:30"
+  }
 }

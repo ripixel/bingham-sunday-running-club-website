@@ -1,0 +1,11 @@
+{
+  "id": "hazel",
+  "name": "Hazel",
+  "anonymous": false,
+  "joinedDate": "2025-10-03",
+  "startingValues": {
+    "eventsAttended": 14,
+    "totalKm": 56,
+    "avgPace": "06:30"
+  }
+}
