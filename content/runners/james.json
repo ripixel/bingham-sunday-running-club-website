@@ -3,9 +3,10 @@
   "name": "James",
   "anonymous": false,
   "joinedDate": "2025-10-24",
+  "photo": "/images/runners/james.jpg",
   "startingValues": {
-    "eventsAttended": 11,
-    "totalKm": 57,
+    "eventsAttended": 10,
+    "totalKm": 52,
     "avgPace": "05:40"
   }
 }
