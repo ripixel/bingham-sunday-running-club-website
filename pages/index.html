@@ -137,11 +137,11 @@
               </div>
               <div class="latest-run-content">
                 <h3 class="latest-run-title">{{latestResult.title}}</h3>
-                {{#if latestResult.eventTitle}}
+                {{#if latestResult.showEventTitle}}
                   <p class="latest-run-event">{{latestResult.eventTitle}}</p>
                 {{/if}}
-                <p class="latest-run-date">{{latestResult.displayDate}} {{#if latestResult.location}}• 📍
-                    {{latestResult.location}}{{/if}}</p>
+                <p class="latest-run-date">📅 {{latestResult.displayDate}} {{#if latestResult.location}}• 📍
+                    {{latestResult.location}}{{/if}}{{#if latestResult.weather}} • {{latestResult.weather}}{{/if}}</p>
                 <div class="latest-run-stats">
                   <div class="latest-run-stat">
                     <span class="latest-run-stat-value">{{latestResult.totalAttendees}}</span>

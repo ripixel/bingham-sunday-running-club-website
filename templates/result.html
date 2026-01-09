@@ -13,7 +13,7 @@
             <span class="badge badge-special">✨ Special Event</span>
           {{/if}}
           <h1 class="page-title">{{result.title}}</h1>
-          {{#if result.eventTitle}}
+          {{#if result.showEventTitle}}
             <p class="result-event-name">{{result.eventTitle}}</p>
           {{/if}}
           <div class="result-meta">
@@ -25,8 +25,15 @@
               <span class="result-weather">{{result.weather}}</span>
             {{/if}}
           </div>
-          <div class="result-hero-image">
-            <img src="{{result.mainPhoto}}" alt="{{result.title}}" />
+          <div class="result-hero-box">
+            <div class="result-hero-image">
+              <img src="{{result.mainPhoto}}" alt="{{result.title}}" />
+            </div>
+            {{#if result.body}}
+              <div class="race-comments-content">
+                {{result.body}}
+              </div>
+            {{/if}}
           </div>
         </div>
       </section>
@@ -111,17 +118,7 @@
         </div>
       </section>
 
-      <!-- Race Comments -->
-      {{#if result.body}}
-        <section class="section section-race-comments">
-          <div class="container">
-            <h2>Race Comments</h2>
-            <div class="race-comments-content">
-              {{result.body}}
-            </div>
-          </div>
-        </section>
-      {{/if}}
+
 
       <!-- Back to Results -->
       <section class="section section-back">

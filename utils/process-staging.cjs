@@ -152,10 +152,14 @@ async function processStaging() {
       });
 
       // 4. Build Frontmatter
+      const title = stagedData.title || (matchingEvent ? matchingEvent.title : recurringSettings.title); // Manual override > Event > Default
+      const eventTitle = matchingEvent ? matchingEvent.title : recurringSettings.title;
+
       const frontmatter = {
         date: stagedData.date, // Keep original ISO string
-        title: stagedData.title || (matchingEvent ? matchingEvent.title : recurringSettings.title), // Manual override > Event > Default
-        eventTitle: matchingEvent ? matchingEvent.title : recurringSettings.title,
+        title: title,
+        eventTitle: eventTitle,
+        showEventTitle: title !== eventTitle, // Only show subtitle when different from main title
         eventDescription: matchingEvent ? matchingEvent.body : recurringSettings.description,
 
         location: matchingEvent ? (matchingEvent.location || recurringSettings.defaultLocation) : recurringSettings.defaultLocation,
@@ -168,8 +172,9 @@ async function processStaging() {
       // 5. Write Result File
       const yamlContent = yaml.dump(frontmatter);
 
-      // Use staged body (Race Report) or empty string
-      const bodyContent = stagedData.body ? `\n${stagedData.body}\n` : '';
+      // Use staged body (Race Report) or empty string - trim whitespace
+      const trimmedBody = stagedData.body ? stagedData.body.trim() : '';
+      const bodyContent = trimmedBody ? `\n${trimmedBody}\n` : '';
       const fileContent = `---\n${yamlContent}---\n${bodyContent}`;
 
       fs.writeFileSync(resultPath, fileContent);
