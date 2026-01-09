@@ -155,13 +155,9 @@ async function processStaging() {
       // 4. Build Frontmatter
       const frontmatter = {
         date: stagedData.date, // Keep original ISO string
-        title: matchingEvent ? matchingEvent.title : recurringSettings.title, // Default title
+        title: stagedData.title || (matchingEvent ? matchingEvent.title : recurringSettings.title), // Manual override > Event > Default
         eventTitle: matchingEvent ? matchingEvent.title : recurringSettings.title,
-        eventDescription: matchingEvent ? matchingEvent.body : recurringSettings.description, // Use body for description? Or simple desc?
-        // Actually eventDescription in frontmatter is usually short.
-        // For special events, let's leave it to frontmatter matching or computed.
-        // For recurring, use description.
-        // If matchingEvent is found, we might want to prioritize its specific settings.
+        eventDescription: matchingEvent ? matchingEvent.body : recurringSettings.description,
 
         location: matchingEvent ? (matchingEvent.location || recurringSettings.defaultLocation) : recurringSettings.defaultLocation,
         mainPhoto: stagedData.mainPhoto || '',
@@ -172,7 +168,10 @@ async function processStaging() {
 
       // 5. Write Result File
       const yamlContent = yaml.dump(frontmatter);
-      const fileContent = `---\n${yamlContent}---\n`; // Empty body for now
+
+      // Use staged body (Race Report) or empty string
+      const bodyContent = stagedData.body ? `\n${stagedData.body}\n` : '';
+      const fileContent = `---\n${yamlContent}---\n${bodyContent}`;
 
       fs.writeFileSync(resultPath, fileContent);
       console.log(`✅ Generated result: ${resultPath}`);
