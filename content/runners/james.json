@@ -2,10 +2,5 @@
   "id": "james",
   "name": "James",
   "anonymous": false,
-  "joinedDate": "2025-10-24",
-  "startingValues": {
-    "eventsAttended": 11,
-    "totalKm": 57.2,
-    "avgPace": "05:40"
-  }
+  "joinedDate": "2025-10-24"
 }
