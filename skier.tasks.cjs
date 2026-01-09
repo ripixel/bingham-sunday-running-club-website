@@ -47,7 +47,6 @@ const globalValues = {
   siteName: 'Bingham Sunday Running Club',
   siteUrl: 'https://binghamsundayrunningclub.co.uk/',
   year: new Date().getFullYear(),
-  noindex: process.env.NODE_ENV === 'production' ? '' : '<meta name="robots" content="noindex">',
   cacheHash: cacheHash,
 
   // Inject all content into global scope
