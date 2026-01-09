@@ -3,5 +3,10 @@
   "name": "Dean",
   "anonymous": false,
   "joinedDate": "2025-09-26",
-  "photo": "/images/runners/dean.jpg"
+  "photo": "/images/runners/dean.jpg",
+  "startingValues": {
+    "eventsAttended": 15,
+    "totalKm": 98,
+    "avgPace": "05:00"
+  }
 }

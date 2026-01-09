@@ -3,5 +3,10 @@
   "name": "Charlotte",
   "anonymous": false,
   "joinedDate": "2025-10-17",
-  "photo": "/images/runners/charlotte.jpg"
+  "photo": "/images/runners/charlotte.jpg",
+  "startingValues": {
+    "eventsAttended": 12,
+    "totalKm": 78,
+    "avgPace": "05:00"
+  }
 }
