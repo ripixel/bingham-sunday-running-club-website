@@ -4,8 +4,8 @@
   "description": "The official website for Bingham Sunday Running Club - friendly, inclusive, and everyone's welcome!",
   "type": "module",
   "scripts": {
-    "dev": "skier --debug",
-    "build": "skier",
+    "dev": "node utils/process-staging.cjs && skier --debug",
+    "build": "node utils/process-staging.cjs && skier",
     "serve": "npx serve public/",
     "deploy": "firebase deploy",
     "local": "npm run build && npm run serve",

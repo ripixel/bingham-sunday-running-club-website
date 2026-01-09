@@ -24,10 +24,14 @@ function getNextSunday(date) {
 }
 
 function computeRuns(content) {
-  const recurringRunDef = content.pages.about?.location?.meeting;
-  if (!recurringRunDef) {
-    throw new Error("Missing recurring run definition in content/pages/about.json");
-  }
+  // Use the new CMS settings for recurring runs
+  // Fallback to about page location if settings missing (migration safety)
+  const recurringSettings = content.settings['recurring-run'] || {
+    title: "☕ Sunday Run & Breakfast",
+    defaultLocation: content.pages.about?.location?.meeting?.where || "Bingham Market Place",
+    description: "Join us for our regular Sunday run! Do as many laps as you want—there is no minimum! Breakfast and coffee at Gilt afterwards.",
+    loopDistances: { small: 0.8, medium: 1.0, long: 1.2 } // Fallback defaults
+  };
 
   const specialEvents = Object.values(content.events || {}).map(event => ({
     ...event,
@@ -40,7 +44,7 @@ function computeRuns(content) {
   let currentDate = new Date();
 
   // Start from next upcoming Sunday
-  let nextSunday = getNextSunday(currentDate);
+  const nextSunday = getNextSunday(currentDate);
 
   for (let i = 0; i < 21; i++) {
     const runDate = new Date(nextSunday);
@@ -62,12 +66,12 @@ function computeRuns(content) {
     }
 
     recurringRuns.push({
-      title: "☕ Sunday Run & Breakfast",
+      title: recurringSettings.title,
       date: runDate.toISOString(),
       dateObj: runDate,
-      location: recurringRunDef.where,
-      distance: recurringRunDef.distance, // Explicit distance field
-      body: "Join us for our regular Sunday run! Do as many laps as you want—there is no minimum! Breakfast and coffee at Gilt afterwards.",
+      location: recurringSettings.defaultLocation,
+      // distance: recurringRunDef.distance, // Removed explicit distance as it's variable
+      body: recurringSettings.description,
       isSpecial: false
     });
   }
