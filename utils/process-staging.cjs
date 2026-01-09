@@ -44,18 +44,12 @@ if (!fs.existsSync(RESULTS_DIR)) {
   fs.mkdirSync(RESULTS_DIR, { recursive: true });
 }
 
-// Helper: load recurring run settings
+// Helper: load recurring run settings - MUST exist, no fallback defaults
 function loadRecurringSettings() {
-  if (fs.existsSync(RECURRING_SETTINGS_PATH)) {
-    return JSON.parse(fs.readFileSync(RECURRING_SETTINGS_PATH, 'utf8'));
+  if (!fs.existsSync(RECURRING_SETTINGS_PATH)) {
+    throw new Error(`Missing recurring-run settings file: ${RECURRING_SETTINGS_PATH}`);
   }
-  // Fallback defaults
-  return {
-    title: "☕ Sunday Run & Breakfast",
-    defaultLocation: "Bingham Market Place",
-    description: "Our regular Sunday morning run followed by breakfast at Gilt Cafe",
-    loopDistances: { small: 0.8, medium: 1.0, long: 1.2 }
-  };
+  return JSON.parse(fs.readFileSync(RECURRING_SETTINGS_PATH, 'utf8'));
 }
 
 // Helper: load all special events content (to match dates)

@@ -24,14 +24,11 @@ function getNextSunday(date) {
 }
 
 function computeRuns(content) {
-  // Use the new CMS settings for recurring runs
-  // Fallback to about page location if settings missing (migration safety)
-  const recurringSettings = content.settings['recurring-run'] || {
-    title: "☕ Sunday Run & Breakfast",
-    defaultLocation: content.pages.about?.location?.meeting?.where || "Bingham Market Place",
-    description: "Join us for our regular Sunday run! Do as many laps as you want—there is no minimum! Breakfast and coffee at Gilt afterwards.",
-    loopDistances: { small: 0.8, medium: 1.0, long: 1.2 } // Fallback defaults
-  };
+  // Use CMS settings for recurring runs - no fallback defaults, settings MUST exist
+  const recurringSettings = content.settings['recurring-run'];
+  if (!recurringSettings) {
+    throw new Error('Missing recurring-run settings in content/settings/recurring-run.json');
+  }
 
   const specialEvents = Object.values(content.events || {}).map(event => ({
     ...event,
@@ -39,7 +36,7 @@ function computeRuns(content) {
     dateObj: new Date(event.date)
   }));
 
-  // Generate next 12 Sundays
+  // Generate next 21 Sundays
   const recurringRuns = [];
   let currentDate = new Date();
 
@@ -70,7 +67,7 @@ function computeRuns(content) {
       date: runDate.toISOString(),
       dateObj: runDate,
       location: recurringSettings.defaultLocation,
-      // distance: recurringRunDef.distance, // Removed explicit distance as it's variable
+      distance: recurringSettings.distance,
       body: recurringSettings.description,
       isSpecial: false
     });

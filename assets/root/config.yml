@@ -357,12 +357,7 @@ collections:
               - { label: "Small", name: "small", widget: "number", value_type: "float", default: 0.8 }
               - { label: "Medium", name: "medium", widget: "number", value_type: "float", default: 1.0 }
               - { label: "Long", name: "long", widget: "number", value_type: "float", default: 1.2 }
-          - label: "Breakfast Venue"
-            name: "breakfastVenue"
-            widget: "object"
-            fields:
-              - { label: "Name", name: "name", widget: "string", default: "Gilt Cafe" }
-              - { label: "Address", name: "address", widget: "string" }
+          - { label: "Distance", name: "distance", widget: "string", default: "5-10km (your choice!)" }
 
   # Events Collection
   - name: "events"
