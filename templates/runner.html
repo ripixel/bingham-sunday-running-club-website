@@ -32,7 +32,7 @@
                 <div class="badges-grid">
                   {{#each clubRecords}}
                     <div class="record-badge">
-                      <span class="record-icon">🏆</span>
+                      <span class="record-icon">{{#if icon}}{{icon}}{{else}}🏆{{/if}}</span>
                       <div class="record-details">
                         <span class="record-distance">{{distance}}</span>
                         <span class="record-time">{{time}}</span>

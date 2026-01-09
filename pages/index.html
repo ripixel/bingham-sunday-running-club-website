@@ -206,31 +206,49 @@
                 <p class="legends-subtitle">{{content.pages.home.pbs.legends.subtitle}}</p>
                 <div class="legends-grid">
                   {{#if legends.mostEvents}}
-                    <a href="/runners/{{legends.mostEvents.id}}/" class="legend-card legend-card-pink">
+                    <a href="/runners/{{legends.mostEvents.runner}}/" class="legend-card legend-card-pink">
                       <div class="legend-icon">{{legends.mostEvents.icon}}</div>
                       <div class="legend-content">
-                        <span class="legend-category">Most Events</span>
-                        <h4 class="legend-name">{{legends.mostEvents.name}}</h4>
+                        <div class="legend-category">Most Events</div>
+                        <div class="legend-runner-info">
+                          {{#if legends.mostEvents.photo}}
+                            <img src="{{legends.mostEvents.photo}}" alt="{{legends.mostEvents.name}}"
+                              class="legend-avatar" />
+                          {{/if}}
+                          <h4 class="legend-name">{{legends.mostEvents.name}}</h4>
+                        </div>
                         <span class="legend-stat">{{legends.mostEvents.stat}} {{legends.mostEvents.label}}</span>
                       </div>
                     </a>
                   {{/if}}
                   {{#if legends.fastestPace}}
-                    <a href="/runners/{{legends.fastestPace.id}}/" class="legend-card legend-card-green">
+                    <a href="/runners/{{legends.fastestPace.runner}}/" class="legend-card legend-card-green">
                       <div class="legend-icon">{{legends.fastestPace.icon}}</div>
                       <div class="legend-content">
-                        <span class="legend-category">Fastest Pace</span>
-                        <h4 class="legend-name">{{legends.fastestPace.name}}</h4>
+                        <div class="legend-category">Fastest Pace</div>
+                        <div class="legend-runner-info">
+                          {{#if legends.fastestPace.photo}}
+                            <img src="{{legends.fastestPace.photo}}" alt="{{legends.fastestPace.name}}"
+                              class="legend-avatar" />
+                          {{/if}}
+                          <h4 class="legend-name">{{legends.fastestPace.name}}</h4>
+                        </div>
                         <span class="legend-stat">{{legends.fastestPace.stat}} {{legends.fastestPace.label}}</span>
                       </div>
                     </a>
                   {{/if}}
                   {{#if legends.mostDistance}}
-                    <a href="/runners/{{legends.mostDistance.id}}/" class="legend-card legend-card-blue">
+                    <a href="/runners/{{legends.mostDistance.runner}}/" class="legend-card legend-card-blue">
                       <div class="legend-icon">{{legends.mostDistance.icon}}</div>
                       <div class="legend-content">
-                        <span class="legend-category">Most Distance</span>
-                        <h4 class="legend-name">{{legends.mostDistance.name}}</h4>
+                        <div class="legend-category">Most Distance</div>
+                        <div class="legend-runner-info">
+                          {{#if legends.mostDistance.photo}}
+                            <img src="{{legends.mostDistance.photo}}" alt="{{legends.mostDistance.name}}"
+                              class="legend-avatar" />
+                          {{/if}}
+                          <h4 class="legend-name">{{legends.mostDistance.name}}</h4>
+                        </div>
                         <span class="legend-stat">{{legends.mostDistance.stat}} {{legends.mostDistance.label}}</span>
                       </div>
                     </a>

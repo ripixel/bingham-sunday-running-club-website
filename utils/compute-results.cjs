@@ -296,6 +296,7 @@ function computeLegends(results, runners) {
       if (!runnerStats[runnerId]) {
         runnerStats[runnerId] = {
           id: runnerId,
+          runner: runnerId,
           name: runner.name,
           photo: runner.photo,
           totalRuns: 0,

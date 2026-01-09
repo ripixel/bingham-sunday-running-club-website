@@ -67,6 +67,48 @@ const computeResults = require('./utils/compute-results.cjs');
 // Generate a hash for cache busting (using timestamp)
 const cacheHash = Date.now().toString(36);
 
+// Pre-compute Legends and Records
+const legends = computeResults.computeLegends(content.results, content.runners);
+
+const clubRecordsMap = (() => {
+  const records = content.pages.home?.pbs?.records || [];
+  const heldBy = {};
+
+  // 1. Enrich Manual Records (All-Time PBs)
+  records.forEach(r => {
+    if (r.runner && content.runners[r.runner]) {
+      r.photo = content.runners[r.runner].photo;
+      if (!heldBy[r.runner]) heldBy[r.runner] = [];
+      heldBy[r.runner].push(r);
+    }
+  });
+
+  // 2. Add Legends as Records
+  Object.entries(legends).forEach(([key, item]) => {
+    // Legends returns single object per key (item is the object), not array
+    if (item && item.runner && content.runners[item.runner]) {
+
+      // Enrich with photo if missing (though compute-results might have it)
+      if (!item.photo) item.photo = content.runners[item.runner].photo;
+
+      if (!heldBy[item.runner]) heldBy[item.runner] = [];
+
+      let title = "Legend";
+      // Use icon from legend definition or default to trophy
+      let icon = item.icon || "🏆";
+      let val = "";
+
+      if (key === 'mostEvents') { title = "Most Events"; val = `${item.totalRuns} runs`; }
+      if (key === 'mostDistance') { title = "Most Distance"; val = `${item.totalDistanceFormatted}km`; }
+      if (key === 'fastestPace') { title = "Fastest Pace"; val = item.avgPace || item.pace; }
+
+      heldBy[item.runner].push({ distance: title, time: val, icon: icon });
+    }
+  });
+
+  return heldBy;
+})();
+
 // Define global values to share across tasks
 const globalValues = {
   siteName: 'Bingham Sunday Running Club',
@@ -89,25 +131,10 @@ const globalValues = {
   allRunners: content.runners,
 
   // BSRC Legends for Wall of Fame
-  legends: computeResults.computeLegends(content.results, content.runners),
+  legends: legends,
 
   // Club Records (enriched)
-  clubRecordsMap: (() => {
-    const records = content.pages.home?.pbs?.records || [];
-    const heldBy = {};
-
-    // Enrich records with photos in place
-    records.forEach(r => {
-      if (r.runner && content.runners[r.runner]) {
-        r.photo = content.runners[r.runner].photo;
-
-        if (!heldBy[r.runner]) heldBy[r.runner] = [];
-        heldBy[r.runner].push(r);
-      }
-    });
-
-    return heldBy;
-  })(),
+  clubRecordsMap: clubRecordsMap,
 };
 
 exports.tasks = [

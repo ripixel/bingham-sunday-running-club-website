@@ -3646,3 +3646,40 @@ color: var(--color-text-muted);
   font-weight: 600;
   color: var(--color-text-muted);
 }
+
+/* Phase 5 Refinements */
+
+/* Color cycling for PB Card Runner Name & Avatar Border */
+.pb-card:nth-child(4n+1) .pb-runner-name { color: var(--color-orange); }
+.pb-card:nth-child(4n+1) .pb-mini-avatar { border-color: var(--color-orange); }
+
+.pb-card:nth-child(4n+2) .pb-runner-name { color: var(--color-pink); }
+.pb-card:nth-child(4n+2) .pb-mini-avatar { border-color: var(--color-pink); }
+
+.pb-card:nth-child(4n+3) .pb-runner-name { color: var(--color-green); }
+.pb-card:nth-child(4n+3) .pb-mini-avatar { border-color: var(--color-green); }
+
+.pb-card:nth-child(4n) .pb-runner-name { color: var(--color-blue); }
+.pb-card:nth-child(4n) .pb-mini-avatar { border-color: var(--color-blue); }
+
+/* Legends Avatar */
+.legend-runner-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-1);
+}
+
+.legend-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid currentColor; /* Inherits color from card theme via parent text color? No, explicit override needed */
+}
+
+/* Legend avatar border coloring based on card type */
+.legend-card-pink .legend-avatar { border-color: var(--color-pink); }
+.legend-card-green .legend-avatar { border-color: var(--color-green); }
+.legend-card-blue .legend-avatar { border-color: var(--color-blue); }
+
