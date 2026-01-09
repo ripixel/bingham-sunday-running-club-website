@@ -120,9 +120,14 @@ async function processStaging() {
           e.dateObj.getDate() === resultDate.getDate();
       });
 
-      // 2. Fetch Weather
-      console.log(`🌦️  Fetching weather for ${dateStr}...`);
-      const weather = await getWeather(resultDate);
+      // 2. Fetch Weather (non-blocking - failures are logged but don't stop processing)
+      let weather = '';
+      try {
+        console.log(`🌦️  Fetching weather for ${dateStr}...`);
+        weather = await getWeather(resultDate) || '';
+      } catch (weatherErr) {
+        console.warn(`⚠️  Failed to fetch weather for ${dateStr}: ${weatherErr.message}`);
+      }
 
       // 3. Calculate Distances & Enrich Participants
       const loops = recurringSettings.loopDistances || { small: 0.8, medium: 1.0, long: 1.2 };

@@ -1,27 +1,27 @@
 {
-  "date": "2026-01-09T23:27:59.352Z",
-  "mainPhoto": "/images/races/2026-01-09.jpg",
+  "date": "2025-12-21T09:00:00.000Z",
+  "mainPhoto": "/images/races/2025-12-21.jpg",
   "body": "What a day we had getting excited about Father Christmas coming down the chimney soon! Elves, Trees, and even Santa himself turned up! Roll on next year - we hope to see many more outfits (mainly so James and Dean aren't alone in sweating more than those Reindeer must be pulling that sleigh around all day).\n\nNote: This run is back-filled to populate the website. Runners may not be represented despite attending.",
   "participants": [
     {
       "runner": "charlotte",
       "smallLoops": 0,
-      "mediumLoops": 5,
-      "longLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 5,
       "time": "00:04"
     },
     {
       "runner": "dean",
       "smallLoops": 0,
-      "mediumLoops": 5,
-      "longLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 5,
       "time": "00:05"
     },
     {
       "runner": "james",
       "smallLoops": 0,
-      "mediumLoops": 5,
-      "longLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 4,
       "time": "00:04"
     }
   ]
