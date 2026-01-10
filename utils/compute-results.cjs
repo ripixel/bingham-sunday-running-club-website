@@ -116,6 +116,19 @@ function computeResultStats(result) {
 }
 
 /**
+ * Count PBs earned in a race from enriched participants
+ * Counts gold medals (🥇) for both distance and pace
+ */
+function countPBsEarned(enrichedParticipants) {
+  let pbCount = 0;
+  (enrichedParticipants || []).forEach(p => {
+    if (p.distanceMedal === '🥇') pbCount++;
+    if (p.paceMedal === '🥇') pbCount++;
+  });
+  return pbCount;
+}
+
+/**
  * Enrich participants with runner profiles and computed values
  */
 function enrichParticipants(participants, runners, allResults, currentResultDate) {
@@ -358,9 +371,19 @@ function getLatestResult(results, runners) {
   const latest = sortedResults[0];
   const stats = computeResultStats(latest);
 
+  // Enrich participants and count PBs
+  const enrichedParticipants = enrichParticipants(
+    latest.participants,
+    runners,
+    results,
+    latest.date
+  );
+  const pbsEarned = countPBsEarned(enrichedParticipants);
+
   return {
     ...latest,
     ...stats,
+    pbsEarned,
     displayDate: latest.dateObj.toLocaleDateString('en-GB', {
       weekday: 'long',
       day: 'numeric',
@@ -542,6 +565,7 @@ module.exports = {
   calculatePace,
   formatRoute,
   computeResultStats,
+  countPBsEarned,
   enrichParticipants,
   computeRunnerStats,
   getLatestResult,

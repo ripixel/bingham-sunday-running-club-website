@@ -48,6 +48,10 @@ export const createGenerateResultPagesTask = (
         content.results,
         result.date
       );
+
+      // Count PBs earned in this race
+      const pbsEarned = computeResults.countPBsEarned(enrichedParticipants);
+
       const dateObj = new Date(result.date);
 
       const pageVars = {
@@ -68,7 +72,10 @@ export const createGenerateResultPagesTask = (
             minute: '2-digit'
           }),
         },
-        resultStats,
+        resultStats: {
+          ...resultStats,
+          pbsEarned
+        },
         participants: enrichedParticipants,
         pageTitle: result.title,
         isResultPage: true,

@@ -30,9 +30,7 @@
               <img src="{{result.mainPhoto}}" alt="{{result.title}}" />
             </div>
             {{#if result.body}}
-              <div class="race-comments-content">
-                {{result.body}}
-              </div>
+              <div class="race-comments-content">{{result.body}}</div>
             {{/if}}
           </div>
         </div>
@@ -56,6 +54,11 @@
               <span class="stat-icon">⏱️</span>
               <span class="stat-value">{{resultStats.avgPace}}</span>
               <span class="stat-label">Avg Pace (min/km)</span>
+            </div>
+            <div class="stat-card stat-card-orange">
+              <span class="stat-icon">🏆</span>
+              <span class="stat-value">{{resultStats.pbsEarned}}</span>
+              <span class="stat-label">PBs Earned</span>
             </div>
           </div>
         </div>
