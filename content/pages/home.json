@@ -141,6 +141,20 @@
         "distance": "10k",
         "time": "44:22",
         "date": "2025-02-11"
+      },
+      {
+        "name": "James",
+        "runner": "james",
+        "distance": "Half Marathon",
+        "time": "2:44:42",
+        "date": "January 11, 2026"
+      },
+      {
+        "name": "James",
+        "runner": "james",
+        "distance": "Marathon",
+        "time": "5:48:03",
+        "date": "January 11, 2026"
       }
     ]
   }
