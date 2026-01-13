@@ -1634,6 +1634,26 @@ strong {
   letter-spacing: 0.05em;
   white-space: nowrap;
   flex-shrink: 0;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.playlist-label:hover {
+  background: #1DB954; /* Spotify green */
+  transform: scale(1.05);
+}
+
+.playlist-label-hover {
+  display: none;
+}
+
+.playlist-label:hover .playlist-label-default {
+  display: none;
+}
+
+.playlist-label:hover .playlist-label-hover {
+  display: inline;
 }
 
 @keyframes playlist-scroll {
