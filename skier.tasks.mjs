@@ -1,20 +1,32 @@
 // @ts-check
+// Use createRequire for .cts/.cjs files (ts-node handles .cts via require)
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+// Register ts-node for .cts file support
 require('ts-node').register();
 
-const {
+import {
   prepareOutputTask,
   bundleCssTask,
   copyStaticTask,
   setGlobalsTask,
   generatePagesTask,
-} = require('skier');
-const path = require('path');
+} from 'skier';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Import TS helpers
+// ESM equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Import TS helpers using require (for .cts files)
 const { loadContentDir } = require('./utils/content-loader.cts');
 const { computeClubRecords } = require('./utils/club-records.cts');
 
 // Import TS tasks
+const { createFetchSpotifyPlaylistTask } = require('./tasks/fetch-spotify-playlist.cts');
+const { createProcessStagingTask } = require('./tasks/process-staging.cts');
 const { createHashAdminAssetsTask } = require('./tasks/hash-admin-assets.cts');
 const { createHashScriptsTask } = require('./tasks/hash-scripts.cts');
 const { createGenerateRunnerPagesTask } = require('./tasks/generate-runner-pages.cts');
@@ -32,8 +44,8 @@ const content = {
 };
 
 // Import results computation utilities
-const computeResults = require('./utils/compute-results.cjs');
-const { computeClubStats, computeRunnersWithStats } = require('./utils/compute-stats.cjs');
+const computeResults = require('./utils/compute-results.cts');
+const { computeClubStats, computeRunnersWithStats } = require('./utils/compute-stats.cts');
 
 // Generate a hash for cache busting (using timestamp)
 const cacheHash = Date.now().toString(36);
@@ -54,6 +66,9 @@ const legends = computeResults.computeLegends(content.results, content.runners);
 const records = content.pages.home?.pbs?.records || [];
 const clubRecordsMap = computeClubRecords(records, content.runners, legends);
 
+// Import compute-runs
+const computeRuns = require('./utils/compute-runs.cts');
+
 // Define global values to share across tasks
 const globalValues = {
   siteName: 'Bingham Sunday Running Club',
@@ -67,7 +82,7 @@ const globalValues = {
   settings: content.settings || {},
 
   // Dynamic Run Data
-  ...require('./utils/compute-runs.cjs').computeRuns(content),
+  ...computeRuns.computeRuns(content),
 
   // Results Data
   latestResult: computeResults.getLatestResult(content.results, content.runners),
@@ -100,7 +115,13 @@ const globalValues = {
   runnersWithStats: computeRunnersWithStats(content.results, content.runners, clubRecordsMap),
 };
 
-exports.tasks = [
+export const tasks = [
+  // Pre-build: Fetch Spotify playlist
+  createFetchSpotifyPlaylistTask(),
+
+  // Pre-build: Process staged runs
+  createProcessStagingTask(),
+
   // Clean & Create output directory
   prepareOutputTask({
     outDir: './public',

@@ -252,6 +252,47 @@
                       </div>
                     </a>
                   {{/if}}
+                  {{#if legends.mostSmallLoops}}
+                    <a href="/runners/{{legends.mostSmallLoops.runner}}/" class="legend-card legend-card-pink">
+                      <div class="legend-icon">{{legends.mostSmallLoops.icon}}</div>
+                      <div class="legend-content">
+                        <div class="legend-category">Most Small Loops</div>
+                        <div class="legend-runner-info">
+                          {{> avatar photo=legends.mostSmallLoops.photo name=legends.mostSmallLoops.name firstInitial=legends.mostSmallLoops.firstInitial colorClass="pink" size="mini" }}
+                          <h4 class="legend-name">{{legends.mostSmallLoops.name}}</h4>
+                        </div>
+                        <span class="legend-stat">{{legends.mostSmallLoops.stat}}
+                          {{legends.mostSmallLoops.label}}</span>
+                      </div>
+                    </a>
+                  {{/if}}
+                  {{#if legends.mostMediumLoops}}
+                    <a href="/runners/{{legends.mostMediumLoops.runner}}/" class="legend-card legend-card-green">
+                      <div class="legend-icon">{{legends.mostMediumLoops.icon}}</div>
+                      <div class="legend-content">
+                        <div class="legend-category">Most Medium Loops</div>
+                        <div class="legend-runner-info">
+                          {{> avatar photo=legends.mostMediumLoops.photo name=legends.mostMediumLoops.name firstInitial=legends.mostMediumLoops.firstInitial colorClass="green" size="mini" }}
+                          <h4 class="legend-name">{{legends.mostMediumLoops.name}}</h4>
+                        </div>
+                        <span class="legend-stat">{{legends.mostMediumLoops.stat}}
+                          {{legends.mostMediumLoops.label}}</span>
+                      </div>
+                    </a>
+                  {{/if}}
+                  {{#if legends.mostLongLoops}}
+                    <a href="/runners/{{legends.mostLongLoops.runner}}/" class="legend-card legend-card-blue">
+                      <div class="legend-icon">{{legends.mostLongLoops.icon}}</div>
+                      <div class="legend-content">
+                        <div class="legend-category">Most Long Loops</div>
+                        <div class="legend-runner-info">
+                          {{> avatar photo=legends.mostLongLoops.photo name=legends.mostLongLoops.name firstInitial=legends.mostLongLoops.firstInitial colorClass="blue" size="mini" }}
+                          <h4 class="legend-name">{{legends.mostLongLoops.name}}</h4>
+                        </div>
+                        <span class="legend-stat">{{legends.mostLongLoops.stat}} {{legends.mostLongLoops.label}}</span>
+                      </div>
+                    </a>
+                  {{/if}}
                 </div>
               </div>
             {{/if}}

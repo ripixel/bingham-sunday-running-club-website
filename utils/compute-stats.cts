@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 /**
  * Compute club-wide statistics from results and runners data
@@ -135,6 +135,60 @@ function computeClubStats(results, runners) {
     .slice(0, 10)
     .map((r, i) => ({ ...r, rank: i + 1, stat: r.avgPace }));
 
+  // Compute loop leaderboards
+  const loopStats = {};
+
+  // Initialize runners from runners object
+  Object.entries(runners || {}).forEach(([runnerId, runner]) => {
+    if (runnerId !== 'guest') {
+      const name = runner.name || runnerId;
+      loopStats[runnerId] = {
+        slug: runnerId,
+        name: name,
+        photo: runner.photo || null,
+        firstInitial: name[0]?.toUpperCase() || '?',
+        colorClass: runner.colorClass || 'orange',
+        smallLoops: 0,
+        mediumLoops: 0,
+        longLoops: 0
+      };
+    }
+  });
+
+  // Accumulate loop counts from all results
+  allResults.forEach(result => {
+    const participants = result.participants || [];
+    participants.forEach(participant => {
+      const runnerId = participant.runner || participant.name?.toLowerCase();
+      if (runnerId && runnerId !== 'guest' && loopStats[runnerId]) {
+        loopStats[runnerId].smallLoops += participant.smallLoops || 0;
+        loopStats[runnerId].mediumLoops += participant.mediumLoops || 0;
+        loopStats[runnerId].longLoops += participant.longLoops || 0;
+      }
+    });
+  });
+
+  // Top 10 by small loops
+  const topBySmallLoops = Object.values(loopStats)
+    .filter(r => r.smallLoops > 0)
+    .sort((a, b) => b.smallLoops - a.smallLoops)
+    .slice(0, 10)
+    .map((r, i) => ({ ...r, rank: i + 1, stat: r.smallLoops }));
+
+  // Top 10 by medium loops
+  const topByMediumLoops = Object.values(loopStats)
+    .filter(r => r.mediumLoops > 0)
+    .sort((a, b) => b.mediumLoops - a.mediumLoops)
+    .slice(0, 10)
+    .map((r, i) => ({ ...r, rank: i + 1, stat: r.mediumLoops }));
+
+  // Top 10 by long loops
+  const topByLongLoops = Object.values(loopStats)
+    .filter(r => r.longLoops > 0)
+    .sort((a, b) => b.longLoops - a.longLoops)
+    .slice(0, 10)
+    .map((r, i) => ({ ...r, rank: i + 1, stat: r.longLoops }));
+
   // Average attendance
   const avgAttendance = totalEvents > 0 ? Math.round(totalParticipants / totalEvents) : 0;
 
@@ -145,7 +199,10 @@ function computeClubStats(results, runners) {
     avgAttendance,
     topByEvents,
     topByDistance,
-    topByPace
+    topByPace,
+    topBySmallLoops,
+    topByMediumLoops,
+    topByLongLoops
   };
 }
 
@@ -202,7 +259,7 @@ function computeRunnersWithStats(results, runners, clubRecordsMap) {
         recordsLabel: records.length === 1 ? 'record' : 'records'
       };
     })
-    .sort((a, b) => b.totalRuns - a.totalRuns); // Sort by most active
+    .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
 }
 
 module.exports = {

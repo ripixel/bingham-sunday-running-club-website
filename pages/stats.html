@@ -102,6 +102,66 @@
         </div>
       </section>
 
+      <!-- Loop Champions -->
+      <section class="section section-leaderboards">
+        <div class="container">
+          <h2 class="section-title">Loop Champions 🏅</h2>
+
+          <div class="leaderboards-grid">
+            <!-- Most Small Loops -->
+            <div class="leaderboard-card">
+              <h3 class="leaderboard-title">🩷 Most Small Loops</h3>
+              <ol class="leaderboard-list">
+                {{#each clubStats.topBySmallLoops}}
+                  <li class="leaderboard-item">
+                    <span class="leaderboard-rank">{{rank}}</span>
+                    <a href="/runners/{{slug}}/" class="leaderboard-runner">
+                      {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="small" }}
+                      <span class="leaderboard-name">{{name}}</span>
+                    </a>
+                    <span class="leaderboard-stat">{{stat}} loops</span>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+
+            <!-- Most Medium Loops -->
+            <div class="leaderboard-card">
+              <h3 class="leaderboard-title">💚 Most Medium Loops</h3>
+              <ol class="leaderboard-list">
+                {{#each clubStats.topByMediumLoops}}
+                  <li class="leaderboard-item">
+                    <span class="leaderboard-rank">{{rank}}</span>
+                    <a href="/runners/{{slug}}/" class="leaderboard-runner">
+                      {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="small" }}
+                      <span class="leaderboard-name">{{name}}</span>
+                    </a>
+                    <span class="leaderboard-stat">{{stat}} loops</span>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+
+            <!-- Most Long Loops -->
+            <div class="leaderboard-card">
+              <h3 class="leaderboard-title">💙 Most Long Loops</h3>
+              <ol class="leaderboard-list">
+                {{#each clubStats.topByLongLoops}}
+                  <li class="leaderboard-item">
+                    <span class="leaderboard-rank">{{rank}}</span>
+                    <a href="/runners/{{slug}}/" class="leaderboard-runner">
+                      {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="small" }}
+                      <span class="leaderboard-name">{{name}}</span>
+                    </a>
+                    <span class="leaderboard-stat">{{stat}} loops</span>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Club Records -->
       {{#if content.pages.home.pbs.records.length}}
         <section class="section section-club-records">

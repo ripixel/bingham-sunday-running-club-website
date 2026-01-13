@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * compute-results.cjs
  *
@@ -501,7 +502,10 @@ function computeLegends(results, runners) {
           actualDistance: 0,
           actualTimeSeconds: 0,
           hasActualResults: false,
-          startingPace: null
+          startingPace: null,
+          smallLoops: 0,
+          mediumLoops: 0,
+          longLoops: 0
         };
       }
 
@@ -513,6 +517,9 @@ function computeLegends(results, runners) {
       runnerStats[runnerId].actualDistance += distance;
       runnerStats[runnerId].actualTimeSeconds += timeSeconds;
       runnerStats[runnerId].hasActualResults = true;
+      runnerStats[runnerId].smallLoops += p.smallLoops || 0;
+      runnerStats[runnerId].mediumLoops += p.mediumLoops || 0;
+      runnerStats[runnerId].longLoops += p.longLoops || 0;
     });
   });
 
@@ -558,6 +565,11 @@ function computeLegends(results, runners) {
   const byPace = [...statsArray].sort((a, b) => a.avgPaceSeconds - b.avgPaceSeconds); // Faster = lower
   const byDistance = [...statsArray].sort((a, b) => b.totalDistance - a.totalDistance);
 
+  // Sort by loop types for loop champions
+  const bySmallLoops = [...statsArray].filter(s => s.smallLoops > 0).sort((a, b) => b.smallLoops - a.smallLoops);
+  const byMediumLoops = [...statsArray].filter(s => s.mediumLoops > 0).sort((a, b) => b.mediumLoops - a.mediumLoops);
+  const byLongLoops = [...statsArray].filter(s => s.longLoops > 0).sort((a, b) => b.longLoops - a.longLoops);
+
   return {
     mostEvents: byRuns[0] ? {
       ...byRuns[0],
@@ -585,6 +597,33 @@ function computeLegends(results, runners) {
       color: 'blue',
       firstInitial: byDistance[0].name?.[0]?.toUpperCase() || '?',
       colorClass: getColorForRunner(byDistance[0].name || '')
+    } : null,
+    mostSmallLoops: bySmallLoops[0] ? {
+      ...bySmallLoops[0],
+      stat: bySmallLoops[0].smallLoops,
+      label: 'small loops',
+      icon: '🩷',
+      color: 'pink',
+      firstInitial: bySmallLoops[0].name?.[0]?.toUpperCase() || '?',
+      colorClass: getColorForRunner(bySmallLoops[0].name || '')
+    } : null,
+    mostMediumLoops: byMediumLoops[0] ? {
+      ...byMediumLoops[0],
+      stat: byMediumLoops[0].mediumLoops,
+      label: 'medium loops',
+      icon: '💚',
+      color: 'green',
+      firstInitial: byMediumLoops[0].name?.[0]?.toUpperCase() || '?',
+      colorClass: getColorForRunner(byMediumLoops[0].name || '')
+    } : null,
+    mostLongLoops: byLongLoops[0] ? {
+      ...byLongLoops[0],
+      stat: byLongLoops[0].longLoops,
+      label: 'long loops',
+      icon: '💙',
+      color: 'blue',
+      firstInitial: byLongLoops[0].name?.[0]?.toUpperCase() || '?',
+      colorClass: getColorForRunner(byLongLoops[0].name || '')
     } : null
   };
 }

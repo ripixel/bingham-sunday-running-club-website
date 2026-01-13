@@ -4158,6 +4158,23 @@ color: var(--color-text-muted);
   border-color: var(--color-blue);
 }
 
+/* Permanent colored left border for runner cards */
+.runner-card-orange {
+  border-left: 4px solid var(--color-orange);
+}
+
+.runner-card-pink {
+  border-left: 4px solid var(--color-pink);
+}
+
+.runner-card-green {
+  border-left: 4px solid var(--color-green);
+}
+
+.runner-card-blue {
+  border-left: 4px solid var(--color-blue);
+}
+
 .runner-card-avatar {
   flex-shrink: 0;
 }
