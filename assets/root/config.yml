@@ -391,6 +391,7 @@ collections:
       - { label: "Name", name: "name", widget: "string", hint: "First name only (e.g. 'James')" }
       - { label: "Anonymous", name: "anonymous", widget: "boolean", default: false, hint: "If true, shown as 'Runner #X' in results" }
       - { label: "Photo", name: "photo", widget: "image", required: false }
+      - { label: "Color", name: "colorClass", widget: "select", options: ["orange", "pink", "green", "blue"], default: "orange", hint: "Avatar accent color" }
       - { label: "Joined Date", name: "joinedDate", widget: "datetime", format: "YYYY-MM-DD", required: false }
 
   # Run Results Collection
@@ -408,7 +409,7 @@ collections:
       - { label: "Event Name", name: "eventTitle", widget: "string", default: "☕ Sunday Run & Breakfast", hint: "The original event name" }
       - { label: "Event Description", name: "eventDescription", widget: "text", required: false, hint: "Description from the original event" }
       - { label: "Location", name: "location", widget: "string", default: "Bingham Market Place" }
-      - { label: "Main Photo", name: "mainPhoto", widget: "image" }
+      - { label: "Main Photo", name: "mainPhoto", widget: "image", required: false, hint: "Leave empty for auto-generated placeholder" }
       - { label: "Weather", name: "weather", widget: "string", required: false }
       - { label: "Is Special Event", name: "isSpecialEvent", widget: "boolean", default: false, hint: "Show special event badge" }
       - label: "Participants"

@@ -4,9 +4,5 @@
   "anonymous": false,
   "joinedDate": "2025-10-24",
   "photo": "/images/runners/james.jpg",
-  "startingValues": {
-    "eventsAttended": 10,
-    "totalKm": 52,
-    "avgPace": "05:40"
-  }
+  "colorClass": "orange"
 }

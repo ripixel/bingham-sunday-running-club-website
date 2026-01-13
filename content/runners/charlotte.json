@@ -4,9 +4,5 @@
   "anonymous": false,
   "joinedDate": "2025-10-17",
   "photo": "/images/runners/charlotte.jpg",
-  "startingValues": {
-    "eventsAttended": 11,
-    "totalKm": 72,
-    "avgPace": "05:00"
-  }
+  "colorClass": "orange"
 }

@@ -129,12 +129,24 @@ function countPBsEarned(enrichedParticipants) {
 }
 
 /**
+ * Get a deterministic color class based on runner name
+ */
+function getColorForRunner(name) {
+  const colorClasses = ['orange', 'pink', 'green', 'blue'];
+  // Simple hash based on character codes
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = ((hash << 5) - hash) + name.charCodeAt(i);
+    hash = hash & hash;
+  }
+  return colorClasses[Math.abs(hash) % colorClasses.length];
+}
+
+/**
  * Enrich participants with runner profiles and computed values
  */
 function enrichParticipants(participants, runners, allResults, currentResultDate) {
   let anonymousCounter = 1;
-  const colorClasses = ['pink', 'green', 'blue'];
-  let colorIndex = 0;
 
   return (participants || []).map((p, index) => {
     const runner = runners[p.runner];
@@ -145,16 +157,20 @@ function enrichParticipants(participants, runners, allResults, currentResultDate
 
     // Handle anonymous runners
     let displayName = runner?.name || 'Guest';
-    if (runner?.anonymous) {
+    const isGuest = p.runner === 'guest' || !runner;
+    const isAnonymous = runner?.anonymous;
+
+    if (isAnonymous) {
       displayName = `Runner #${anonymousCounter++}`;
     }
 
     // Count total attendance for this runner
     const attendanceCount = countRunnerAttendance(p.runner, allResults, runner);
 
-    // Color cycling for linked runners
-    const hasProfile = !!runner && p.runner !== 'guest';
-    const colorClass = hasProfile ? colorClasses[colorIndex++ % colorClasses.length] : null;
+    // Deterministic color for linked runners - use from runner JSON or generate as fallback
+    const hasProfile = !!runner && !isGuest;
+    const colorClass = hasProfile ? (runner?.colorClass || getColorForRunner(displayName)) : 'orange';
+    const firstInitial = displayName[0]?.toUpperCase() || '?';
 
     // Determine if this is in the top 3 performances (gold/silver/bronze)
     let distanceMedal = null;
@@ -213,9 +229,17 @@ function enrichParticipants(participants, runners, allResults, currentResultDate
       attendanceCount,
       hasProfile,
       colorClass,
+      firstInitial,
+      isGuest,
+      isAnonymous,
       distanceMedal,
-      paceMedal
+      paceMedal,
+      sortOrder: isGuest ? 2 : (isAnonymous ? 1 : 0)
     };
+  }).sort((a, b) => {
+    // Sort: regular runners first (alphabetically), then anonymous, then guests
+    if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+    return a.displayName.localeCompare(b.displayName);
   });
 }
 
@@ -540,21 +564,27 @@ function computeLegends(results, runners) {
       stat: byRuns[0].totalRuns,
       label: 'events',
       icon: '🏃',
-      color: 'pink'
+      color: 'pink',
+      firstInitial: byRuns[0].name?.[0]?.toUpperCase() || '?',
+      colorClass: getColorForRunner(byRuns[0].name || '')
     } : null,
     fastestPace: byPace[0] ? {
       ...byPace[0],
       stat: byPace[0].avgPace,
       label: 'avg pace',
       icon: '⚡',
-      color: 'green'
+      color: 'green',
+      firstInitial: byPace[0].name?.[0]?.toUpperCase() || '?',
+      colorClass: getColorForRunner(byPace[0].name || '')
     } : null,
     mostDistance: byDistance[0] ? {
       ...byDistance[0],
       stat: `${byDistance[0].totalDistanceFormatted}km`,
       label: 'total',
       icon: '📏',
-      color: 'blue'
+      color: 'blue',
+      firstInitial: byDistance[0].name?.[0]?.toUpperCase() || '?',
+      colorClass: getColorForRunner(byDistance[0].name || '')
     } : null
   };
 }

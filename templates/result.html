@@ -27,7 +27,11 @@
           </div>
           <div class="result-hero-box">
             <div class="result-hero-image">
-              <img src="{{result.mainPhoto}}" alt="{{result.title}}" />
+              {{#if result.mainPhoto}}
+                <img src="{{result.mainPhoto}}" alt="{{result.title}}" />
+              {{else}}
+                {{> event-image-placeholder title=result.eventTitle date=result.displayDate }}
+              {{/if}}
             </div>
             {{#if result.body}}
               <div class="race-comments-content">{{result.body}}</div>
@@ -86,18 +90,12 @@
                     <td class="name-cell">
                       {{#if hasProfile}}
                         <a href="/runners/{{runnerId}}/" class="runner-link-wrapper runner-link-{{colorClass}}">
-                          {{#if runnerProfile.photo}}
-                            <div class="avatar-ring-small avatar-ring-{{colorClass}}">
-                              <img src="{{runnerProfile.photo}}" alt="{{displayName}}" class="runner-avatar-small" />
-                            </div>
-                          {{/if}}
+                          {{> avatar photo=runnerProfile.photo name=displayName firstInitial=firstInitial colorClass=colorClass size="small" }}
                           <span class="runner-name">{{displayName}}</span>
                         </a>
                       {{else}}
                         <div class="runner-info-wrapper">
-                          {{#if runnerProfile.photo}}
-                            <img src="{{runnerProfile.photo}}" alt="{{displayName}}" class="runner-avatar-small" />
-                          {{/if}}
+                          {{> avatar photo=runnerProfile.photo name=displayName firstInitial=firstInitial colorClass=colorClass size="small" }}
                           <span class="runner-name-plain">{{displayName}}</span>
                         </div>
                       {{/if}}

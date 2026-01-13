@@ -10,9 +10,20 @@
       </button>
       <ul class="nav-list">
         <li><a href="/" class="nav-link {{#if isHome}}active{{/if}}">Home</a></li>
-        <li><a href="/about" class="nav-link {{#if isAbout}}active{{/if}}">About</a></li>
         <li><a href="/events" class="nav-link {{#if isEvents}}active{{/if}}">Events</a></li>
-        <li><a href="/results" class="nav-link {{#if isResults}}active{{/if}}">Results</a></li>
+        <li class="nav-dropdown">
+          <a href="/stats" class="nav-link nav-link-dropdown {{#if isStats}}active{{/if}}">
+            Stats
+            <svg class="dropdown-arrow" width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+              <path d="M1 1l4 4 4-4" />
+            </svg>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/results" class="dropdown-link {{#if isResults}}active{{/if}}">Results</a></li>
+            <li><a href="/runners" class="dropdown-link {{#if isRunners}}active{{/if}}">Runners</a></li>
+          </ul>
+        </li>
+        <li><a href="/about" class="nav-link {{#if isAbout}}active{{/if}}">About</a></li>
         <li><a href="/contact" class="nav-link {{#if isContact}}active{{/if}}">Contact</a></li>
       </ul>
     </nav>

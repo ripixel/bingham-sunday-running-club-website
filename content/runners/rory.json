@@ -3,9 +3,5 @@
   "name": "Rory",
   "anonymous": false,
   "joinedDate": "2025-12-26",
-  "startingValues": {
-    "eventsAttended": 2,
-    "totalKm": 12,
-    "avgPace": "04:30"
-  }
+  "colorClass": "orange"
 }

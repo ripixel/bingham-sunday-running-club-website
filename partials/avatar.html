@@ -1,0 +1,12 @@
+{{!-- Avatar partial for consistent runner avatar display --}}
+{{!-- Usage: {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="small" }} --}}
+{{!-- size options: "small" (38px for tables), "mini" (24px for inline) --}}
+{{#if photo}}
+  <div class="avatar-ring-{{size}} avatar-ring-{{colorClass}}">
+    <img src="{{photo}}" alt="{{name}}" class="runner-avatar-{{size}}" />
+  </div>
+{{else}}
+  <div class="avatar-ring-{{size}} avatar-ring-{{colorClass}} avatar-letter">
+    <span class="avatar-initial">{{firstInitial}}</span>
+  </div>
+{{/if}}

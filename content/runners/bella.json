@@ -3,9 +3,5 @@
   "name": "Bella",
   "anonymous": false,
   "joinedDate": "2025-12-12",
-  "startingValues": {
-    "eventsAttended": 4,
-    "totalKm": 20,
-    "avgPace": "05:40"
-  }
+  "colorClass": "green"
 }

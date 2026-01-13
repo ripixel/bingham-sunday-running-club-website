@@ -24,7 +24,11 @@
             </div>
             <a href="{{latestResult.link}}" class="latest-run-card">
               <div class="latest-run-image">
-                <img src="{{latestResult.mainPhoto}}" alt="{{latestResult.title}}" />
+                {{#if latestResult.mainPhoto}}
+                  <img src="{{latestResult.mainPhoto}}" alt="{{latestResult.title}}" />
+                {{else}}
+                  {{> event-image-placeholder title=latestResult.eventTitle date=latestResult.displayDate }}
+                {{/if}}
               </div>
               <div class="latest-run-content">
                 <h3 class="latest-run-title">{{latestResult.title}}</h3>
@@ -70,7 +74,11 @@
                 {{#unless @first}}
                   <a href="{{link}}" class="result-card result-card-{{colorClass}}">
                     <div class="result-card-image">
-                      <img src="{{mainPhoto}}" alt="{{title}}" />
+                      {{#if mainPhoto}}
+                        <img src="{{mainPhoto}}" alt="{{title}}" />
+                      {{else}}
+                        {{> event-image-placeholder title=eventTitle date=displayDate }}
+                      {{/if}}
                       {{#if isSpecialEvent}}
                         <span class="badge badge-special">✨ Special</span>
                       {{/if}}

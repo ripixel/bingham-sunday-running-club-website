@@ -133,7 +133,11 @@
             </div>
             <a href="{{latestResult.link}}" class="latest-run-card">
               <div class="latest-run-image">
-                <img src="{{latestResult.mainPhoto}}" alt="{{latestResult.title}}" />
+                {{#if latestResult.mainPhoto}}
+                  <img src="{{latestResult.mainPhoto}}" alt="{{latestResult.title}}" />
+                {{else}}
+                  {{> event-image-placeholder title=latestResult.eventTitle date=latestResult.displayDate }}
+                {{/if}}
               </div>
               <div class="latest-run-content">
                 <h3 class="latest-run-title">{{latestResult.title}}</h3>
@@ -215,10 +219,7 @@
                       <div class="legend-content">
                         <div class="legend-category">Most Events</div>
                         <div class="legend-runner-info">
-                          {{#if legends.mostEvents.photo}}
-                            <img src="{{legends.mostEvents.photo}}" alt="{{legends.mostEvents.name}}"
-                              class="legend-avatar" />
-                          {{/if}}
+                          {{> avatar photo=legends.mostEvents.photo name=legends.mostEvents.name firstInitial=legends.mostEvents.firstInitial colorClass="pink" size="mini" }}
                           <h4 class="legend-name">{{legends.mostEvents.name}}</h4>
                         </div>
                         <span class="legend-stat">{{legends.mostEvents.stat}} {{legends.mostEvents.label}}</span>
@@ -231,10 +232,7 @@
                       <div class="legend-content">
                         <div class="legend-category">Fastest Pace</div>
                         <div class="legend-runner-info">
-                          {{#if legends.fastestPace.photo}}
-                            <img src="{{legends.fastestPace.photo}}" alt="{{legends.fastestPace.name}}"
-                              class="legend-avatar" />
-                          {{/if}}
+                          {{> avatar photo=legends.fastestPace.photo name=legends.fastestPace.name firstInitial=legends.fastestPace.firstInitial colorClass="green" size="mini" }}
                           <h4 class="legend-name">{{legends.fastestPace.name}}</h4>
                         </div>
                         <span class="legend-stat">{{legends.fastestPace.stat}} {{legends.fastestPace.label}}</span>
@@ -247,10 +245,7 @@
                       <div class="legend-content">
                         <div class="legend-category">Most Distance</div>
                         <div class="legend-runner-info">
-                          {{#if legends.mostDistance.photo}}
-                            <img src="{{legends.mostDistance.photo}}" alt="{{legends.mostDistance.name}}"
-                              class="legend-avatar" />
-                          {{/if}}
+                          {{> avatar photo=legends.mostDistance.photo name=legends.mostDistance.name firstInitial=legends.mostDistance.firstInitial colorClass="blue" size="mini" }}
                           <h4 class="legend-name">{{legends.mostDistance.name}}</h4>
                         </div>
                         <span class="legend-stat">{{legends.mostDistance.stat}} {{legends.mostDistance.label}}</span>
@@ -266,7 +261,7 @@
               <h3 class="legends-title">{{content.pages.home.pbs.allTimePbs.title}}</h3>
               <p class="legends-subtitle">{{content.pages.home.pbs.allTimePbs.subtitle}}</p>
               <div class="pbs-grid">
-                {{#each content.pages.home.pbs.records}}
+                {{#each enrichedPbRecords}}
                   {{#if runner}}
                     <a href="/runners/{{runner}}/" class="pb-card pb-card-link">
                   {{else}}
@@ -288,9 +283,7 @@
 
                     <div class="pb-meta">
                       <div class="pb-runner-info">
-                        {{#if photo}}
-                          <img src="{{photo}}" alt="{{name}}" class="pb-mini-avatar" />
-                        {{/if}}
+                        {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="mini" }}
                         <span class="pb-runner-name">{{name}}</span>
                       </div>
                       <span class="pb-separator">·</span>

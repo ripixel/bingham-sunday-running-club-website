@@ -3,9 +3,5 @@
   "name": "Steve",
   "anonymous": false,
   "joinedDate": "2025-10-24",
-  "startingValues": {
-    "eventsAttended": 11,
-    "totalKm": 50.6,
-    "avgPace": "06:25"
-  }
+  "colorClass": "blue"
 }

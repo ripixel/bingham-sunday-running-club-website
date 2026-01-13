@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+
+  <body class="dark-theme">
+    {{> header}}
+
+    <main>
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="container">
+          <h1 class="page-title">Our Runners</h1>
+          <p class="page-subtitle">Meet the legends who lace up every Sunday</p>
+        </div>
+      </section>
+
+      <!-- Runners Grid -->
+      <section class="section section-runners">
+        <div class="container">
+          {{#if runnersWithStats}}
+            <div class="runners-grid">
+              {{#each runnersWithStats}}
+                <a href="/runners/{{slug}}/" class="runner-card runner-card-{{colorClass}}">
+                  <div class="runner-card-avatar">
+                    {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="large" }}
+                  </div>
+                  <div class="runner-card-content">
+                    <h3 class="runner-card-name">{{name}}</h3>
+                    <div class="runner-card-stats">
+                      <span class="runner-stat">🏃 {{totalRuns}} runs</span>
+                      <span class="runner-stat">📏 {{totalDistance}}km</span>
+                    </div>
+                    {{#if clubRecordsCount}}
+                      <span class="runner-badge">🏆 {{clubRecordsCount}} {{recordsLabel}}</span>
+                    {{/if}}
+                  </div>
+                </a>
+              {{/each}}
+            </div>
+          {{else}}
+            <div class="no-results">
+              <p>No runners found yet. Check back soon!</p>
+            </div>
+          {{/if}}
+        </div>
+      </section>
+
+    </main>
+
+    {{> footer}}
+  </body>
+
+</html>

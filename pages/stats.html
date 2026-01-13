@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{> head}}
+
+  <body class="dark-theme">
+    {{> header}}
+
+    <main>
+      <!-- Page Header -->
+      <section class="page-header">
+        <div class="container">
+          <h1 class="page-title">Club Stats</h1>
+          <p class="page-subtitle">Numbers that tell our story</p>
+        </div>
+      </section>
+
+      <!-- Club Totals -->
+      <section class="section section-club-totals">
+        <div class="container">
+          <div class="stats-totals-grid">
+            <div class="stat-card stat-card-orange">
+              <span class="stat-icon">📅</span>
+              <span class="stat-value">{{clubStats.totalEvents}}</span>
+              <span class="stat-label">Total Events</span>
+            </div>
+            <div class="stat-card stat-card-pink">
+              <span class="stat-icon">🏃</span>
+              <span class="stat-value">{{clubStats.totalRunners}}</span>
+              <span class="stat-label">Unique Runners</span>
+            </div>
+            <div class="stat-card stat-card-green">
+              <span class="stat-icon">📏</span>
+              <span class="stat-value">{{clubStats.totalDistance}}km</span>
+              <span class="stat-label">Combined Distance</span>
+            </div>
+            <div class="stat-card stat-card-blue">
+              <span class="stat-icon">👥</span>
+              <span class="stat-value">{{clubStats.avgAttendance}}</span>
+              <span class="stat-label">Avg Attendance</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Leaderboards -->
+      <section class="section section-leaderboards">
+        <div class="container">
+          <h2 class="section-title">Leaderboards</h2>
+
+          <div class="leaderboards-grid">
+            <!-- Most Events -->
+            <div class="leaderboard-card">
+              <h3 class="leaderboard-title">🏃 Most Events Attended</h3>
+              <ol class="leaderboard-list">
+                {{#each clubStats.topByEvents}}
+                  <li class="leaderboard-item">
+                    <span class="leaderboard-rank">{{rank}}</span>
+                    <a href="/runners/{{slug}}/" class="leaderboard-runner">
+                      {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="small" }}
+                      <span class="leaderboard-name">{{name}}</span>
+                    </a>
+                    <span class="leaderboard-stat">{{stat}} runs</span>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+
+            <!-- Most Distance -->
+            <div class="leaderboard-card">
+              <h3 class="leaderboard-title">📏 Most Distance</h3>
+              <ol class="leaderboard-list">
+                {{#each clubStats.topByDistance}}
+                  <li class="leaderboard-item">
+                    <span class="leaderboard-rank">{{rank}}</span>
+                    <a href="/runners/{{slug}}/" class="leaderboard-runner">
+                      {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="small" }}
+                      <span class="leaderboard-name">{{name}}</span>
+                    </a>
+                    <span class="leaderboard-stat">{{stat}}km</span>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+
+            <!-- Fastest Pace -->
+            <div class="leaderboard-card">
+              <h3 class="leaderboard-title">⚡ Fastest Avg Pace</h3>
+              <ol class="leaderboard-list">
+                {{#each clubStats.topByPace}}
+                  <li class="leaderboard-item">
+                    <span class="leaderboard-rank">{{rank}}</span>
+                    <a href="/runners/{{slug}}/" class="leaderboard-runner">
+                      {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="small" }}
+                      <span class="leaderboard-name">{{name}}</span>
+                    </a>
+                    <span class="leaderboard-stat">{{stat}}/km</span>
+                  </li>
+                {{/each}}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Club Records -->
+      {{#if content.pages.home.pbs.records.length}}
+        <section class="section section-club-records">
+          <div class="container">
+            <h2 class="section-title">Club Records</h2>
+            <p class="section-subtitle">The fastest times at each distance</p>
+            <div class="records-grid">
+              {{#each content.pages.home.pbs.records}}
+                {{#if runner}}
+                  <a href="/runners/{{runner}}/" class="record-card">
+                {{else}}
+                  <div class="record-card">
+                {{/if}}
+                <span class="record-distance">{{distance}}</span>
+                <span class="record-time">{{time}}</span>
+                <div class="record-holder">
+                  {{#if photo}}
+                    <img src="{{photo}}" alt="{{name}}" class="record-photo" />
+                  {{/if}}
+                  <span class="record-name">{{name}}</span>
+                </div>
+                <span class="record-date">{{date}}</span>
+                {{#if runner}}
+                  </a>
+                {{else}}
+            </div>
+      {{/if}}
+      {{/each}}
+      </div>
+      </div>
+      </section>
+      {{/if}}
+
+    </main>
+
+    {{> footer}}
+  </body>
+
+</html>

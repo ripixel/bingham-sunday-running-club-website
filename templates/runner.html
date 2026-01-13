@@ -11,11 +11,11 @@
         <div class="container">
           <div class="runner-hero">
             {{#if runner.photo}}
-              <div class="runner-photo">
+              <div class="runner-photo runner-photo-ring runner-photo-ring-{{runner.colorClass}}">
                 <img src="{{runner.photo}}" alt="{{runner.name}}" />
               </div>
             {{else}}
-              <div class="runner-photo runner-photo-placeholder">
+              <div class="runner-photo runner-photo-placeholder runner-photo-ring-{{runner.colorClass}}">
                 <span class="runner-initial">{{runner.name.[0]}}</span>
               </div>
             {{/if}}

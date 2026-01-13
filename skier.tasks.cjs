@@ -33,9 +33,21 @@ const content = {
 
 // Import results computation utilities
 const computeResults = require('./utils/compute-results.cjs');
+const { computeClubStats, computeRunnersWithStats } = require('./utils/compute-stats.cjs');
 
 // Generate a hash for cache busting (using timestamp)
 const cacheHash = Date.now().toString(36);
+
+// Helper function for consistent color assignment based on runner name
+function getColorForRunner(name) {
+  const colorClasses = ['orange', 'pink', 'green', 'blue'];
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = ((hash << 5) - hash) + name.charCodeAt(i);
+    hash = hash & hash;
+  }
+  return colorClasses[Math.abs(hash) % colorClasses.length];
+}
 
 // Pre-compute Legends and Records
 const legends = computeResults.computeLegends(content.results, content.runners);
@@ -67,6 +79,25 @@ const globalValues = {
 
   // Club Records (enriched)
   clubRecordsMap: clubRecordsMap,
+
+  // Enriched PB records for homepage (with photos and initials)
+  enrichedPbRecords: (content.pages.home?.pbs?.records || []).map(r => {
+    const runner = content.runners[r.runner];
+    const name = r.name || runner?.name || 'Unknown';
+    return {
+      ...r,
+      photo: runner?.photo || null,
+      name: name,
+      firstInitial: name[0]?.toUpperCase() || '?',
+      colorClass: runner?.colorClass || getColorForRunner(name)
+    };
+  }),
+
+  // Club Stats for stats page
+  clubStats: computeClubStats(content.results, content.runners),
+
+  // Runners with stats for directory page
+  runnersWithStats: computeRunnersWithStats(content.results, content.runners, clubRecordsMap),
 };
 
 exports.tasks = [
@@ -142,6 +173,9 @@ exports.tasks = [
         isAbout: currentPage === 'about',
         isContact: currentPage === 'contact',
         isResults: currentPage === 'results',
+        isStats: currentPage === 'stats',
+        isRunners: currentPage === 'runners',
+        is404: currentPage === '404',
         canonicalPath: canonicalPath,
         description: (() => {
           switch (currentPage) {
@@ -155,6 +189,12 @@ exports.tasks = [
               return "Upcoming runs and events - Bingham Sunday Running Club. Weekly Sunday morning runs and special events in Nottinghamshire.";
             case 'results':
               return "Race results and club records - Bingham Sunday Running Club. Celebrating our runners' achievements.";
+            case 'stats':
+              return "Club statistics and leaderboards - Bingham Sunday Running Club. See our runners' achievements and club records.";
+            case 'runners':
+              return "Meet our runners - Bingham Sunday Running Club. The legends who lace up every Sunday.";
+            case '404':
+              return "Page not found - Bingham Sunday Running Club.";
             default:
               return vars.description || 'Bingham Sunday Running Club - Free, friendly running in Nottinghamshire.';
           }
@@ -172,10 +212,15 @@ exports.tasks = [
               return baseKeywords + ', running events, parkrun, race calendar, Sunday runs, group runs';
             case 'results':
               return baseKeywords + ', race results, personal bests, club records, race times';
+            case 'stats':
+              return baseKeywords + ', club statistics, leaderboards, fastest runners, most distance';
+            case 'runners':
+              return baseKeywords + ', club members, runners, running community';
             default:
               return baseKeywords;
           }
         })(),
+        noindex: currentPage === '404' ? '<meta name="robots" content="noindex">' : '',
       };
     },
   }),
