@@ -1,0 +1,22 @@
+<section class="playlist-banner">
+  <div class="playlist-banner-inner">
+    <span class="playlist-label">🎧 <span class="playlist-label-text">CLUB PLAYLIST</span></span>
+    <div class="playlist-scroll-container">
+      <a href="{{content.settings.general.social.spotifyPlaylist}}" target="_blank" class="playlist-track-scroll">
+        <span class="playlist-tracks">
+          {{#each content.settings.general.playlist.tracks}}
+            <span class="playlist-track">{{this}}</span>
+            <span class="playlist-separator">✦</span>
+          {{/each}}
+        </span>
+        <!-- Duplicate for seamless loop -->
+        <span class="playlist-tracks" aria-hidden="true">
+          {{#each content.settings.general.playlist.tracks}}
+            <span class="playlist-track">{{this}}</span>
+            <span class="playlist-separator">✦</span>
+          {{/each}}
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
