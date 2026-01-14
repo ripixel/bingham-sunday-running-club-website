@@ -20,7 +20,7 @@
           <div class="container">
             <div class="section-header section-header-compact">
               <span class="section-label">{{content.pages.results_page.featuredLabel}}</span>
-              <h2 class="section-title">{{latestResult.title}}</h2>
+              <h2 class="section-title">{{content.pages.results_page.latestRunTitle}}</h2>
             </div>
             <a href="{{latestResult.link}}" class="latest-run-card">
               <div class="latest-run-image">
@@ -40,19 +40,19 @@
                 <div class="latest-run-stats">
                   <div class="latest-run-stat">
                     <span class="latest-run-stat-value">{{latestResult.totalAttendees}}</span>
-                    <span class="latest-run-stat-label">Runners</span>
+                    <span class="latest-run-stat-label">{{content.pages.results_page.stats.runnersLabel}}</span>
                   </div>
                   <div class="latest-run-stat">
                     <span class="latest-run-stat-value">{{latestResult.totalDistance}}km</span>
-                    <span class="latest-run-stat-label">Total Distance</span>
+                    <span class="latest-run-stat-label">{{content.pages.results_page.stats.distanceLabel}}</span>
                   </div>
                   <div class="latest-run-stat">
                     <span class="latest-run-stat-value">{{latestResult.avgPace}}</span>
-                    <span class="latest-run-stat-label">Avg Pace</span>
+                    <span class="latest-run-stat-label">{{content.pages.results_page.stats.paceLabel}}</span>
                   </div>
                   <div class="latest-run-stat">
                     <span class="latest-run-stat-value">{{latestResult.pbsEarned}}</span>
-                    <span class="latest-run-stat-label">PBs Earned</span>
+                    <span class="latest-run-stat-label">{{content.pages.results_page.stats.pbsLabel}}</span>
                   </div>
                 </div>
                 <span class="btn btn-fun">View Full Results →</span>
@@ -66,7 +66,7 @@
       <section class="section section-results-archive">
         <div class="container">
           <div class="section-header section-header-compact">
-            <h2 class="section-title">Previous Runs</h2>
+            <h2 class="section-title">{{content.pages.results_page.previousRunsTitle}}</h2>
           </div>
           {{#if allResultsSummary}}
             <div class="results-archive-grid">

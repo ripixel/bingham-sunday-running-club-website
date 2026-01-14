@@ -1,5 +1,13 @@
 {
   "title": "Run Results",
   "subtitle": "A look back at our Sunday adventures",
-  "featuredLabel": "Latest Adventure"
+  "featuredLabel": "Latest Adventure",
+  "latestRunTitle": "Latest Run",
+  "previousRunsTitle": "Previous Runs",
+  "stats": {
+    "runnersLabel": "Runners",
+    "distanceLabel": "Total Distance",
+    "paceLabel": "Avg Pace",
+    "pbsLabel": "PBs Earned"
+  }
 }

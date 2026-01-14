@@ -9,8 +9,8 @@
       <!-- Page Header -->
       <section class="page-header">
         <div class="container">
-          <h1 class="page-title">Club Stats</h1>
-          <p class="page-subtitle">Numbers that tell our story</p>
+          <h1 class="page-title">{{content.pages.stats_page.title}}</h1>
+          <p class="page-subtitle">{{content.pages.stats_page.subtitle}}</p>
         </div>
       </section>
 
@@ -21,22 +21,22 @@
             <div class="stat-card stat-card-orange">
               <span class="stat-icon">📅</span>
               <span class="stat-value">{{clubStats.totalEvents}}</span>
-              <span class="stat-label">Total Events</span>
+              <span class="stat-label">{{content.pages.stats_page.totals.eventsLabel}}</span>
             </div>
             <div class="stat-card stat-card-pink">
               <span class="stat-icon">🏃</span>
               <span class="stat-value">{{clubStats.totalRunners}}</span>
-              <span class="stat-label">Unique Runners</span>
+              <span class="stat-label">{{content.pages.stats_page.totals.runnersLabel}}</span>
             </div>
             <div class="stat-card stat-card-green">
               <span class="stat-icon">📏</span>
               <span class="stat-value">{{clubStats.totalDistance}}km</span>
-              <span class="stat-label">Combined Distance</span>
+              <span class="stat-label">{{content.pages.stats_page.totals.distanceLabel}}</span>
             </div>
             <div class="stat-card stat-card-blue">
               <span class="stat-icon">👥</span>
               <span class="stat-value">{{clubStats.avgAttendance}}</span>
-              <span class="stat-label">Avg Attendance</span>
+              <span class="stat-label">{{content.pages.stats_page.totals.avgLabel}}</span>
             </div>
           </div>
         </div>
@@ -45,12 +45,12 @@
       <!-- Leaderboards -->
       <section class="section section-leaderboards">
         <div class="container">
-          <h2 class="section-title">Leaderboards</h2>
+          <h2 class="section-title">{{content.pages.stats_page.leaderboards.title}}</h2>
 
           <div class="leaderboards-grid">
             <!-- Most Events -->
             <div class="leaderboard-card">
-              <h3 class="leaderboard-title">🏃 Most Events Attended</h3>
+              <h3 class="leaderboard-title">{{content.pages.stats_page.leaderboards.mostEvents}}</h3>
               <ol class="leaderboard-list">
                 {{#each clubStats.topByEvents}}
                   <li class="leaderboard-item">
@@ -67,7 +67,7 @@
 
             <!-- Most Distance -->
             <div class="leaderboard-card">
-              <h3 class="leaderboard-title">📏 Most Distance</h3>
+              <h3 class="leaderboard-title">{{content.pages.stats_page.leaderboards.mostDistance}}</h3>
               <ol class="leaderboard-list">
                 {{#each clubStats.topByDistance}}
                   <li class="leaderboard-item">
@@ -84,7 +84,7 @@
 
             <!-- Fastest Pace -->
             <div class="leaderboard-card">
-              <h3 class="leaderboard-title">⚡ Fastest Avg Pace</h3>
+              <h3 class="leaderboard-title">{{content.pages.stats_page.leaderboards.fastestPace}}</h3>
               <ol class="leaderboard-list">
                 {{#each clubStats.topByPace}}
                   <li class="leaderboard-item">
@@ -105,12 +105,12 @@
       <!-- Loop Champions -->
       <section class="section section-leaderboards">
         <div class="container">
-          <h2 class="section-title">Loop Champions 🏅</h2>
+          <h2 class="section-title">{{content.pages.stats_page.loopChampions.title}}</h2>
 
           <div class="leaderboards-grid">
             <!-- Most Small Loops -->
             <div class="leaderboard-card">
-              <h3 class="leaderboard-title">🩷 Most Small Loops</h3>
+              <h3 class="leaderboard-title">{{content.pages.stats_page.loopChampions.smallLoops}}</h3>
               <ol class="leaderboard-list">
                 {{#each clubStats.topBySmallLoops}}
                   <li class="leaderboard-item">
@@ -127,7 +127,7 @@
 
             <!-- Most Medium Loops -->
             <div class="leaderboard-card">
-              <h3 class="leaderboard-title">💚 Most Medium Loops</h3>
+              <h3 class="leaderboard-title">{{content.pages.stats_page.loopChampions.mediumLoops}}</h3>
               <ol class="leaderboard-list">
                 {{#each clubStats.topByMediumLoops}}
                   <li class="leaderboard-item">
@@ -144,7 +144,7 @@
 
             <!-- Most Long Loops -->
             <div class="leaderboard-card">
-              <h3 class="leaderboard-title">💙 Most Long Loops</h3>
+              <h3 class="leaderboard-title">{{content.pages.stats_page.loopChampions.longLoops}}</h3>
               <ol class="leaderboard-list">
                 {{#each clubStats.topByLongLoops}}
                   <li class="leaderboard-item">
@@ -166,8 +166,8 @@
       {{#if content.pages.home.pbs.records.length}}
         <section class="section section-club-records">
           <div class="container">
-            <h2 class="section-title">Club Records</h2>
-            <p class="section-subtitle">The fastest times at each distance</p>
+            <h2 class="section-title">{{content.pages.stats_page.records.title}}</h2>
+            <p class="section-subtitle">{{content.pages.stats_page.records.subtitle}}</p>
             <div class="records-grid">
               {{#each content.pages.home.pbs.records}}
                 {{#if runner}}

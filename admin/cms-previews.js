@@ -471,6 +471,173 @@ var ContactPreview = createClass({
 
 CMS.registerPreviewTemplate("contact", ContactPreview);
 
+// Results Page Preview
+var ResultsPreview = createClass({
+  render: function () {
+    var entry = this.props.entry;
+
+    return h('div', { className: 'dark-theme' },
+      h('main', {},
+        // Page Header
+        h('section', { className: 'page-header' },
+          h('div', { className: 'container' },
+            h('h1', { className: 'page-title' }, entry.getIn(['data', 'title'])),
+            h('p', { className: 'page-subtitle' }, entry.getIn(['data', 'subtitle']))
+          )
+        ),
+
+        // Featured Latest Run Section
+        h('section', { className: 'section section-featured-result' },
+          h('div', { className: 'container' },
+            h('div', { className: 'section-header section-header-compact' },
+              h('span', { className: 'section-label' }, entry.getIn(['data', 'featuredLabel'])),
+              h('h2', { className: 'section-title' }, entry.getIn(['data', 'latestRunTitle']))
+            ),
+            // Placeholder for latest run card
+            h('div', {
+              style: {
+                background: 'var(--color-surface)',
+                borderRadius: 'var(--radius-lg)',
+                padding: 'var(--space-6)',
+                textAlign: 'center',
+                color: 'var(--color-muted)'
+              }
+            },
+              h('p', {}, '📊 Latest run card will be generated from results data'),
+              h('div', { style: { marginTop: 'var(--space-4)', display: 'flex', gap: 'var(--space-4)', justifyContent: 'center' } },
+                h('span', { className: 'stat-label' }, entry.getIn(['data', 'stats', 'runnersLabel']) || 'Runners'),
+                h('span', { className: 'stat-label' }, entry.getIn(['data', 'stats', 'distanceLabel']) || 'Total Distance'),
+                h('span', { className: 'stat-label' }, entry.getIn(['data', 'stats', 'paceLabel']) || 'Avg Pace'),
+                h('span', { className: 'stat-label' }, entry.getIn(['data', 'stats', 'pbsLabel']) || 'PBs Earned')
+              )
+            )
+          )
+        ),
+
+        // Previous Runs Section
+        h('section', { className: 'section section-results-archive' },
+          h('div', { className: 'container' },
+            h('div', { className: 'section-header section-header-compact' },
+              h('h2', { className: 'section-title' }, entry.getIn(['data', 'previousRunsTitle']))
+            ),
+            h('p', { style: { textAlign: 'center', color: 'var(--color-muted)', padding: 'var(--space-4) 0' } },
+              'Previous runs grid will be generated from results collection.'
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
+CMS.registerPreviewTemplate("results_page", ResultsPreview);
+
+// Stats Page Preview
+var StatsPreview = createClass({
+  render: function () {
+    var entry = this.props.entry;
+    var totals = entry.getIn(['data', 'totals']) || {};
+    var leaderboards = entry.getIn(['data', 'leaderboards']) || {};
+    var loopChampions = entry.getIn(['data', 'loopChampions']) || {};
+    var records = entry.getIn(['data', 'records']) || {};
+
+    return h('div', { className: 'dark-theme' },
+      h('main', {},
+        // Page Header
+        h('section', { className: 'page-header' },
+          h('div', { className: 'container' },
+            h('h1', { className: 'page-title' }, entry.getIn(['data', 'title'])),
+            h('p', { className: 'page-subtitle' }, entry.getIn(['data', 'subtitle']))
+          )
+        ),
+
+        // Club Totals Section
+        h('section', { className: 'section section-club-totals' },
+          h('div', { className: 'container' },
+            h('div', { className: 'stats-totals-grid' },
+              h('div', { className: 'stat-card stat-card-orange' },
+                h('span', { className: 'stat-icon' }, '📅'),
+                h('span', { className: 'stat-value' }, '--'),
+                h('span', { className: 'stat-label' }, totals.get('eventsLabel'))
+              ),
+              h('div', { className: 'stat-card stat-card-pink' },
+                h('span', { className: 'stat-icon' }, '🏃'),
+                h('span', { className: 'stat-value' }, '--'),
+                h('span', { className: 'stat-label' }, totals.get('runnersLabel'))
+              ),
+              h('div', { className: 'stat-card stat-card-green' },
+                h('span', { className: 'stat-icon' }, '📏'),
+                h('span', { className: 'stat-value' }, '--km'),
+                h('span', { className: 'stat-label' }, totals.get('distanceLabel'))
+              ),
+              h('div', { className: 'stat-card stat-card-blue' },
+                h('span', { className: 'stat-icon' }, '👥'),
+                h('span', { className: 'stat-value' }, '--'),
+                h('span', { className: 'stat-label' }, totals.get('avgLabel'))
+              )
+            )
+          )
+        ),
+
+        // Leaderboards Section
+        h('section', { className: 'section section-leaderboards' },
+          h('div', { className: 'container' },
+            h('h2', { className: 'section-title' }, leaderboards.get('title')),
+            h('div', { className: 'leaderboards-grid' },
+              h('div', { className: 'leaderboard-card' },
+                h('h3', { className: 'leaderboard-title' }, leaderboards.get('mostEvents')),
+                h('p', { style: { color: 'var(--color-muted)', textAlign: 'center', padding: 'var(--space-4)' } }, 'Generated from results')
+              ),
+              h('div', { className: 'leaderboard-card' },
+                h('h3', { className: 'leaderboard-title' }, leaderboards.get('mostDistance')),
+                h('p', { style: { color: 'var(--color-muted)', textAlign: 'center', padding: 'var(--space-4)' } }, 'Generated from results')
+              ),
+              h('div', { className: 'leaderboard-card' },
+                h('h3', { className: 'leaderboard-title' }, leaderboards.get('fastestPace')),
+                h('p', { style: { color: 'var(--color-muted)', textAlign: 'center', padding: 'var(--space-4)' } }, 'Generated from results')
+              )
+            )
+          )
+        ),
+
+        // Loop Champions Section
+        h('section', { className: 'section section-leaderboards' },
+          h('div', { className: 'container' },
+            h('h2', { className: 'section-title' }, loopChampions.get('title')),
+            h('div', { className: 'leaderboards-grid' },
+              h('div', { className: 'leaderboard-card' },
+                h('h3', { className: 'leaderboard-title' }, loopChampions.get('smallLoops')),
+                h('p', { style: { color: 'var(--color-muted)', textAlign: 'center', padding: 'var(--space-4)' } }, 'Generated from results')
+              ),
+              h('div', { className: 'leaderboard-card' },
+                h('h3', { className: 'leaderboard-title' }, loopChampions.get('mediumLoops')),
+                h('p', { style: { color: 'var(--color-muted)', textAlign: 'center', padding: 'var(--space-4)' } }, 'Generated from results')
+              ),
+              h('div', { className: 'leaderboard-card' },
+                h('h3', { className: 'leaderboard-title' }, loopChampions.get('longLoops')),
+                h('p', { style: { color: 'var(--color-muted)', textAlign: 'center', padding: 'var(--space-4)' } }, 'Generated from results')
+              )
+            )
+          )
+        ),
+
+        // Club Records Section
+        h('section', { className: 'section section-club-records' },
+          h('div', { className: 'container' },
+            h('h2', { className: 'section-title' }, records.get('title')),
+            h('p', { className: 'section-subtitle' }, records.get('subtitle')),
+            h('p', { style: { color: 'var(--color-muted)', textAlign: 'center', padding: 'var(--space-4)' } },
+              'Records are managed in Homepage → Personal Bests section.'
+            )
+          )
+        )
+      )
+    );
+  }
+});
+
+CMS.registerPreviewTemplate("stats_page", StatsPreview);
+
 // Events Preview - handles both Events Page and individual Special Events
 var EventsPreview = createClass({
   render: function () {

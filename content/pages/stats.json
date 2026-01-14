@@ -1,0 +1,26 @@
+{
+  "title": "Club Stats",
+  "subtitle": "Numbers that tell our story",
+  "totals": {
+    "eventsLabel": "Total Events",
+    "runnersLabel": "Unique Runners",
+    "distanceLabel": "Combined Distance",
+    "avgLabel": "Avg Attendance"
+  },
+  "leaderboards": {
+    "title": "Leaderboards",
+    "mostEvents": "🏃 Most Events Attended",
+    "mostDistance": "📏 Most Distance",
+    "fastestPace": "⚡ Fastest Avg Pace"
+  },
+  "loopChampions": {
+    "title": "Loop Champions 🏅",
+    "smallLoops": "🩷 Most Small Loops",
+    "mediumLoops": "💚 Most Medium Loops",
+    "longLoops": "💙 Most Long Loops"
+  },
+  "records": {
+    "title": "Club Records",
+    "subtitle": "The fastest times at each distance"
+  }
+}

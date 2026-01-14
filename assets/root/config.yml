@@ -161,33 +161,54 @@ collections:
           - { label: "Page Title", name: "title", widget: "string", default: "Run Results" }
           - { label: "Page Subtitle", name: "subtitle", widget: "string", default: "A look back at our Sunday adventures" }
           - { label: "Featured Label", name: "featuredLabel", widget: "string", default: "Latest Adventure", required: false }
-
-          - label: "Personal Bests"
-            name: "pbs"
+          - { label: "Latest Run Title", name: "latestRunTitle", widget: "string", default: "Latest Run" }
+          - { label: "Previous Runs Title", name: "previousRunsTitle", widget: "string", default: "Previous Runs" }
+          - label: "Stat Labels"
+            name: "stats"
             widget: "object"
             fields:
-              - { label: "Title", name: "title", widget: "string", default: "Wall of Fame" }
-              - { label: "Description", name: "description", widget: "text", required: false }
-              - label: "Legends Section"
-                name: "legends"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", default: "🏆 Sunday Run Legends" }
-                  - { label: "Subtitle", name: "subtitle", widget: "string", default: "Top performers from our weekly runs" }
-              - label: "All-Time PBs Section"
-                name: "allTimePbs"
-                widget: "object"
-                fields:
-                  - { label: "Title", name: "title", widget: "string", default: "🎖️ All-Time PBs" }
-                  - { label: "Subtitle", name: "subtitle", widget: "string", default: "Personal bests across any event" }
-              - label: "Records"
-                name: "records"
-                widget: "list"
-                fields:
-                  - { label: "Runner Name", name: "name", widget: "string" }
-                  - { label: "Distance", name: "distance", widget: "select", options: ["5k", "10k", "Half Marathon", "Marathon"] }
-                  - { label: "Time", name: "time", widget: "string" }
-                  - { label: "Date", name: "date", widget: "datetime", format: "MMMM D, YYYY" }
+              - { label: "Runners Label", name: "runnersLabel", widget: "string", default: "Runners" }
+              - { label: "Distance Label", name: "distanceLabel", widget: "string", default: "Total Distance" }
+              - { label: "Pace Label", name: "paceLabel", widget: "string", default: "Avg Pace" }
+              - { label: "PBs Label", name: "pbsLabel", widget: "string", default: "PBs Earned" }
+
+      # Stats Page
+      - name: "stats_page"
+        label: "Stats Page"
+        file: "content/pages/stats.json"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string", default: "Club Stats" }
+          - { label: "Page Subtitle", name: "subtitle", widget: "string", default: "Numbers that tell our story" }
+          - label: "Totals Section Labels"
+            name: "totals"
+            widget: "object"
+            fields:
+              - { label: "Events Label", name: "eventsLabel", widget: "string", default: "Total Events" }
+              - { label: "Runners Label", name: "runnersLabel", widget: "string", default: "Unique Runners" }
+              - { label: "Distance Label", name: "distanceLabel", widget: "string", default: "Combined Distance" }
+              - { label: "Avg Attendance Label", name: "avgLabel", widget: "string", default: "Avg Attendance" }
+          - label: "Leaderboards Section"
+            name: "leaderboards"
+            widget: "object"
+            fields:
+              - { label: "Section Title", name: "title", widget: "string", default: "Leaderboards" }
+              - { label: "Most Events Title", name: "mostEvents", widget: "string", default: "🏃 Most Events Attended" }
+              - { label: "Most Distance Title", name: "mostDistance", widget: "string", default: "📏 Most Distance" }
+              - { label: "Fastest Pace Title", name: "fastestPace", widget: "string", default: "⚡ Fastest Avg Pace" }
+          - label: "Loop Champions Section"
+            name: "loopChampions"
+            widget: "object"
+            fields:
+              - { label: "Section Title", name: "title", widget: "string", default: "Loop Champions 🏅" }
+              - { label: "Small Loops Title", name: "smallLoops", widget: "string", default: "🩷 Most Small Loops" }
+              - { label: "Medium Loops Title", name: "mediumLoops", widget: "string", default: "💚 Most Medium Loops" }
+              - { label: "Long Loops Title", name: "longLoops", widget: "string", default: "💙 Most Long Loops" }
+          - label: "Club Records Section"
+            name: "records"
+            widget: "object"
+            fields:
+              - { label: "Section Title", name: "title", widget: "string", default: "Club Records" }
+              - { label: "Section Subtitle", name: "subtitle", widget: "string", default: "The fastest times at each distance" }
 
       - name: "events"
         label: "Events Page"
@@ -195,7 +216,8 @@ collections:
         fields:
           - { label: "Page Title", name: "title", widget: "string" }
           - { label: "Intro Text", name: "intro", widget: "text" }
-          - { label: "Hero Image", name: "heroImage", widget: "image" }
+          - { label: "Next Run Label", name: "nextRunLabel", widget: "string", default: "Next Run" }
+          - { label: "Upcoming Runs Title", name: "upcomingTitle", widget: "string", default: "Upcoming Runs" }
 
       # About Page
       - name: "about"
