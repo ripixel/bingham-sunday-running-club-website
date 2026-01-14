@@ -11,7 +11,9 @@
  */
 function parseTime(timeStr) {
   if (!timeStr) return 0;
-  const parts = timeStr.split(':').map(Number);
+  // Coerce to string in case YAML parsed an unquoted time value as a non-string
+  const timeString = String(timeStr);
+  const parts = timeString.split(':').map(Number);
   if (parts.length === 2) {
     // MM:SS
     return parts[0] * 60 + parts[1];

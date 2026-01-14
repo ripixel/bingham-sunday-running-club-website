@@ -612,3 +612,72 @@ var EventsPreview = createClass({
 });
 
 CMS.registerPreviewTemplate("events", EventsPreview);
+
+/**
+ * preSave Hook: Ensure time fields in results are properly stringified
+ *
+ * YAML interprets unquoted values like "25:10" as sexagesimal (base-60) numbers,
+ * which causes build failures when the code tries to call .split() on them.
+ * This hook normalizes time values to ensure they're saved as strings.
+ */
+CMS.registerEventListener({
+  name: 'preSave',
+  handler: function ({ entry }) {
+    var collection = entry.get('collection');
+
+    // Only process the results collection
+    if (collection !== 'results') {
+      return entry.get('data');
+    }
+
+    var data = entry.get('data').toJS();
+
+    // Process participants array if it exists
+    if (data.participants && Array.isArray(data.participants)) {
+      data.participants = data.participants.map(function (participant) {
+        if (participant.time !== undefined && participant.time !== null) {
+          // Ensure time is a string
+          var timeStr = String(participant.time);
+
+          // Validate and normalize MM:SS or HH:MM:SS format
+          var parts = timeStr.split(':');
+          if (parts.length === 2) {
+            // MM:SS format - ensure proper padding and handle overflow
+            var mins = parseInt(parts[0], 10) || 0;
+            var secs = parseInt(parts[1], 10) || 0;
+
+            // Handle second overflow (e.g., 28:60 -> 29:00)
+            if (secs >= 60) {
+              mins += Math.floor(secs / 60);
+              secs = secs % 60;
+            }
+
+            participant.time = mins + ':' + (secs < 10 ? '0' : '') + secs;
+          } else if (parts.length === 3) {
+            // HH:MM:SS format
+            var hours = parseInt(parts[0], 10) || 0;
+            var mins = parseInt(parts[1], 10) || 0;
+            var secs = parseInt(parts[2], 10) || 0;
+
+            // Handle overflows
+            if (secs >= 60) {
+              mins += Math.floor(secs / 60);
+              secs = secs % 60;
+            }
+            if (mins >= 60) {
+              hours += Math.floor(mins / 60);
+              mins = mins % 60;
+            }
+
+            participant.time = hours + ':' +
+              (mins < 10 ? '0' : '') + mins + ':' +
+              (secs < 10 ? '0' : '') + secs;
+          }
+        }
+        return participant;
+      });
+    }
+
+    return data;
+  }
+});
