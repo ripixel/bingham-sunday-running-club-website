@@ -161,9 +161,11 @@ export const createProcessStagingTask = (): TaskDef<{}, void> => ({
       const resultPath = path.join(resultsDir, `${dateStr}.md`);
       const stagedPath = path.join(stagingDir, file);
 
-      if (fs.existsSync(resultPath)) {
-        logger.info(`Skipping ${dateStr} - result file already exists`);
-        continue;
+      // Always process staging files - if staging exists, it should be processed
+      // Re-uploads will overwrite existing results, which is the intended behavior
+      const isRegeneration = fs.existsSync(resultPath);
+      if (isRegeneration) {
+        logger.info(`Re-processing ${dateStr} - staging file will update existing result`);
       }
 
       try {
