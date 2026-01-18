@@ -381,8 +381,7 @@ function computeRunnerStats(runnerId, allResults, runner) {
     else run.paceMedal = null;
   });
 
-  // Reverse back to descending order for display
-  runHistory.reverse();
+  // runHistory is already in descending order (newest first) since sortedResults is date-descending
 
   return {
     totalRuns,
