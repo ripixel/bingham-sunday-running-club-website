@@ -845,6 +845,9 @@ CMS.registerEventListener({
       });
     }
 
-    return data;
+    // CRITICAL: Convert back to Immutable.js structure
+    // Decap CMS expects the preSave handler to return an Immutable Map, not a plain JS object.
+    // Returning a plain object causes "s.get is not a function" errors in persistEntry.
+    return window.Immutable ? window.Immutable.fromJS(data) : data;
   }
 });
