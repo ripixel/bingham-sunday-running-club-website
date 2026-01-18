@@ -86,15 +86,20 @@ function computeClubStats(results, runners) {
         totalDistance += distance;
 
         // Parse time to seconds for pace calculation
-        // Coerce to string first - YAML may interpret unquoted times (e.g., 25:10) as sexagesimal numbers
-        if (participant.time) {
-          const timeStr = String(participant.time);
-          const timeParts = timeStr.split(':').map(Number);
+        // Handle YAML sexagesimal parsing: "28:01" may become number 1681 (28*60+1)
+        if (participant.time !== undefined && participant.time !== null) {
           let seconds = 0;
-          if (timeParts.length === 3) {
-            seconds = timeParts[0] * 3600 + timeParts[1] * 60 + timeParts[2];
-          } else if (timeParts.length === 2) {
-            seconds = timeParts[0] * 60 + timeParts[1];
+          if (typeof participant.time === 'number') {
+            // YAML parsed it as sexagesimal - it's already in seconds
+            seconds = participant.time;
+          } else {
+            const timeStr = String(participant.time);
+            const timeParts = timeStr.split(':').map(Number);
+            if (timeParts.length === 3) {
+              seconds = timeParts[0] * 3600 + timeParts[1] * 60 + timeParts[2];
+            } else if (timeParts.length === 2) {
+              seconds = timeParts[0] * 60 + timeParts[1];
+            }
           }
           runnerStats[runnerId].totalTimeSeconds += seconds;
         }

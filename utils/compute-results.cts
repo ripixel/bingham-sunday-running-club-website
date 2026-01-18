@@ -8,12 +8,19 @@
 
 /**
  * Parse time string (MM:SS or HH:MM:SS) to total seconds
+ * Also handles YAML sexagesimal parsing where "28:01" becomes 1681 (28*60+1)
  */
 function parseTime(timeStr) {
   if (!timeStr) return 0;
-  // Coerce to string in case YAML parsed an unquoted time value as a non-string
-  const timeString = String(timeStr);
-  const parts = timeString.split(':').map(Number);
+
+  // If it's already a number, YAML likely parsed it as sexagesimal (e.g., "28:01" -> 1681)
+  // In this case, the number IS the total seconds
+  if (typeof timeStr === 'number') {
+    return timeStr;
+  }
+
+  // Otherwise, parse the string format
+  const parts = String(timeStr).split(':').map(Number);
   if (parts.length === 2) {
     // MM:SS
     return parts[0] * 60 + parts[1];
@@ -314,7 +321,8 @@ function computeRunnerStats(runnerId, allResults, runner) {
           title: result.title || result.eventTitle || 'Sunday Run',
           slug: result.slug,
           distance: p.distance,
-          time: p.time,
+          // Format time - handle YAML sexagesimal parsing where "28:01" becomes number 1681
+          time: typeof p.time === 'number' ? formatTime(p.time) : p.time,
           pace: calculatePace(p.distance, timeSeconds),
           route: formatRoute(p),
           routeHtml: formatRouteHtml(p)
