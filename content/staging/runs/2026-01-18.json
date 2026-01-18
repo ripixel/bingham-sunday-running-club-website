@@ -1,5 +1,5 @@
 {
-  "date": "2026-01-18T09:49:20.648Z",
+  "date": "2026-01-18T00:00:00.000Z",
   "mainPhoto": "/images/races/2026-01-18.jpg",
   "body": "Wet and wild today! 🌧️ But a great turnout for Dean's birthday! Happy birthday to the Founder 🥳",
   "participants": [
@@ -32,7 +32,7 @@
       "time": "33:56"
     },
     {
-      "runner": "guest",
+      "runner": "darcy",
       "smallLoops": 0,
       "mediumLoops": 1,
       "longLoops": 3,
@@ -60,14 +60,14 @@
       "time": "26:06"
     },
     {
-      "runner": "guest",
+      "runner": "jen",
       "smallLoops": 1,
       "mediumLoops": 1,
       "longLoops": 2,
       "time": "34:01"
     },
     {
-      "runner": "guest",
+      "runner": "louise",
       "smallLoops": 0,
       "mediumLoops": 1,
       "longLoops": 3,
@@ -81,7 +81,7 @@
       "time": "30:31"
     },
     {
-      "runner": "guest",
+      "runner": "pete",
       "smallLoops": 0,
       "mediumLoops": 0,
       "longLoops": 4,
