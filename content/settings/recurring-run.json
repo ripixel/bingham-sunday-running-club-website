@@ -5,6 +5,7 @@
   "defaultTime": "09:00",
   "distance": "2-10km (your choice!)",
   "loopDistances": {
+    "approach": 0.55,
     "small": 0.8,
     "medium": 1.0,
     "long": 1.2
