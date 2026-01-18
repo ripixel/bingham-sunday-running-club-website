@@ -9,5 +9,6 @@
     "small": 0.8,
     "medium": 1.0,
     "long": 1.2
-  }
+  },
+  "externalVenueWarning": "The regular Sunday run will still take place from {location} – just turn up and run together!"
 }

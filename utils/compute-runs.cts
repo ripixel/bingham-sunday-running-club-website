@@ -34,6 +34,7 @@ function computeRuns(content) {
   const specialEvents = Object.values(content.events || {}).map(event => ({
     ...event,
     isSpecial: true,
+    isExternalVenue: !!event.isExternalVenue,
     dateObj: new Date(event.date)
   }));
 
@@ -107,19 +108,29 @@ function computeRuns(content) {
       specialEventIndex++;
     }
 
+    // Generate external venue warning if applicable
+    const externalVenueWarning = run.isExternalVenue && recurringSettings.externalVenueWarning
+      ? recurringSettings.externalVenueWarning.replace('{location}', recurringSettings.defaultLocation)
+      : null;
+
     return {
       ...run,
       // Format date for display if needed here, or let Handlebars do it (better in Handlebars usually, but we might want pre-formatted strings)
       displayDate: run.dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }),
       displayTime: run.dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
       // Color coding for calendar
-      color
+      color,
+      externalVenueWarning
     };
   });
 
   if (nextRun) {
     nextRun.displayDate = nextRun.dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
     nextRun.displayTime = nextRun.dateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+    // Generate external venue warning if applicable
+    if (nextRun.isExternalVenue && recurringSettings.externalVenueWarning) {
+      nextRun.externalVenueWarning = recurringSettings.externalVenueWarning.replace('{location}', recurringSettings.defaultLocation);
+    }
   }
 
   return {

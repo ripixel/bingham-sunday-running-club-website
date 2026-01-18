@@ -37,6 +37,12 @@
                   {{#if nextRun.isSpecial}}
                     <span class="badge badge-special">Special Event</span>
                   {{/if}}
+                  {{#if nextRun.externalVenueWarning}}
+                    <p class="event-body"
+                      style="color: var(--color-orange); font-weight: 600; margin-top: var(--space-2);">⚠️
+                      {{nextRun.externalVenueWarning}}
+                    </p>
+                  {{/if}}
                   {{#if nextRun.body}}
                     <p class="event-body">{{nextRun.body}}</p>
                   {{/if}}
@@ -79,6 +85,12 @@
 
                   {{#if this.isSpecial}}
                     <span class="badge badge-special" style="margin-top: var(--space-2);">Special Event</span>
+                  {{/if}}
+
+                  {{#if this.externalVenueWarning}}
+                    <p class="event-body-small"
+                      style="color: var(--color-orange); font-weight: 600; margin-top: var(--space-2);">⚠️
+                      {{this.externalVenueWarning}}</p>
                   {{/if}}
 
                   {{#if this.body}}

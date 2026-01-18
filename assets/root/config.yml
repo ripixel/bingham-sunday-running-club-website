@@ -380,6 +380,7 @@ collections:
               - { label: "Medium", name: "medium", widget: "number", value_type: "float", default: 1.0 }
               - { label: "Long", name: "long", widget: "number", value_type: "float", default: 1.2 }
           - { label: "Distance", name: "distance", widget: "string", default: "5-10km (your choice!)" }
+          - { label: "External Venue Warning", name: "externalVenueWarning", widget: "string", default: "The regular Sunday run will still take place from {location} – just turn up and run together!", hint: "Shown when special events are at external venues. Use {location} as placeholder." }
 
   # Events Collection
   - name: "events"
@@ -395,6 +396,7 @@ collections:
       - { label: "Meeting Note", name: "meetingNote", widget: "string", required: false, hint: "Overrides default meeting note. e.g. 'Sign up required!'" }
       - { label: "Action Link URL", name: "link", widget: "string", required: false, hint: "External link for signup/tickets" }
       - { label: "Action Link Text", name: "linkText", widget: "string", default: "Sign Up / Info", required: false }
+      - { label: "External Venue", name: "isExternalVenue", widget: "boolean", default: false, hint: "If true, shows warning that regular run still happens at usual location" }
       - { label: "Description", name: "body", widget: "markdown" }
 
   # Runners Collection

@@ -50,6 +50,11 @@
                       {{#if nextRun.isSpecial}}
                         <span class="badge badge-special">Special Event</span>
                       {{/if}}
+                      {{#if nextRun.externalVenueWarning}}
+                        <p class="event-body"
+                          style="color: var(--color-orange); font-weight: 600; margin-top: var(--space-2);">⚠️
+                          {{nextRun.externalVenueWarning}}</p>
+                      {{/if}}
                       <div class="event-meta">
                         <span class="meta-item location">📍 {{nextRun.location}}</span>
                         {{#if nextRun.distance}}
