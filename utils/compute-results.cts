@@ -167,8 +167,8 @@ function enrichParticipants(participants, runners, allResults, currentResultDate
       displayName = `Runner #${anonymousCounter++}`;
     }
 
-    // Count total attendance for this runner
-    const attendanceCount = countRunnerAttendance(p.runner, allResults, runner);
+    // Count total attendance for this runner (up to and including this result)
+    const attendanceCount = countRunnerAttendance(p.runner, allResults, runner, currentResultDate);
 
     // Deterministic color for linked runners - use from runner JSON or generate as fallback
     const hasProfile = !!runner && !isGuest;
@@ -247,9 +247,9 @@ function enrichParticipants(participants, runners, allResults, currentResultDate
 }
 
 /**
- * Count how many times a runner has participated
+ * Count how many times a runner has participated up to and including a specific date
  */
-function countRunnerAttendance(runnerId, allResults, runner) {
+function countRunnerAttendance(runnerId, allResults, runner, currentResultDate) {
   let count = 0;
 
   // Add starting values if available
@@ -257,8 +257,16 @@ function countRunnerAttendance(runnerId, allResults, runner) {
     count += runner.startingValues.eventsAttended;
   }
 
-  // Count from actual results
+  // Parse the current result date for comparison
+  const currentDate = currentResultDate ? new Date(currentResultDate) : null;
+
+  // Count from actual results up to and including the current result date
   Object.values(allResults || {}).forEach(result => {
+    // Only count results on or before the current result date
+    if (currentDate && result.date) {
+      const resultDate = new Date(result.date);
+      if (resultDate > currentDate) return; // Skip future results
+    }
     (result.participants || []).forEach(p => {
       if (p.runner === runnerId) count++;
     });
