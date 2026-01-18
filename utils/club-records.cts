@@ -42,6 +42,9 @@ export function computeClubRecords(
       if (key === 'mostEvents') { title = "Most Events"; val = `${item.totalRuns} runs`; }
       if (key === 'mostDistance') { title = "Most Distance"; val = `${item.totalDistanceFormatted}km`; }
       if (key === 'fastestPace') { title = "Fastest Pace"; val = item.avgPace || item.pace; }
+      if (key === 'mostSmallLoops') { title = "Loop Legend"; val = `${item.stat} Small Loops`; }
+      if (key === 'mostMediumLoops') { title = "Loop Legend"; val = `${item.stat} Medium Loops`; }
+      if (key === 'mostLongLoops') { title = "Loop Legend"; val = `${item.stat} Long Loops`; }
 
       heldBy[item.runner].push({ distance: title, time: val, icon: icon, runner: item.runner });
     }

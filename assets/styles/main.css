@@ -1640,7 +1640,8 @@ strong {
 }
 
 .playlist-label:hover {
-  background: #1DB954; /* Spotify green */
+  background: #1DB954;
+  /* Spotify green */
   transform: scale(1.05);
 }
 
@@ -2110,6 +2111,14 @@ color: var(--color-text-muted);
   box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
 }
 
+.legend-card-orange {
+  border-left-color: var(--color-orange);
+}
+
+.legend-card-orange:hover {
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);
+}
+
 .legend-icon {
   font-size: var(--text-3xl);
   line-height: 1;
@@ -2146,6 +2155,10 @@ color: var(--color-text-muted);
 
 .legend-card-blue .legend-name {
   color: var(--color-blue);
+}
+
+.legend-card-orange .legend-name {
+  color: var(--color-orange);
 }
 
 .legend-stat {
@@ -3197,7 +3210,7 @@ color: var(--color-text-muted);
 .results-table td {
   padding: var(--space-4);
   text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
 }
 
 .run-history-table th,
@@ -3320,14 +3333,42 @@ color: var(--color-text-muted);
   margin-bottom: var(--space-6);
 }
 
-/* Zebra striping for table */
-.results-table.zebra-striped tbody tr:nth-child(even) {
+/* Zebra striping for tables */
+.results-table.zebra-striped tbody tr:nth-child(even),
+.run-history-table tbody tr:nth-child(even) {
   background-color: rgba(249, 115, 22, 0.05);
+}
+
+/* Mobile-responsive table styles */
+@media (max-width: 640px) {
+
+  .results-table th,
+  .results-table td {
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
+  }
+
+  /* Compact name cell on mobile */
+  .name-cell {
+    gap: var(--space-2);
+  }
+
+  .avatar-ring-small {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Table cell alignment and nowrap for medals */
+.results-table td,
+.run-history-table td {
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 /* Runner avatars in table */
 .name-cell {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--space-3);
 }
@@ -3572,22 +3613,21 @@ color: var(--color-text-muted);
 .badges-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-2);
 }
 
 .record-badge {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
   background: var(--color-bg-elevated);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   border: 1px solid rgba(249, 115, 22, 0.2);
-  /* Orange tint */
 }
 
 .record-icon {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .record-details {
@@ -3596,14 +3636,50 @@ color: var(--color-text-muted);
 }
 
 .record-distance {
-  font-weight: 700;
+  font-weight: 600;
+  font-size: var(--text-xs);
   color: var(--color-text);
   line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .record-time {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
+}
+
+/* Mobile compact badges - 2 per row */
+@media (max-width: 640px) {
+  .badges-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .record-badge {
+    padding: var(--space-2);
+    gap: var(--space-2);
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .record-icon {
+    font-size: 1rem;
+  }
+
+  .record-details {
+    align-items: center;
+  }
+
+  .record-distance {
+    font-size: 0.65rem;
+  }
+
+  .record-time {
+    font-size: 0.65rem;
+  }
 }
 
 -------------------------------------------------------------------------- */ .section-featured-result {
@@ -4003,6 +4079,10 @@ color: var(--color-text-muted);
 
 .legend-card-blue .legend-avatar {
   border-color: var(--color-blue);
+}
+
+.legend-card-orange .legend-avatar {
+  border-color: var(--color-orange);
 }
 
 /* --------------------------------------------------------------------------
