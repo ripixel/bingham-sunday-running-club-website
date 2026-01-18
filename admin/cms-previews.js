@@ -781,81 +781,12 @@ var EventsPreview = createClass({
 CMS.registerPreviewTemplate("events", EventsPreview);
 
 /**
- * preSave Hook: TEMPORARILY DISABLED for debugging
- * Uncomment after confirming the persistEntry error source
+ * NOTE: Time normalization (preventing YAML sexagesimal parsing issues)
+ * is handled at BUILD TIME in compute-stats.cts and compute-results.cts
+ * instead of using a preSave hook here.
+ *
+ * The preSave hook was removed because Decap CMS 3.x has issues with
+ * returning modified Immutable.js data from preSave handlers, causing
+ * "s.get is not a function" errors in persistEntry.
  */
-/*
-CMS.registerEventListener({
-  name: 'preSave',
-  handler: function ({ entry }) {
-    var collection = entry.get('collection');
 
-    // Only process the results collection
-    if (collection !== 'results') {
-      return entry.get('data');
-    }
-
-    // Helper function to normalize a time string
-    function normalizeTime(timeValue) {
-      if (timeValue === undefined || timeValue === null) {
-        return timeValue;
-      }
-
-      var timeStr = String(timeValue);
-      var parts = timeStr.split(':');
-
-      if (parts.length === 2) {
-        // MM:SS format
-        var mins = parseInt(parts[0], 10) || 0;
-        var secs = parseInt(parts[1], 10) || 0;
-
-        // Handle second overflow (e.g., 28:60 -> 29:00)
-        if (secs >= 60) {
-          mins += Math.floor(secs / 60);
-          secs = secs % 60;
-        }
-
-        return mins + ':' + (secs < 10 ? '0' : '') + secs;
-      } else if (parts.length === 3) {
-        // HH:MM:SS format
-        var hours = parseInt(parts[0], 10) || 0;
-        var mins = parseInt(parts[1], 10) || 0;
-        var secs = parseInt(parts[2], 10) || 0;
-
-        // Handle overflows
-        if (secs >= 60) {
-          mins += Math.floor(secs / 60);
-          secs = secs % 60;
-        }
-        if (mins >= 60) {
-          hours += Math.floor(mins / 60);
-          mins = mins % 60;
-        }
-
-        return hours + ':' + (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
-      }
-
-      return timeStr;
-    }
-
-    // Work with Immutable data structures directly
-    var data = entry.get('data');
-    var participants = data.get('participants');
-
-    // If no participants, return unchanged
-    if (!participants || participants.size === 0) {
-      return data;
-    }
-
-    // Use Immutable's map to transform participant times
-    var updatedParticipants = participants.map(function (participant) {
-      var time = participant.get('time');
-      var normalizedTime = normalizeTime(time);
-      return participant.set('time', normalizedTime);
-    });
-
-    // Return the updated Immutable data structure
-    return data.set('participants', updatedParticipants);
-  }
-});
-*/

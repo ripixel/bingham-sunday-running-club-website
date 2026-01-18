@@ -52,8 +52,10 @@ interface ParsedResult {
 }
 
 // Parse time string to seconds
-function timeToSeconds(time: string): number {
-  const parts = time.split(':').map(Number);
+// Coerce to string first - YAML may interpret unquoted times (e.g., 25:10) as sexagesimal numbers
+function timeToSeconds(time: string | number): number {
+  const timeStr = String(time);
+  const parts = timeStr.split(':').map(Number);
   if (parts.length === 3) {
     return parts[0] * 3600 + parts[1] * 60 + parts[2];
   }

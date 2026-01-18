@@ -86,8 +86,10 @@ function computeClubStats(results, runners) {
         totalDistance += distance;
 
         // Parse time to seconds for pace calculation
+        // Coerce to string first - YAML may interpret unquoted times (e.g., 25:10) as sexagesimal numbers
         if (participant.time) {
-          const timeParts = participant.time.split(':').map(Number);
+          const timeStr = String(participant.time);
+          const timeParts = timeStr.split(':').map(Number);
           let seconds = 0;
           if (timeParts.length === 3) {
             seconds = timeParts[0] * 3600 + timeParts[1] * 60 + timeParts[2];
