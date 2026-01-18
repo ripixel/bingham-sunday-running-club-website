@@ -97,7 +97,8 @@ function computeRuns(content) {
   // Calendar is the list (let's say next 10 items)
   let specialEventIndex = 0;
 
-  const eventsList = upcomingRuns.slice(0, 21).map(run => {
+  // Start from index 1 to exclude the first run (already shown as nextRun)
+  const eventsList = upcomingRuns.slice(1, 21).map(run => {
     let color = 'blue';
 
     if (run.isSpecial) {

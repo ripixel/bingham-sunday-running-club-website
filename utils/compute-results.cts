@@ -159,7 +159,7 @@ function enrichParticipants(participants, runners, allResults, currentResultDate
     const routeHtml = formatRouteHtml(p);
 
     // Handle anonymous runners
-    let displayName = runner?.name || 'Guest';
+    let displayName = runner?.name || p.guestName || 'Guest';
     const isGuest = p.runner === 'guest' || !runner;
     const isAnonymous = runner?.anonymous;
 

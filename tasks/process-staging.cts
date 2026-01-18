@@ -237,5 +237,22 @@ export const createProcessStagingTask = (): TaskDef<{}, void> => ({
     }
 
     logger.info(`Finished processing. Generated ${processedCount} new results.`);
+
+    // Cleanup: keep only the most recent staging file (by date in filename)
+    if (stagedFiles.length > 1) {
+      const sortedFiles = [...stagedFiles].sort((a, b) => {
+        // Sort by date descending (most recent first)
+        const dateA = a.replace('.json', '');
+        const dateB = b.replace('.json', '');
+        return dateB.localeCompare(dateA);
+      });
+
+      const filesToDelete = sortedFiles.slice(1); // Keep first (most recent), delete rest
+      for (const file of filesToDelete) {
+        const filePath = path.join(stagingDir, file);
+        fs.unlinkSync(filePath);
+        logger.info(`Cleaned up staging file: ${file}`);
+      }
+    }
   }
 });
