@@ -781,12 +781,10 @@ var EventsPreview = createClass({
 CMS.registerPreviewTemplate("events", EventsPreview);
 
 /**
- * preSave Hook: Ensure time fields in results are properly stringified
- *
- * YAML interprets unquoted values like "25:10" as sexagesimal (base-60) numbers,
- * which causes build failures when the code tries to call .split() on them.
- * This hook normalizes time values to ensure they're saved as strings.
+ * preSave Hook: TEMPORARILY DISABLED for debugging
+ * Uncomment after confirming the persistEntry error source
  */
+/*
 CMS.registerEventListener({
   name: 'preSave',
   handler: function ({ entry }) {
@@ -797,57 +795,67 @@ CMS.registerEventListener({
       return entry.get('data');
     }
 
-    var data = entry.get('data').toJS();
+    // Helper function to normalize a time string
+    function normalizeTime(timeValue) {
+      if (timeValue === undefined || timeValue === null) {
+        return timeValue;
+      }
 
-    // Process participants array if it exists
-    if (data.participants && Array.isArray(data.participants)) {
-      data.participants = data.participants.map(function (participant) {
-        if (participant.time !== undefined && participant.time !== null) {
-          // Ensure time is a string
-          var timeStr = String(participant.time);
+      var timeStr = String(timeValue);
+      var parts = timeStr.split(':');
 
-          // Validate and normalize MM:SS or HH:MM:SS format
-          var parts = timeStr.split(':');
-          if (parts.length === 2) {
-            // MM:SS format - ensure proper padding and handle overflow
-            var mins = parseInt(parts[0], 10) || 0;
-            var secs = parseInt(parts[1], 10) || 0;
+      if (parts.length === 2) {
+        // MM:SS format
+        var mins = parseInt(parts[0], 10) || 0;
+        var secs = parseInt(parts[1], 10) || 0;
 
-            // Handle second overflow (e.g., 28:60 -> 29:00)
-            if (secs >= 60) {
-              mins += Math.floor(secs / 60);
-              secs = secs % 60;
-            }
-
-            participant.time = mins + ':' + (secs < 10 ? '0' : '') + secs;
-          } else if (parts.length === 3) {
-            // HH:MM:SS format
-            var hours = parseInt(parts[0], 10) || 0;
-            var mins = parseInt(parts[1], 10) || 0;
-            var secs = parseInt(parts[2], 10) || 0;
-
-            // Handle overflows
-            if (secs >= 60) {
-              mins += Math.floor(secs / 60);
-              secs = secs % 60;
-            }
-            if (mins >= 60) {
-              hours += Math.floor(mins / 60);
-              mins = mins % 60;
-            }
-
-            participant.time = hours + ':' +
-              (mins < 10 ? '0' : '') + mins + ':' +
-              (secs < 10 ? '0' : '') + secs;
-          }
+        // Handle second overflow (e.g., 28:60 -> 29:00)
+        if (secs >= 60) {
+          mins += Math.floor(secs / 60);
+          secs = secs % 60;
         }
-        return participant;
-      });
+
+        return mins + ':' + (secs < 10 ? '0' : '') + secs;
+      } else if (parts.length === 3) {
+        // HH:MM:SS format
+        var hours = parseInt(parts[0], 10) || 0;
+        var mins = parseInt(parts[1], 10) || 0;
+        var secs = parseInt(parts[2], 10) || 0;
+
+        // Handle overflows
+        if (secs >= 60) {
+          mins += Math.floor(secs / 60);
+          secs = secs % 60;
+        }
+        if (mins >= 60) {
+          hours += Math.floor(mins / 60);
+          mins = mins % 60;
+        }
+
+        return hours + ':' + (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+      }
+
+      return timeStr;
     }
 
-    // CRITICAL: Convert back to Immutable.js structure
-    // Decap CMS expects the preSave handler to return an Immutable Map, not a plain JS object.
-    // Returning a plain object causes "s.get is not a function" errors in persistEntry.
-    return window.Immutable ? window.Immutable.fromJS(data) : data;
+    // Work with Immutable data structures directly
+    var data = entry.get('data');
+    var participants = data.get('participants');
+
+    // If no participants, return unchanged
+    if (!participants || participants.size === 0) {
+      return data;
+    }
+
+    // Use Immutable's map to transform participant times
+    var updatedParticipants = participants.map(function (participant) {
+      var time = participant.get('time');
+      var normalizedTime = normalizeTime(time);
+      return participant.set('time', normalizedTime);
+    });
+
+    // Return the updated Immutable data structure
+    return data.set('participants', updatedParticipants);
   }
 });
+*/
