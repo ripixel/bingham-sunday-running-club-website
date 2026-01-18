@@ -209,23 +209,24 @@ function enrichParticipants(participants, runners, allResults, currentResultDate
 
       const currentPaceSeconds = timeSeconds / (p.distance || 1);
 
-      // Rank distance (higher is better)
-      const allDistances = [...previousRuns.map(r => r.distance), p.distance];
-      const sortedDistances = [...new Set(allDistances)].sort((a, b) => b - a);
-      const distanceRank = sortedDistances.indexOf(p.distance) + 1;
+      // Only award medals if the runner BEATS their previous record (not ties)
+      // For first run, no medal (nothing to beat)
+      if (previousRuns.length > 0) {
+        const previousDistances = previousRuns.map(r => r.distance);
+        const previousPaces = previousRuns.map(r => r.paceSeconds);
 
-      if (distanceRank === 1) distanceMedal = '🥇';
-      else if (distanceRank === 2) distanceMedal = '🥈';
-      else if (distanceRank === 3) distanceMedal = '🥉';
+        // Distance: current must be GREATER than all previous (not equal)
+        const maxPreviousDistance = Math.max(...previousDistances);
+        if (p.distance > maxPreviousDistance) {
+          distanceMedal = '�';
+        }
 
-      // Rank pace (lower is better = faster)
-      const allPaces = [...previousRuns.map(r => r.paceSeconds), currentPaceSeconds];
-      const sortedPaces = [...new Set(allPaces)].sort((a, b) => a - b);
-      const paceRank = sortedPaces.indexOf(currentPaceSeconds) + 1;
-
-      if (paceRank === 1) paceMedal = '🥇';
-      else if (paceRank === 2) paceMedal = '🥈';
-      else if (paceRank === 3) paceMedal = '🥉';
+        // Pace: current must be LOWER (faster) than all previous (not equal)
+        const minPreviousPace = Math.min(...previousPaces);
+        if (currentPaceSeconds < minPreviousPace) {
+          paceMedal = '�';
+        }
+      }
     }
 
     return {
@@ -365,28 +366,32 @@ function computeRunnerStats(runnerId, allResults, runner) {
     // Get all runs up to and including this one
     const runsUpToNow = chronologicalHistory.slice(0, index + 1);
 
-    // Rank distance (higher is better)
-    const distances = runsUpToNow.map(r => r.distance);
-    const sortedDistances = [...new Set(distances)].sort((a, b) => b - a);
-    const distanceRank = sortedDistances.indexOf(run.distance) + 1;
+    // Only award medals if the runner BEATS their previous record (not ties)
+    // For first run (index 0), no medal (nothing to beat)
+    run.distanceMedal = null;
+    run.paceMedal = null;
 
-    if (distanceRank === 1) run.distanceMedal = '🥇';
-    else if (distanceRank === 2) run.distanceMedal = '🥈';
-    else if (distanceRank === 3) run.distanceMedal = '🥉';
-    else run.distanceMedal = null;
+    if (index > 0) {
+      // Get all PREVIOUS runs (before this one)
+      const previousRuns = chronologicalHistory.slice(0, index);
+      const previousDistances = previousRuns.map(r => r.distance);
+      const previousPaces = previousRuns.map(r => {
+        const t = parseTime(r.time);
+        return t / (r.distance || 1);
+      });
 
-    // Rank pace (lower is better = faster)
-    const paces = runsUpToNow.map(r => {
-      const t = parseTime(r.time);
-      return t / (r.distance || 1);
-    });
-    const sortedPaces = [...new Set(paces)].sort((a, b) => a - b);
-    const paceRank = sortedPaces.indexOf(runPaceSeconds) + 1;
+      // Distance: current must be GREATER than all previous (not equal)
+      const maxPreviousDistance = Math.max(...previousDistances);
+      if (run.distance > maxPreviousDistance) {
+        run.distanceMedal = '🥇';
+      }
 
-    if (paceRank === 1) run.paceMedal = '🥇';
-    else if (paceRank === 2) run.paceMedal = '🥈';
-    else if (paceRank === 3) run.paceMedal = '🥉';
-    else run.paceMedal = null;
+      // Pace: current must be LOWER (faster) than all previous (not equal)
+      const minPreviousPace = Math.min(...previousPaces);
+      if (runPaceSeconds < minPreviousPace) {
+        run.paceMedal = '🥇';
+      }
+    }
   });
 
   // runHistory is already in descending order (newest first) since sortedResults is date-descending
