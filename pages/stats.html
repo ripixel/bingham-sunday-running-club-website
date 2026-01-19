@@ -168,31 +168,45 @@
           <div class="container">
             <h2 class="section-title">{{content.pages.stats_page.records.title}}</h2>
             <p class="section-subtitle">{{content.pages.stats_page.records.subtitle}}</p>
-            <div class="records-grid">
+            <div class="pbs-grid">
               {{#each content.pages.home.pbs.records}}
                 {{#if runner}}
-                  <a href="/runners/{{runner}}/" class="record-card">
+                  <a href="/runners/{{runner}}/" class="pb-card pb-card-link">
                 {{else}}
-                  <div class="record-card">
+                  <div class="pb-card">
                 {{/if}}
-                <span class="record-distance">{{distance}}</span>
-                <span class="record-time">{{time}}</span>
-                <div class="record-holder">
-                  {{#if photo}}
-                    <img src="{{photo}}" alt="{{name}}" class="record-photo" />
-                  {{/if}}
-                  <span class="record-name">{{name}}</span>
-                </div>
-                <span class="record-date">{{date}}</span>
+                  <!-- Medallion -->
+                  <div class="pb-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-award">
+                      <circle cx="12" cy="8" r="7"></circle>
+                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                    </svg>
+                  </div>
+
+                  <div class="pb-content">
+                    <span class="pb-distance pb-distance-large">{{distance}}</span>
+                    <h3 class="pb-time">{{time}}</h3>
+
+                    <div class="pb-meta">
+                      <div class="pb-runner-info">
+                        {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="mini" }}
+                        <span class="pb-runner-name">{{name}}</span>
+                      </div>
+                      <span class="pb-separator">·</span>
+                      <span class="pb-date">{{date}}</span>
+                    </div>
+                  </div>
                 {{#if runner}}
                   </a>
                 {{else}}
+                  </div>
+                {{/if}}
+              {{/each}}
             </div>
-      {{/if}}
-      {{/each}}
-      </div>
-      </div>
-      </section>
+          </div>
+        </section>
       {{/if}}
 
     </main>
