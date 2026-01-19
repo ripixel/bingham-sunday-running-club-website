@@ -209,22 +209,26 @@ function enrichParticipants(participants, runners, allResults, currentResultDate
 
       const currentPaceSeconds = timeSeconds / (p.distance || 1);
 
-      // Only award medals if the runner BEATS their previous record (not ties)
-      // For first run, no medal (nothing to beat)
-      if (previousRuns.length > 0) {
+      // PB logic: First run always gets a medal (it's your best by default)
+      // Subsequent runs only get medals when they BEAT the previous best
+      if (previousRuns.length === 0) {
+        // First run - always a PB!
+        distanceMedal = '🥇';
+        paceMedal = '🥇';
+      } else {
         const previousDistances = previousRuns.map(r => r.distance);
         const previousPaces = previousRuns.map(r => r.paceSeconds);
 
         // Distance: current must be GREATER than all previous (not equal)
         const maxPreviousDistance = Math.max(...previousDistances);
         if (p.distance > maxPreviousDistance) {
-          distanceMedal = '�';
+          distanceMedal = '🥇';
         }
 
         // Pace: current must be LOWER (faster) than all previous (not equal)
         const minPreviousPace = Math.min(...previousPaces);
         if (currentPaceSeconds < minPreviousPace) {
-          paceMedal = '�';
+          paceMedal = '🥇';
         }
       }
     }
@@ -355,42 +359,31 @@ function computeRunnerStats(runnerId, allResults, runner) {
     totalTimeSeconds = paceSeconds * runner.startingValues.totalKm;
   }
 
-  // Add top 3 performance tracking to run history
-  // Process runs chronologically (oldest first) to track rankings
+  // Add PB tracking to run history
+  // Process runs chronologically (oldest first), tracking best values as we go
   const chronologicalHistory = [...runHistory].reverse();
 
-  chronologicalHistory.forEach((run, index) => {
+  // Track the current best values as we iterate
+  let bestDistance = -Infinity;
+  let bestPaceSeconds = Infinity;
+
+  chronologicalHistory.forEach((run) => {
     const runTimeSeconds = parseTime(run.time);
     const runPaceSeconds = runTimeSeconds / (run.distance || 1);
 
-    // Get all runs up to and including this one
-    const runsUpToNow = chronologicalHistory.slice(0, index + 1);
-
-    // Only award medals if the runner BEATS their previous record (not ties)
-    // For first run (index 0), no medal (nothing to beat)
     run.distanceMedal = null;
     run.paceMedal = null;
 
-    if (index > 0) {
-      // Get all PREVIOUS runs (before this one)
-      const previousRuns = chronologicalHistory.slice(0, index);
-      const previousDistances = previousRuns.map(r => r.distance);
-      const previousPaces = previousRuns.map(r => {
-        const t = parseTime(r.time);
-        return t / (r.distance || 1);
-      });
+    // Award medal if this run beats the current best
+    // First run will always beat -Infinity/Infinity
+    if (run.distance > bestDistance) {
+      run.distanceMedal = '🥇';
+      bestDistance = run.distance;
+    }
 
-      // Distance: current must be GREATER than all previous (not equal)
-      const maxPreviousDistance = Math.max(...previousDistances);
-      if (run.distance > maxPreviousDistance) {
-        run.distanceMedal = '🥇';
-      }
-
-      // Pace: current must be LOWER (faster) than all previous (not equal)
-      const minPreviousPace = Math.min(...previousPaces);
-      if (runPaceSeconds < minPreviousPace) {
-        run.paceMedal = '🥇';
-      }
+    if (runPaceSeconds < bestPaceSeconds) {
+      run.paceMedal = '🥇';
+      bestPaceSeconds = runPaceSeconds;
     }
   });
 
