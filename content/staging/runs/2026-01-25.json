@@ -1,0 +1,128 @@
+{
+  "date": "2026-01-25T10:00:05.689Z",
+  "mainPhoto": "/images/races/2026-01-25.jpg",
+  "body": "What a turnout despite the cold and mist 💪",
+  "participants": [
+    {
+      "runner": "james",
+      "smallLoops": 1,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "25:33"
+    },
+    {
+      "runner": "charlotte",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "25:46"
+    },
+    {
+      "runner": "dean",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "25:53"
+    },
+    {
+      "runner": "perry",
+      "smallLoops": 0,
+      "mediumLoops": 2,
+      "longLoops": 1,
+      "time": "25:57"
+    },
+    {
+      "runner": "alex",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "31:14"
+    },
+    {
+      "runner": "steve",
+      "smallLoops": 1,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "31:22"
+    },
+    {
+      "runner": "daisy",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 0,
+      "time": "26:52"
+    },
+    {
+      "runner": "darcy",
+      "smallLoops": 0,
+      "mediumLoops": 4,
+      "longLoops": 0,
+      "time": "33:29"
+    },
+    {
+      "runner": "jen",
+      "smallLoops": 0,
+      "mediumLoops": 4,
+      "longLoops": 0,
+      "time": "33:28"
+    },
+    {
+      "runner": "victoria",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 2,
+      "time": "33:47"
+    },
+    {
+      "runner": "adam",
+      "smallLoops": 1,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "26:46"
+    },
+    {
+      "runner": "bella",
+      "smallLoops": 1,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "26:49"
+    },
+    {
+      "runner": "guest",
+      "guestName": "Ben",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 6,
+      "time": "33:47"
+    },
+    {
+      "runner": "guest",
+      "guestName": "Jakob",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 2,
+      "time": "33:48"
+    },
+    {
+      "runner": "rory",
+      "smallLoops": 1,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "26:47"
+    },
+    {
+      "runner": "zoe",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "33:14"
+    },
+    {
+      "runner": "adrian",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "33:13"
+    }
+  ]
+}
