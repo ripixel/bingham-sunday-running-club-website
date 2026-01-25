@@ -10,7 +10,6 @@ import {
   prepareOutputTask,
   bundleCssTask,
   copyStaticTask,
-  setGlobalsTask,
   generatePagesTask,
 } from 'skier';
 import path from 'path';
@@ -20,107 +19,28 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Import TS helpers using require (for .cts files)
-const { loadContentDir } = require('./utils/content-loader.cts');
-const { computeClubRecords } = require('./utils/club-records.cts');
-
 // Import TS tasks
 const { createFetchSpotifyPlaylistTask } = require('./tasks/fetch-spotify-playlist.cts');
 const { createProcessStagingTask } = require('./tasks/process-staging.cts');
+const { createLoadContentTask } = require('./tasks/load-content.cts');
 const { createHashAdminAssetsTask } = require('./tasks/hash-admin-assets.cts');
 const { createHashScriptsTask } = require('./tasks/hash-scripts.cts');
 const { createGenerateRunnerPagesTask } = require('./tasks/generate-runner-pages.cts');
 const { createGenerateResultPagesTask } = require('./tasks/generate-result-pages.cts');
 const { createGenerateSitemapTask } = require('./tasks/generate-sitemap.cts');
 
-// Load content upfront
-const content = {
-  pages: loadContentDir('pages'),
-  settings: loadContentDir('settings'),
-  events: loadContentDir('events'),
-  merch: loadContentDir('merch'),
-  runners: loadContentDir('runners'),
-  results: loadContentDir('results'),
-};
-
-// Import results computation utilities
-const computeResults = require('./utils/compute-results.cts');
-const { computeClubStats, computeRunnersWithStats } = require('./utils/compute-stats.cts');
-
 // Generate a hash for cache busting (using timestamp)
 const cacheHash = Date.now().toString(36);
-
-// Helper function for consistent color assignment based on runner name
-function getColorForRunner(name) {
-  const colorClasses = ['orange', 'pink', 'green', 'blue'];
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = ((hash << 5) - hash) + name.charCodeAt(i);
-    hash = hash & hash;
-  }
-  return colorClasses[Math.abs(hash) % colorClasses.length];
-}
-
-// Pre-compute Legends and Records
-const legends = computeResults.computeLegends(content.results, content.runners);
-const records = content.pages.home?.pbs?.records || [];
-const clubRecordsMap = computeClubRecords(records, content.runners, legends);
-
-// Import compute-runs
-const computeRuns = require('./utils/compute-runs.cts');
-
-// Define global values to share across tasks
-const globalValues = {
-  siteName: 'Bingham Sunday Running Club',
-  siteUrl: 'https://binghamsundayrunningclub.co.uk/',
-  year: new Date().getFullYear(),
-  cacheHash: cacheHash,
-
-  // Inject all content into global scope
-  content: content,
-  // Shortcuts for settings
-  settings: content.settings || {},
-
-  // Dynamic Run Data
-  ...computeRuns.computeRuns(content),
-
-  // Results Data
-  latestResult: computeResults.getLatestResult(content.results, content.runners),
-  allResultsSummary: computeResults.getAllResultsSummary(content.results, content.runners),
-  allRunners: content.runners,
-
-  // BSRC Legends for Wall of Fame
-  legends: legends,
-
-  // Club Records (enriched)
-  clubRecordsMap: clubRecordsMap,
-
-  // Enriched PB records for homepage (with photos and initials)
-  enrichedPbRecords: (content.pages.home?.pbs?.records || []).map(r => {
-    const runner = content.runners[r.runner];
-    const name = r.name || runner?.name || 'Unknown';
-    return {
-      ...r,
-      photo: runner?.photo || null,
-      name: name,
-      firstInitial: name[0]?.toUpperCase() || '?',
-      colorClass: runner?.colorClass || getColorForRunner(name)
-    };
-  }),
-
-  // Club Stats for stats page
-  clubStats: computeClubStats(content.results, content.runners),
-
-  // Runners with stats for directory page
-  runnersWithStats: computeRunnersWithStats(content.results, content.runners, clubRecordsMap),
-};
 
 export const tasks = [
   // Pre-build: Fetch Spotify playlist
   createFetchSpotifyPlaylistTask(),
 
-  // Pre-build: Process staged runs
+  // Pre-build: Process staged runs (generates new result files)
   createProcessStagingTask(),
+
+  // Load content AFTER staging processing (ensures new results are included)
+  createLoadContentTask(cacheHash),
 
   // Clean & Create output directory
   prepareOutputTask({
@@ -170,11 +90,6 @@ export const tasks = [
 
   // Hash scripts
   createHashScriptsTask(cacheHash),
-
-  // Make content globally available
-  setGlobalsTask({
-    values: globalValues,
-  }),
 
   // Generate HTML pages
   generatePagesTask({
@@ -247,10 +162,10 @@ export const tasks = [
   }),
 
   // Generate individual runner profile pages
-  createGenerateRunnerPagesTask(content, globalValues, cacheHash, computeResults),
+  createGenerateRunnerPagesTask(cacheHash),
 
   // Generate individual result detail pages
-  createGenerateResultPagesTask(content, globalValues, cacheHash, computeResults),
+  createGenerateResultPagesTask(cacheHash),
 
   // Generate sitemap.xml (excluding admin pages)
   createGenerateSitemapTask('https://binghamsundayrunningclub.co.uk'),

@@ -3,26 +3,26 @@ import * as path from 'path';
 import Handlebars from 'handlebars';
 import type { TaskDef } from 'skier/dist/types';
 
-// Import content loader to reload results at runtime
-const { loadContentDir } = require('../utils/content-loader.cts');
+// Import compute utilities
+const computeResults = require('../utils/compute-results.cts');
+
+interface GenerateResultPagesConfig {
+  cacheHash: string;
+}
 
 export const createGenerateResultPagesTask = (
-  content: Record<string, any>,
-  globalValues: Record<string, any>,
-  cacheHash: string,
-  computeResults: any
-): TaskDef<{}, void> => ({
+  cacheHash: string
+): TaskDef<GenerateResultPagesConfig, void> => ({
   name: 'generate-result-pages',
-  config: {},
-  run: async (config, { logger }) => {
+  config: { cacheHash },
+  run: async (config, ctx) => {
+    const { logger, globals } = ctx;
+    const content = globals.content as Record<string, any>;
+
     // Correct paths relative to tasks/
     const templatePath = path.resolve(__dirname, '../templates/result.html');
     const partialsDir = path.resolve(__dirname, '../partials');
     const outDir = path.resolve(__dirname, '../public/results');
-
-    // Merge fresh results with existing to pick up any new files created by process-staging
-    const freshResults = loadContentDir('results');
-    const mergedResults = { ...content.results, ...freshResults };
 
     // Skip if template doesn't exist yet
     if (!fs.existsSync(templatePath)) {
@@ -45,8 +45,8 @@ export const createGenerateResultPagesTask = (
     const templateContent = fs.readFileSync(templatePath, 'utf8');
     const template = Handlebars.compile(templateContent);
 
-    // Generate a page for each result (use mergedResults to include newly-generated files)
-    const results = Object.entries(mergedResults || {});
+    // Generate a page for each result
+    const results = Object.entries(content.results || {});
     for (const [slug, result] of results as [string, any][]) {
       const resultStats = computeResults.computeResultStats(result);
       const enrichedParticipants = computeResults.enrichParticipants(
@@ -62,8 +62,7 @@ export const createGenerateResultPagesTask = (
       const dateObj = new Date(result.date);
 
       const pageVars = {
-        ...globalValues,
-        ...config,
+        ...globals,
         result: {
           ...result,
           slug,
@@ -86,7 +85,7 @@ export const createGenerateResultPagesTask = (
         participants: enrichedParticipants,
         pageTitle: result.title,
         isResultPage: true,
-        cacheHash,
+        cacheHash: config.cacheHash,
         content,
       };
 

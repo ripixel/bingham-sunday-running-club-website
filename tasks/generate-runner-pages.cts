@@ -3,17 +3,23 @@ import * as path from 'path';
 import Handlebars from 'handlebars';
 import type { TaskDef } from 'skier/dist/types';
 
+// Import compute utilities
+const computeResults = require('../utils/compute-results.cts');
+
+interface GenerateRunnerPagesConfig {
+  cacheHash: string;
+}
+
 export const createGenerateRunnerPagesTask = (
-  content: Record<string, any>,
-  globalValues: Record<string, any>,
-  cacheHash: string,
-  computeResults: any
-): TaskDef<{}, void> => ({
+  cacheHash: string
+): TaskDef<GenerateRunnerPagesConfig, void> => ({
   name: 'generate-runner-pages',
-  config: {},
-  run: async (config, { logger }) => {
+  config: { cacheHash },
+  run: async (config, ctx) => {
+    const { logger, globals } = ctx;
+    const content = globals.content as Record<string, any>;
+
     // Correct paths relative to tasks/
-    const runnersDir = path.resolve(__dirname, '../content/runners');
     const templatePath = path.resolve(__dirname, '../templates/runner.html');
     const partialsDir = path.resolve(__dirname, '../partials');
     const outDir = path.resolve(__dirname, '../public/runners');
@@ -45,17 +51,17 @@ export const createGenerateRunnerPagesTask = (
       if (slug === 'guest') continue; // Skip guest profile
 
       const runnerStats = computeResults.computeRunnerStats(slug, content.results, runner);
-      const clubRecords = globalValues.clubRecordsMap ? globalValues.clubRecordsMap[slug] : [];
+      const clubRecordsMap = globals.clubRecordsMap as Record<string, any>;
+      const clubRecords = clubRecordsMap ? clubRecordsMap[slug] : [];
 
       const pageVars = {
-        ...globalValues,
-        ...config,
+        ...globals,
         runner,
         runnerStats,
         clubRecords,
         pageTitle: runner.name,
         isRunnerPage: true,
-        cacheHash,
+        cacheHash: config.cacheHash,
         content,
       };
 
