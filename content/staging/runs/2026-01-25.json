@@ -82,7 +82,7 @@
     {
       "runner": "ben",
       "smallLoops": 1,
-      "mediumLoops": 1,
+      "mediumLoops": 0,
       "longLoops": 4,
       "time": "26:35"
     },
