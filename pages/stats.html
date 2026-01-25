@@ -46,6 +46,8 @@
       <section class="section section-leaderboards">
         <div class="container">
           <h2 class="section-title">{{content.pages.stats_page.leaderboards.title}}</h2>
+          <p style="font-style: italic; margin-bottom: 2rem; opacity: 0.8;">Fastest Average Pace leaderboard only
+            includes runners with more than 3 runs, to allow an average to settle.</p>
 
           <div class="leaderboards-grid">
             <!-- Most Events -->
@@ -175,38 +177,38 @@
                 {{else}}
                   <div class="pb-card">
                 {{/if}}
-                  <!-- Medallion -->
-                  <div class="pb-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-award">
-                      <circle cx="12" cy="8" r="7"></circle>
-                      <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-                    </svg>
-                  </div>
+                <!-- Medallion -->
+                <div class="pb-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-award">
+                    <circle cx="12" cy="8" r="7"></circle>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                  </svg>
+                </div>
 
-                  <div class="pb-content">
-                    <span class="pb-distance pb-distance-large">{{distance}}</span>
-                    <h3 class="pb-time">{{time}}</h3>
+                <div class="pb-content">
+                  <span class="pb-distance pb-distance-large">{{distance}}</span>
+                  <h3 class="pb-time">{{time}}</h3>
 
-                    <div class="pb-meta">
-                      <div class="pb-runner-info">
-                        {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="mini" }}
-                        <span class="pb-runner-name">{{name}}</span>
-                      </div>
-                      <span class="pb-separator">·</span>
-                      <span class="pb-date">{{date}}</span>
+                  <div class="pb-meta">
+                    <div class="pb-runner-info">
+                      {{> avatar photo=photo name=name firstInitial=firstInitial colorClass=colorClass size="mini" }}
+                      <span class="pb-runner-name">{{name}}</span>
                     </div>
+                    <span class="pb-separator">·</span>
+                    <span class="pb-date">{{date}}</span>
                   </div>
+                </div>
                 {{#if runner}}
                   </a>
                 {{else}}
-                  </div>
-                {{/if}}
-              {{/each}}
             </div>
-          </div>
-        </section>
+      {{/if}}
+      {{/each}}
+      </div>
+      </div>
+      </section>
       {{/if}}
 
     </main>
