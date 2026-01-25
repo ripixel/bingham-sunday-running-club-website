@@ -46,6 +46,8 @@ jobs:
             - ~/project/.firebaserc
             - ~/project/firebase.json
             - ~/project/package-lock.json
+            - ~/project/content/results
+            - ~/project/content/staging
 
   deploy_to_firebase:
     executor: node-project
