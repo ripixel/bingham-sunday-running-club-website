@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>BSRC Flyer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800&family=Outfit:wght@700;800&display=swap"
+      rel="stylesheet">
+
+    <style>
+      /* A5 Landscape: 210mm x 148mm */
+      :root {
+        --color-bg: #0d0d0d;
+        --color-bg-elevated: #1a1a1a;
+        --color-bg-card: #252525;
+        --color-text: #ffffff;
+        --color-text-muted: #a0a0a0;
+        --color-primary: #f97316;
+        --color-orange: #f97316;
+        --color-green: #22c55e;
+        --color-pink: #ec4899;
+        --color-blue: #3b82f6;
+        --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-family-display: 'Outfit', 'Inter', sans-serif;
+        --font-family-logo: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        background: var(--color-bg);
+        font-family: var(--font-family);
+        color: var(--color-text);
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .flyer {
+        /* Base size at 96 DPI */
+        width: 794px;
+        height: 559px;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 0;
+        position: relative;
+        overflow: hidden;
+        /* Scale to fit viewport while maintaining aspect ratio */
+        transform-origin: center center;
+      }
+
+      /* Top stripe */
+      .flyer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg,
+            var(--color-orange) 0%, var(--color-orange) 25%,
+            var(--color-pink) 25%, var(--color-pink) 50%,
+            var(--color-green) 50%, var(--color-green) 75%,
+            var(--color-blue) 75%, var(--color-blue) 100%);
+        z-index: 100;
+      }
+
+      /* Left Panel - Hero */
+      .flyer-hero {
+        background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-elevated) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 6mm 8mm;
+        position: relative;
+      }
+
+      .logo-section {
+        margin-bottom: 5mm;
+      }
+
+      .pre-title {
+        display: inline-block;
+        font-family: var(--font-family-display);
+        font-size: 14pt;
+        font-weight: 800;
+        color: var(--color-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        position: relative;
+        padding-bottom: 2mm;
+      }
+
+      .pre-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--color-primary);
+        border-radius: 2px;
+      }
+
+      .main-title {
+        font-family: var(--font-family-logo);
+        font-size: 32pt;
+        font-weight: 600;
+        line-height: 0.95;
+        margin-top: 3mm;
+      }
+
+      .title-line {
+        display: block;
+      }
+
+      .tagline {
+        font-size: 11pt;
+        color: var(--color-text-muted);
+        margin-top: 5mm;
+        line-height: 1.4;
+        max-width: 90%;
+      }
+
+      /* Meeting Info Card */
+      .meeting-card {
+        background: var(--color-bg-card);
+        border-radius: 4mm;
+        padding: 4mm 5mm;
+        margin-top: 6mm;
+        border-left: 4px solid var(--color-primary);
+        width: 100%;
+      }
+
+      .meeting-row {
+        display: flex;
+        align-items: center;
+        gap: 3mm;
+        font-size: 11pt;
+      }
+
+      .meeting-row+.meeting-row {
+        margin-top: 2mm;
+      }
+
+      .meeting-icon {
+        font-size: 14pt;
+        width: 20px;
+        text-align: center;
+      }
+
+      .meeting-text strong {
+        color: var(--color-primary);
+      }
+
+      /* Right Panel - Details */
+      .flyer-details {
+        background: var(--color-bg-elevated);
+        padding: 12mm 8mm 8mm 6mm;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .features-section h2 {
+        font-family: var(--font-family-display);
+        font-size: 14pt;
+        font-weight: 700;
+        margin-bottom: 4mm;
+        color: var(--color-text);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3mm;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 2mm;
+        font-size: 9pt;
+        line-height: 1.3;
+      }
+
+      .feature-icon {
+        font-size: 14pt;
+        flex-shrink: 0;
+        margin-top: -1mm;
+      }
+
+      .feature-text {
+        color: var(--color-text-muted);
+      }
+
+      .feature-text strong {
+        color: var(--color-text);
+        display: block;
+        font-size: 10pt;
+        margin-bottom: 0.5mm;
+      }
+
+      /* Callout cards row */
+      .callouts-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3mm;
+        margin-top: 4mm;
+      }
+
+      .callout-card {
+        background: var(--color-bg-card);
+        border-radius: 3mm;
+        padding: 3mm 4mm;
+        display: flex;
+        align-items: center;
+        gap: 3mm;
+      }
+
+      .callout-icon {
+        font-size: 18pt;
+        flex-shrink: 0;
+      }
+
+      .callout-content h3 {
+        font-family: var(--font-family-display);
+        font-size: 9pt;
+        margin-bottom: 0.5mm;
+      }
+
+      .callout-content h3.green {
+        color: var(--color-green);
+      }
+
+      .callout-content h3.pink {
+        color: var(--color-pink);
+      }
+
+      .callout-content h3.blue {
+        color: var(--color-blue);
+      }
+
+      .callout-content p {
+        font-size: 8pt;
+        color: var(--color-text-muted);
+        line-height: 1.2;
+      }
+
+      /* Website footer */
+      .website-footer {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 4mm;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .website-url {
+        font-family: var(--font-family-display);
+        font-size: 11pt;
+        font-weight: 700;
+        color: var(--color-primary);
+        letter-spacing: 0.02em;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 3mm;
+        font-size: 10pt;
+        color: var(--color-text-muted);
+      }
+
+      .cta-badge {
+        background: var(--color-primary);
+        color: white;
+        font-family: var(--font-family-display);
+        font-size: 9pt;
+        font-weight: 700;
+        padding: 2mm 4mm;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="flyer">
+      <!-- Left Panel - Hero -->
+      <div class="flyer-hero">
+        <div class="logo-section">
+          <span class="pre-title">Bingham</span>
+          <h1 class="main-title">
+            <span class="title-line">Sunday</span>
+            <span class="title-line">Running</span>
+            <span class="title-line">Club</span>
+          </h1>
+        </div>
+
+        <p class="tagline">
+          A friendly, inclusive running club. No memberships, no pressure,<br>
+          just good vibes and Sunday morning runs.
+        </p>
+
+        <div class="meeting-card">
+          <div class="meeting-row">
+            <span class="meeting-icon">📍</span>
+            <span class="meeting-text"><strong>Bingham Market Place</strong></span>
+          </div>
+          <div class="meeting-row">
+            <span class="meeting-icon">⏰</span>
+            <span class="meeting-text"><strong>Every Sunday @ 9:00 AM</strong></span>
+          </div>
+          <div class="meeting-row">
+            <span class="meeting-icon">📏</span>
+            <span class="meeting-text"><strong>2-10km</strong> — your choice!</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel - Details -->
+      <div class="flyer-details">
+        <div class="features-section">
+          <h2>Everyone Welcome!</h2>
+          <div class="features-grid">
+            <div class="feature-item">
+              <span class="feature-icon">🏃</span>
+              <span class="feature-text">
+                <strong>All Paces</strong>
+                Speedsters &amp; saunterers alike
+              </span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">🔁</span>
+              <span class="feature-text">
+                <strong>Flexible Route</strong>
+                Choose your own distance
+              </span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">👶</span>
+              <span class="feature-text">
+                <strong>Kids Welcome</strong>
+                Playground on route!
+              </span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">🚴</span>
+              <span class="feature-text">
+                <strong>Bikes &amp; Scooters</strong>
+                Wheels welcome too
+              </span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">🐕</span>
+              <span class="feature-text">
+                <strong>Dog Friendly</strong>
+                On lead please
+              </span>
+            </div>
+            <div class="feature-item">
+              <span class="feature-icon">🍼</span>
+              <span class="feature-text">
+                <strong>Prams &amp; Strollers</strong>
+                Bring the little ones
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callouts-row">
+          <div class="callout-card">
+            <span class="callout-icon">☕</span>
+            <div class="callout-content">
+              <h3 class="green">Breakfast at Gilt</h3>
+              <p>Coffee, full English &amp; pancakes after!</p>
+            </div>
+          </div>
+          <div class="callout-card">
+            <span class="callout-icon">🌧️</span>
+            <div class="callout-content">
+              <h3 class="pink">Rain or Shine</h3>
+              <p>We're out there every single Sunday</p>
+            </div>
+          </div>
+          <div class="callout-card">
+            <span class="callout-icon">✨</span>
+            <div class="callout-content">
+              <h3 class="blue">No Sign-ups</h3>
+              <p>No fees, no awkward intros needed</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="website-footer">
+          <span class="website-url">binghamsundayrunningclub.co.uk</span>
+          <span class="cta-badge">Just Turn Up!</span>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Scale flyer to fill viewport
+      function scaleFlyer() {
+        const flyer = document.querySelector('.flyer');
+        const baseWidth = 794;
+        const baseHeight = 559;
+        const scaleX = window.innerWidth / baseWidth;
+        const scaleY = window.innerHeight / baseHeight;
+        const scale = Math.min(scaleX, scaleY);
+        flyer.style.transform = `scale(${scale})`;
+      }
+      scaleFlyer();
+      window.addEventListener('resize', scaleFlyer);
+    </script>
+  </body>
+
+</html>
