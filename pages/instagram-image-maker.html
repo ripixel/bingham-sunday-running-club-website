@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Image Maker - BSRC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&family=Outfit:wght@700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #0d0d0d;
+      --color-bg-elevated: #1a1a1a;
+      --color-bg-card: #252525;
+      --color-text: #ffffff;
+      --color-text-muted: #a0a0a0;
+      --color-primary: #f97316;
+      --color-orange: #f97316;
+      --color-green: #22c55e;
+      --color-pink: #ec4899;
+      --color-blue: #3b82f6;
+      --color-cyan: #06b6d4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--color-orange), var(--color-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-family: 'EB Garamond', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* Upload Zone */
+    .upload-zone {
+      background: var(--color-bg-elevated);
+      border: 2px dashed var(--color-primary);
+      border-radius: 1rem;
+      padding: 3rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 2rem;
+    }
+
+    .upload-zone:hover {
+      background: var(--color-bg-card);
+      border-color: var(--color-pink);
+    }
+
+    .upload-zone.dragover {
+      background: var(--color-bg-card);
+      border-color: var(--color-green);
+      transform: scale(1.02);
+    }
+
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .upload-text {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+    }
+
+    .upload-text strong {
+      color: var(--color-primary);
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    /* Editor Section */
+    .editor {
+      display: none;
+      background: var(--color-bg-elevated);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .editor.active {
+      display: block;
+    }
+
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .editor-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      color: var(--color-text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #ea580c;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--color-bg-card);
+      color: var(--color-text);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-success {
+      background: var(--color-green);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+    }
+
+    /* Canvas Container */
+    .canvas-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: var(--color-bg);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    #cropCanvas {
+      max-width: 100%;
+      cursor: default;
+    }
+
+    /* Instructions */
+    .instructions {
+      background: rgba(249, 115, 22, 0.1);
+      border-left: 4px solid var(--color-primary);
+      padding: 1rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin-bottom: 1.5rem;
+    }
+
+    .instructions p {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .instructions strong {
+      color: var(--color-primary);
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* Preview Section */
+    .preview {
+      display: none;
+      background: var(--color-bg-elevated);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    .preview.active {
+      display: block;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .preview-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      color: var(--color-text);
+    }
+
+    .preview-canvas-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: var(--color-bg);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    #previewCanvas {
+      max-width: 100%;
+      border-radius: 0.25rem;
+    }
+
+    /* Banner Options */
+    .banner-options {
+      margin-bottom: 1.5rem;
+    }
+
+    .banner-options label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+    }
+
+    .banner-position,
+    .image-size-mode {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .banner-position button,
+    .image-size-mode button {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: var(--color-bg-card);
+      border: 2px solid transparent;
+      border-radius: 0.5rem;
+      color: var(--color-text);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .banner-position button:hover,
+    .image-size-mode button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .banner-position button.active,
+    .image-size-mode button.active {
+      border-color: var(--color-primary);
+      background: rgba(249, 115, 22, 0.2);
+    }
+
+    /* Hidden canvas for final render */
+    #outputCanvas {
+      display: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .upload-zone {
+        padding: 2rem;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🏃‍♀️ Instagram Image Maker</h1>
+    <p class="subtitle">Add the BSRC banner to your photos for Instagram</p>
+
+    <!-- Upload Zone -->
+    <div class="upload-zone" id="uploadZone">
+      <div class="upload-icon">📷</div>
+      <p class="upload-text">
+        <strong>Click to upload</strong> or drag and drop<br>
+        PNG, JPG or WEBP
+      </p>
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <!-- Editor Section -->
+    <div class="editor" id="editor">
+      <div class="editor-header">
+        <h2 class="editor-title">Select Crop Area</h2>
+        <button class="btn btn-secondary" id="resetBtn">↻ Start Over</button>
+      </div>
+
+      <div class="instructions" id="cropInstructions">
+        <p><strong>Drag the square</strong> to reposition it, or <strong>drag the corners</strong> to resize. The
+          selection will be used as your Instagram image.</p>
+      </div>
+
+      <div class="canvas-container" id="cropContainer">
+        <canvas id="cropCanvas"></canvas>
+      </div>
+
+      <div class="banner-options">
+        <label>Image Size:</label>
+        <div class="image-size-mode">
+          <button id="modeSquare" class="active">Square Crop</button>
+          <button id="modeFull">Full Size</button>
+        </div>
+      </div>
+
+      <div class="banner-options">
+        <label>Banner Position:</label>
+        <div class="banner-position">
+          <button id="posTop" class="active">Top</button>
+          <button id="posBottom">Bottom</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-primary" id="generateBtn" disabled>Generate Preview</button>
+      </div>
+    </div>
+
+    <!-- Preview Section -->
+    <div class="preview" id="preview">
+      <div class="preview-header">
+        <h2 class="preview-title">Preview</h2>
+        <button class="btn btn-secondary" id="backBtn">← Back to Edit</button>
+      </div>
+
+      <div class="preview-canvas-container">
+        <canvas id="previewCanvas"></canvas>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-success" id="downloadBtn">⬇ Download Image</button>
+      </div>
+    </div>
+
+    <!-- Hidden output canvas -->
+    <canvas id="outputCanvas"></canvas>
+  </div>
+
+  <script>
+    // Constants
+    const OUTPUT_SIZE = 4320; // 4x for maximum quality
+    const BANNER_HEIGHT_RATIO = 0.12; // Banner takes 12% of height
+    const BLEED_RATIO = 0.02; // 2% bleed around text for legibility
+    const HANDLE_SIZE = 12; // Size of corner handles
+    const MIN_CROP_SIZE = 50; // Minimum crop size
+
+    // Load fonts explicitly for canvas rendering
+    async function loadFontsForCanvas() {
+      try {
+        // Load EB Garamond with weight 600
+        const garamondFont = new FontFace(
+          'EB Garamond',
+          'url(https://fonts.gstatic.com/s/ebgaramond/v27/SlGDmQSNjdsmc35JDF1K5E55YMjF_7DPuGi-6_RUAXpb.woff2)',
+          { weight: '600', style: 'normal' }
+        );
+
+        // Load Outfit bold
+        const outfitFont = new FontFace(
+          'Outfit',
+          'url(https://fonts.gstatic.com/s/outfit/v11/QGYvz_MVcBeNP4NJtEtqUYLknw.woff2)',
+          { weight: '800', style: 'normal' }
+        );
+
+        const [garamond, outfit] = await Promise.all([
+          garamondFont.load(),
+          outfitFont.load()
+        ]);
+
+        document.fonts.add(garamond);
+        document.fonts.add(outfit);
+
+        // Force browser to actually render with the fonts by creating hidden elements
+        const testDiv = document.createElement('div');
+        testDiv.style.cssText = 'position: absolute; left: -9999px; visibility: hidden;';
+        testDiv.innerHTML = `
+          <span style="font-family: 'EB Garamond'; font-weight: 600;">test</span>
+          <span style="font-family: 'Outfit'; font-weight: 800;">test</span>
+        `;
+        document.body.appendChild(testDiv);
+
+        // Wait for the browser to actually process the fonts
+        await document.fonts.ready;
+
+        // Small delay to ensure font rendering is complete
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        // Clean up
+        document.body.removeChild(testDiv);
+
+        fontsLoaded = true;
+        console.log('Canvas fonts loaded and primed successfully');
+        return true;
+      } catch (err) {
+        console.error('Font loading failed:', err);
+        return false;
+      }
+    }
+
+    // Track font loading state
+    let fontsLoaded = false;
+    let fontLoadPromise = null;
+
+    // Load fonts on page load and store promise
+    fontLoadPromise = loadFontsForCanvas();
+
+    // State
+    let originalImage = null;
+    let bannerPosition = 'top';
+
+    // Crop box state (in canvas coordinates)
+    let cropBox = { x: 0, y: 0, size: 100 };
+
+    // Interaction state
+    let dragMode = null; // 'move', 'resize-tl', 'resize-tr', 'resize-bl', 'resize-br'
+    let dragStart = { x: 0, y: 0 };
+    let cropBoxStart = { x: 0, y: 0, size: 0 };
+
+    // Elements
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+    const cropCanvas = document.getElementById('cropCanvas');
+    const previewCanvas = document.getElementById('previewCanvas');
+    const outputCanvas = document.getElementById('outputCanvas');
+    const cropCtx = cropCanvas.getContext('2d');
+    const previewCtx = previewCanvas.getContext('2d');
+    const outputCtx = outputCanvas.getContext('2d');
+    const generateBtn = document.getElementById('generateBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const backBtn = document.getElementById('backBtn');
+    const posTop = document.getElementById('posTop');
+    const posBottom = document.getElementById('posBottom');
+
+    // Upload handling
+    uploadZone.addEventListener('click', () => fileInput.click());
+
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('dragover');
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+      uploadZone.classList.remove('dragover');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFile(files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          originalImage = img;
+          showEditor();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function showEditor() {
+      uploadZone.style.display = 'none';
+      editor.classList.add('active');
+      preview.classList.remove('active');
+
+      // Set canvas size to fit container while maintaining aspect ratio
+      const containerWidth = editor.offsetWidth - 48; // Account for padding
+      const maxHeight = window.innerHeight * 0.5;
+
+      let displayWidth = originalImage.width;
+      let displayHeight = originalImage.height;
+
+      if (displayWidth > containerWidth) {
+        const ratio = containerWidth / displayWidth;
+        displayWidth = containerWidth;
+        displayHeight = originalImage.height * ratio;
+      }
+
+      if (displayHeight > maxHeight) {
+        const ratio = maxHeight / displayHeight;
+        displayHeight = maxHeight;
+        displayWidth = displayWidth * ratio;
+      }
+
+      cropCanvas.width = displayWidth;
+      cropCanvas.height = displayHeight;
+
+      // Initialize crop box as max-size square, centered
+      const maxSize = Math.min(cropCanvas.width, cropCanvas.height);
+      cropBox = {
+        x: (cropCanvas.width - maxSize) / 2,
+        y: (cropCanvas.height - maxSize) / 2,
+        size: maxSize
+      };
+
+      generateBtn.disabled = false;
+      drawCropCanvas();
+    }
+
+    function drawCropCanvas() {
+      // Draw the original image scaled to canvas
+      cropCtx.drawImage(originalImage, 0, 0, cropCanvas.width, cropCanvas.height);
+
+      // In full-size mode, just show the image without overlay
+      if (imageMode === 'full') {
+        return;
+      }
+
+      // Darken areas outside selection
+      cropCtx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+
+      // Top
+      cropCtx.fillRect(0, 0, cropCanvas.width, cropBox.y);
+      // Bottom
+      cropCtx.fillRect(0, cropBox.y + cropBox.size, cropCanvas.width, cropCanvas.height - cropBox.y - cropBox.size);
+      // Left
+      cropCtx.fillRect(0, cropBox.y, cropBox.x, cropBox.size);
+      // Right
+      cropCtx.fillRect(cropBox.x + cropBox.size, cropBox.y, cropCanvas.width - cropBox.x - cropBox.size, cropBox.size);
+
+      // Draw selection border
+      cropCtx.strokeStyle = '#f97316';
+      cropCtx.lineWidth = 2;
+      cropCtx.strokeRect(cropBox.x, cropBox.y, cropBox.size, cropBox.size);
+
+      // Draw rule of thirds guides
+      cropCtx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+      cropCtx.lineWidth = 1;
+      const thirdSize = cropBox.size / 3;
+
+      cropCtx.beginPath();
+      // Vertical lines
+      cropCtx.moveTo(cropBox.x + thirdSize, cropBox.y);
+      cropCtx.lineTo(cropBox.x + thirdSize, cropBox.y + cropBox.size);
+      cropCtx.moveTo(cropBox.x + thirdSize * 2, cropBox.y);
+      cropCtx.lineTo(cropBox.x + thirdSize * 2, cropBox.y + cropBox.size);
+      // Horizontal lines
+      cropCtx.moveTo(cropBox.x, cropBox.y + thirdSize);
+      cropCtx.lineTo(cropBox.x + cropBox.size, cropBox.y + thirdSize);
+      cropCtx.moveTo(cropBox.x, cropBox.y + thirdSize * 2);
+      cropCtx.lineTo(cropBox.x + cropBox.size, cropBox.y + thirdSize * 2);
+      cropCtx.stroke();
+
+      // Draw corner handles
+      cropCtx.fillStyle = '#f97316';
+      const handles = getHandlePositions();
+      handles.forEach(handle => {
+        cropCtx.fillRect(
+          handle.x - HANDLE_SIZE / 2,
+          handle.y - HANDLE_SIZE / 2,
+          HANDLE_SIZE,
+          HANDLE_SIZE
+        );
+      });
+    }
+
+    function getHandlePositions() {
+      return [
+        { x: cropBox.x, y: cropBox.y, type: 'resize-tl' },
+        { x: cropBox.x + cropBox.size, y: cropBox.y, type: 'resize-tr' },
+        { x: cropBox.x, y: cropBox.y + cropBox.size, type: 'resize-bl' },
+        { x: cropBox.x + cropBox.size, y: cropBox.y + cropBox.size, type: 'resize-br' }
+      ];
+    }
+
+    function getInteractionType(x, y) {
+      // Check handles first
+      const handles = getHandlePositions();
+      for (const handle of handles) {
+        const dx = x - handle.x;
+        const dy = y - handle.y;
+        if (Math.abs(dx) <= HANDLE_SIZE && Math.abs(dy) <= HANDLE_SIZE) {
+          return handle.type;
+        }
+      }
+
+      // Check if inside crop box
+      if (x >= cropBox.x && x <= cropBox.x + cropBox.size &&
+        y >= cropBox.y && y <= cropBox.y + cropBox.size) {
+        return 'move';
+      }
+
+      return null;
+    }
+
+    function updateCursor(x, y) {
+      const type = getInteractionType(x, y);
+      switch (type) {
+        case 'resize-tl':
+        case 'resize-br':
+          cropCanvas.style.cursor = 'nwse-resize';
+          break;
+        case 'resize-tr':
+        case 'resize-bl':
+          cropCanvas.style.cursor = 'nesw-resize';
+          break;
+        case 'move':
+          cropCanvas.style.cursor = 'move';
+          break;
+        default:
+          cropCanvas.style.cursor = 'default';
+      }
+    }
+
+    function constrainCropBox() {
+      // Ensure minimum size
+      cropBox.size = Math.max(MIN_CROP_SIZE, cropBox.size);
+
+      // Ensure it fits within canvas
+      cropBox.size = Math.min(cropBox.size, cropCanvas.width, cropCanvas.height);
+
+      // Ensure position is within bounds
+      cropBox.x = Math.max(0, Math.min(cropBox.x, cropCanvas.width - cropBox.size));
+      cropBox.y = Math.max(0, Math.min(cropBox.y, cropCanvas.height - cropBox.size));
+    }
+
+    // Mouse events
+    cropCanvas.addEventListener('mousemove', (e) => {
+      const rect = cropCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      if (dragMode) {
+        const dx = x - dragStart.x;
+        const dy = y - dragStart.y;
+
+        if (dragMode === 'move') {
+          cropBox.x = cropBoxStart.x + dx;
+          cropBox.y = cropBoxStart.y + dy;
+        } else {
+          // Resize from corner
+          const delta = Math.max(Math.abs(dx), Math.abs(dy));
+          const sign = (dx + dy) > 0 ? 1 : -1;
+
+          if (dragMode === 'resize-br') {
+            cropBox.size = cropBoxStart.size + delta * sign;
+          } else if (dragMode === 'resize-tl') {
+            const newSize = cropBoxStart.size - delta * sign;
+            const sizeDiff = cropBoxStart.size - newSize;
+            cropBox.size = newSize;
+            cropBox.x = cropBoxStart.x + sizeDiff;
+            cropBox.y = cropBoxStart.y + sizeDiff;
+          } else if (dragMode === 'resize-tr') {
+            const avgDelta = (dx - dy) / 2;
+            cropBox.size = cropBoxStart.size + avgDelta;
+            cropBox.y = cropBoxStart.y - (cropBox.size - cropBoxStart.size);
+          } else if (dragMode === 'resize-bl') {
+            const avgDelta = (-dx + dy) / 2;
+            cropBox.size = cropBoxStart.size + avgDelta;
+            cropBox.x = cropBoxStart.x - (cropBox.size - cropBoxStart.size);
+          }
+        }
+
+        constrainCropBox();
+        drawCropCanvas();
+      } else {
+        updateCursor(x, y);
+      }
+    });
+
+    cropCanvas.addEventListener('mousedown', (e) => {
+      const rect = cropCanvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      dragMode = getInteractionType(x, y);
+      if (dragMode) {
+        dragStart = { x, y };
+        cropBoxStart = { ...cropBox };
+      }
+    });
+
+    cropCanvas.addEventListener('mouseup', () => {
+      dragMode = null;
+    });
+
+    cropCanvas.addEventListener('mouseleave', () => {
+      dragMode = null;
+    });
+
+    // Touch events for mobile
+    cropCanvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const rect = cropCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+
+      dragMode = getInteractionType(x, y);
+      if (dragMode) {
+        dragStart = { x, y };
+        cropBoxStart = { ...cropBox };
+      }
+    });
+
+    cropCanvas.addEventListener('touchmove', (e) => {
+      if (!dragMode) return;
+      e.preventDefault();
+
+      const rect = cropCanvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+
+      const dx = x - dragStart.x;
+      const dy = y - dragStart.y;
+
+      if (dragMode === 'move') {
+        cropBox.x = cropBoxStart.x + dx;
+        cropBox.y = cropBoxStart.y + dy;
+      } else {
+        const delta = Math.max(Math.abs(dx), Math.abs(dy));
+        const sign = (dx + dy) > 0 ? 1 : -1;
+
+        if (dragMode === 'resize-br') {
+          cropBox.size = cropBoxStart.size + delta * sign;
+        } else if (dragMode === 'resize-tl') {
+          const newSize = cropBoxStart.size - delta * sign;
+          const sizeDiff = cropBoxStart.size - newSize;
+          cropBox.size = newSize;
+          cropBox.x = cropBoxStart.x + sizeDiff;
+          cropBox.y = cropBoxStart.y + sizeDiff;
+        } else if (dragMode === 'resize-tr') {
+          const avgDelta = (dx - dy) / 2;
+          cropBox.size = cropBoxStart.size + avgDelta;
+          cropBox.y = cropBoxStart.y - (cropBox.size - cropBoxStart.size);
+        } else if (dragMode === 'resize-bl') {
+          const avgDelta = (-dx + dy) / 2;
+          cropBox.size = cropBoxStart.size + avgDelta;
+          cropBox.x = cropBoxStart.x - (cropBox.size - cropBoxStart.size);
+        }
+      }
+
+      constrainCropBox();
+      drawCropCanvas();
+    });
+
+    cropCanvas.addEventListener('touchend', () => {
+      dragMode = null;
+    });
+
+    // Banner position buttons
+    posTop.addEventListener('click', () => {
+      bannerPosition = 'top';
+      posTop.classList.add('active');
+      posBottom.classList.remove('active');
+    });
+
+    posBottom.addEventListener('click', () => {
+      bannerPosition = 'bottom';
+      posBottom.classList.add('active');
+      posTop.classList.remove('active');
+    });
+
+    // Image size mode
+    let imageMode = 'square'; // 'square' or 'full'
+    const modeSquare = document.getElementById('modeSquare');
+    const modeFull = document.getElementById('modeFull');
+    const cropInstructions = document.getElementById('cropInstructions');
+    const cropContainer = document.getElementById('cropContainer');
+
+    function updateCropDisplay() {
+      // Redraw the canvas - will show/hide overlay based on imageMode
+      if (originalImage) {
+        drawCropCanvas();
+      }
+    }
+
+    modeSquare.addEventListener('click', () => {
+      imageMode = 'square';
+      modeSquare.classList.add('active');
+      modeFull.classList.remove('active');
+      updateCropDisplay();
+    });
+
+    modeFull.addEventListener('click', () => {
+      imageMode = 'full';
+      modeFull.classList.add('active');
+      modeSquare.classList.remove('active');
+      updateCropDisplay();
+    });
+
+    // Generate preview
+    generateBtn.addEventListener('click', generatePreview);
+
+    async function generatePreview() {
+      // Wait for fonts to be fully loaded before rendering
+      if (fontLoadPromise) {
+        await fontLoadPromise;
+      }
+
+      if (imageMode === 'square') {
+        generateSquarePreview();
+      } else {
+        generateFullSizePreview();
+      }
+    }
+
+    function generateSquarePreview() {
+      // Calculate the corresponding area in the original image
+      const scaleX = originalImage.width / cropCanvas.width;
+      const scaleY = originalImage.height / cropCanvas.height;
+
+      const sourceX = cropBox.x * scaleX;
+      const sourceY = cropBox.y * scaleY;
+      const sourceSize = cropBox.size * Math.max(scaleX, scaleY);
+
+      // Set output canvas size
+      outputCanvas.width = OUTPUT_SIZE;
+      outputCanvas.height = OUTPUT_SIZE;
+
+      // Calculate banner dimensions
+      const bannerHeight = Math.round(OUTPUT_SIZE * BANNER_HEIGHT_RATIO);
+      const imageHeight = OUTPUT_SIZE - bannerHeight;
+
+      // Clear canvas
+      outputCtx.fillStyle = '#1a1a1a';
+      outputCtx.fillRect(0, 0, OUTPUT_SIZE, OUTPUT_SIZE);
+
+      // Draw the cropped image
+      const imageY = bannerPosition === 'top' ? bannerHeight : 0;
+      outputCtx.drawImage(
+        originalImage,
+        sourceX, sourceY, sourceSize, sourceSize,
+        0, imageY, OUTPUT_SIZE, imageHeight
+      );
+
+      // Draw the banner
+      const bannerY = bannerPosition === 'top' ? 0 : imageHeight;
+      drawBanner(outputCtx, 0, bannerY, OUTPUT_SIZE, bannerHeight, OUTPUT_SIZE);
+
+      // Show preview
+      showPreview(OUTPUT_SIZE, OUTPUT_SIZE);
+    }
+
+    function generateFullSizePreview() {
+      // Use full original image dimensions
+      // Banner height should be proportional to image width (12% of the width)
+      const outputWidth = originalImage.width;
+      const bannerHeight = Math.round(outputWidth * BANNER_HEIGHT_RATIO);
+      const outputHeight = originalImage.height + bannerHeight;
+
+      // Set output canvas size
+      outputCanvas.width = outputWidth;
+      outputCanvas.height = outputHeight;
+
+      // Clear canvas
+      outputCtx.fillStyle = '#1a1a1a';
+      outputCtx.fillRect(0, 0, outputWidth, outputHeight);
+
+      // Draw the full image
+      const imageY = bannerPosition === 'top' ? bannerHeight : 0;
+      outputCtx.drawImage(originalImage, 0, imageY);
+
+      // Draw the banner (text sized based on banner height, centered in full width)
+      const bannerY = bannerPosition === 'top' ? 0 : originalImage.height;
+      drawBanner(outputCtx, 0, bannerY, outputWidth, bannerHeight, outputWidth);
+
+      // Show preview
+      showPreview(outputWidth, outputHeight);
+    }
+
+    function showPreview(width, height) {
+      // Show preview section
+      editor.classList.remove('active');
+      preview.classList.add('active');
+
+      // Calculate preview size maintaining aspect ratio
+      const maxPreviewWidth = Math.min(400, window.innerWidth - 64);
+      const maxPreviewHeight = 500;
+      const aspectRatio = width / height;
+
+      let previewWidth, previewHeight;
+      if (aspectRatio > maxPreviewWidth / maxPreviewHeight) {
+        previewWidth = maxPreviewWidth;
+        previewHeight = maxPreviewWidth / aspectRatio;
+      } else {
+        previewHeight = Math.min(maxPreviewHeight, height);
+        previewWidth = previewHeight * aspectRatio;
+      }
+
+      previewCanvas.width = previewWidth;
+      previewCanvas.height = previewHeight;
+      previewCtx.drawImage(outputCanvas, 0, 0, previewWidth, previewHeight);
+    }
+
+    function drawBanner(ctx, x, y, width, height, textReferenceWidth) {
+      // textReferenceWidth is used to center text as if banner was this width (for full-size mode)
+      const centerRef = textReferenceWidth || width;
+
+      // Background
+      ctx.fillStyle = '#1a1a1a';
+      ctx.fillRect(x, y, width, height);
+
+      // Colored stripes at the edge away from the image (4 colors - no cyan)
+      const stripeHeight = Math.round(height * 0.06);
+      const stripeY = bannerPosition === 'top' ? y : y + height - stripeHeight;
+      const colors = ['#f97316', '#ec4899', '#3b82f6', '#22c55e'];
+      const stripeWidth = width / colors.length;
+
+      colors.forEach((color, i) => {
+        ctx.fillStyle = color;
+        ctx.fillRect(x + i * stripeWidth, stripeY, stripeWidth + 1, stripeHeight);
+      });
+
+      // Calculate grey text area (excluding stripes)
+      const greyAreaY = bannerPosition === 'top' ? y + stripeHeight : y;
+      const greyAreaHeight = height - stripeHeight;
+
+      // Font sizes - based on banner height
+      const fontSize = Math.round(height * 0.32);
+      const binghamFontSize = Math.round(fontSize * 0.95);
+      const emojiSize = fontSize; // Same size as text
+
+      // Measure all text widths to center the entire block
+      ctx.font = `${emojiSize}px sans-serif`;
+      const emojiWidth = emojiSize * 0.8; // Approximate emoji width
+
+      ctx.font = `800 ${binghamFontSize}px 'Outfit', sans-serif`;
+      const binghamText = 'BINGHAM';
+      const binghamWidth = ctx.measureText(binghamText).width;
+
+      ctx.font = `600 ${fontSize}px 'EB Garamond', serif`;
+      const clubText = 'Sunday Running Club';
+      const clubWidth = ctx.measureText(clubText).width;
+
+      // Base gaps on reference width for consistency
+      const gap = centerRef * 0.015;
+      const emojiGap = centerRef * 0.025;
+      const totalWidth = emojiWidth + emojiGap + binghamWidth + gap + clubWidth;
+
+      // Center the entire text block horizontally within the banner
+      const startX = x + (width - totalWidth) / 2;
+
+      // Vertical center in grey area only (use middle baseline for accurate centering)
+      ctx.textBaseline = 'middle';
+      const textY = greyAreaY + greyAreaHeight / 2;
+
+      // Draw runner emoji
+      ctx.font = `${emojiSize}px sans-serif`;
+      ctx.fillText('🏃‍♀️', startX, textY);
+
+      // Draw "BINGHAM" text
+      const binghamX = startX + emojiWidth + emojiGap;
+      ctx.font = `800 ${binghamFontSize}px 'Outfit', sans-serif`;
+      ctx.fillStyle = '#f97316';
+      ctx.fillText(binghamText, binghamX, textY);
+
+      // Orange underline under BINGHAM
+      const underlineY = textY + fontSize * 0.55;
+      ctx.strokeStyle = '#f97316';
+      ctx.lineWidth = Math.round(height * 0.02);
+      ctx.beginPath();
+      ctx.moveTo(binghamX, underlineY);
+      ctx.lineTo(binghamX + binghamWidth, underlineY);
+      ctx.stroke();
+
+      // Draw "Sunday Running Club" text - bold white, EB Garamond font
+      const clubTextX = binghamX + binghamWidth + gap;
+      ctx.font = `600 ${fontSize}px 'EB Garamond', serif`;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(clubText, clubTextX, textY);
+
+      // Reset baseline
+      ctx.textBaseline = 'alphabetic';
+    }
+
+    // Download button
+    downloadBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'bsrc-instagram-' + Date.now() + '.png';
+      link.href = outputCanvas.toDataURL('image/png');
+      link.click();
+    });
+
+    // Reset button
+    resetBtn.addEventListener('click', () => {
+      originalImage = null;
+      editor.classList.remove('active');
+      preview.classList.remove('active');
+      uploadZone.style.display = 'block';
+      fileInput.value = '';
+    });
+
+    // Back button
+    backBtn.addEventListener('click', () => {
+      preview.classList.remove('active');
+      editor.classList.add('active');
+    });
+  </script>
+</body>
+
+</html>
