@@ -426,6 +426,7 @@ collections:
     folder: "content/results"
     create: true
     slug: "{{year}}-{{month}}-{{day}}"
+    summary: "{{date | date('YYYY-MM-DD')}} - {{title}}"
     extension: "md"
     fields:
       - { label: "Date", name: "date", widget: "datetime" }
