@@ -11,6 +11,7 @@ import {
   bundleCssTask,
   copyStaticTask,
   generatePagesTask,
+  generateSitemapTask,
 } from 'skier';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -27,7 +28,7 @@ const { createHashAdminAssetsTask } = require('./tasks/hash-admin-assets.cts');
 const { createHashScriptsTask } = require('./tasks/hash-scripts.cts');
 const { createGenerateRunnerPagesTask } = require('./tasks/generate-runner-pages.cts');
 const { createGenerateResultPagesTask } = require('./tasks/generate-result-pages.cts');
-const { createGenerateSitemapTask } = require('./tasks/generate-sitemap.cts');
+
 
 // Generate a hash for cache busting (using timestamp)
 const cacheHash = Date.now().toString(36);
@@ -167,6 +168,11 @@ export const tasks = [
   // Generate individual result detail pages
   createGenerateResultPagesTask(cacheHash),
 
-  // Generate sitemap.xml (excluding admin pages)
-  createGenerateSitemapTask('https://binghamsundayrunningclub.co.uk'),
+  // Generate sitemap.xml
+  generateSitemapTask({
+    scanDir: './public',
+    outDir: './public',
+    siteUrl: 'https://binghamsundayrunningclub.co.uk',
+    excludes: ['admin/**'],
+  }),
 ];
