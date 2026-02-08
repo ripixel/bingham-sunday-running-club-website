@@ -6,7 +6,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7XP91NB8GL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-7XP91NB8GL');
   </script>
@@ -34,10 +34,25 @@
   <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" />
 
   <!-- Social sharing meta -->
+  {{#if isResultPage}}
+  <meta property="og:title" content="{{siteName}} | {{result.title}} - {{result.displayDate}}" />
+  <meta property="og:site_name" content="{{siteName}}" />
+  {{#if result.body}}
+  <meta property="og:description" content="{{result.body}}" />
+  {{else}}
+  <meta property="og:description" content="{{description}}" />
+  {{/if}}
+  {{#if result.mainPhoto}}
+  <meta property="og:image" content="{{siteUrl}}{{result.mainPhoto}}" />
+  {{else}}
+  <meta property="og:image" content="{{siteUrl}}/images/og-image.png" />
+  {{/if}}
+  {{else}}
   <meta property="og:title" content="{{siteName}} | {{pageTitle}}" />
   <meta property="og:site_name" content="{{siteName}}" />
   <meta property="og:description" content="{{description}}" />
   <meta property="og:image" content="{{siteUrl}}/images/og-image.png" />
+  {{/if}}
   <meta property="og:url" content="{{siteUrl}}{{canonicalPath}}" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />

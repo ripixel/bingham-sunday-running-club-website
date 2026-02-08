@@ -85,6 +85,8 @@ export const createGenerateResultPagesTask = (
         participants: enrichedParticipants,
         pageTitle: result.title,
         isResultPage: true,
+        canonicalPath: `/results/${slug}/`,
+        description: result.body || `${result.title} - ${dateObj.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} - Bingham Sunday Running Club`,
         cacheHash: config.cacheHash,
         content,
       };

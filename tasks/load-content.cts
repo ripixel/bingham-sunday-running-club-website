@@ -57,7 +57,7 @@ export const createLoadContentTask = (cacheHash: string): TaskDef<LoadContentCon
     // Build global values - these will be merged into Skier globals
     const globalValues: SkierGlobals = {
       siteName: 'Bingham Sunday Running Club',
-      siteUrl: 'https://binghamsundayrunningclub.co.uk/',
+      siteUrl: 'https://binghamsundayrunningclub.co.uk',
       year: new Date().getFullYear(),
       cacheHash: config.cacheHash,
 
