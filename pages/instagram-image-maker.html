@@ -901,22 +901,20 @@
 
       // Calculate banner dimensions
       const bannerHeight = Math.round(OUTPUT_SIZE * BANNER_HEIGHT_RATIO);
-      const imageHeight = OUTPUT_SIZE - bannerHeight;
 
       // Clear canvas
       outputCtx.fillStyle = '#1a1a1a';
       outputCtx.fillRect(0, 0, OUTPUT_SIZE, OUTPUT_SIZE);
 
-      // Draw the cropped image
-      const imageY = bannerPosition === 'top' ? bannerHeight : 0;
+      // Draw the cropped image at FULL size (banner overlays on top)
       outputCtx.drawImage(
         originalImage,
         sourceX, sourceY, sourceSize, sourceSize,
-        0, imageY, OUTPUT_SIZE, imageHeight
+        0, 0, OUTPUT_SIZE, OUTPUT_SIZE
       );
 
-      // Draw the banner
-      const bannerY = bannerPosition === 'top' ? 0 : imageHeight;
+      // Draw the banner overlaying the image
+      const bannerY = bannerPosition === 'top' ? 0 : OUTPUT_SIZE - bannerHeight;
       drawBanner(outputCtx, 0, bannerY, OUTPUT_SIZE, bannerHeight, OUTPUT_SIZE);
 
       // Show preview
@@ -924,13 +922,12 @@
     }
 
     function generateFullSizePreview() {
-      // Use full original image dimensions
-      // Banner height should be proportional to image width (12% of the width)
+      // Use full original image dimensions — banner overlays, no extra height
       const outputWidth = originalImage.width;
+      const outputHeight = originalImage.height;
       const bannerHeight = Math.round(outputWidth * BANNER_HEIGHT_RATIO);
-      const outputHeight = originalImage.height + bannerHeight;
 
-      // Set output canvas size
+      // Set output canvas size (same as original image)
       outputCanvas.width = outputWidth;
       outputCanvas.height = outputHeight;
 
@@ -938,12 +935,11 @@
       outputCtx.fillStyle = '#1a1a1a';
       outputCtx.fillRect(0, 0, outputWidth, outputHeight);
 
-      // Draw the full image
-      const imageY = bannerPosition === 'top' ? bannerHeight : 0;
-      outputCtx.drawImage(originalImage, 0, imageY);
+      // Draw the full image at its native size
+      outputCtx.drawImage(originalImage, 0, 0);
 
-      // Draw the banner (text sized based on banner height, centered in full width)
-      const bannerY = bannerPosition === 'top' ? 0 : originalImage.height;
+      // Draw the banner overlaying the image
+      const bannerY = bannerPosition === 'top' ? 0 : outputHeight - bannerHeight;
       drawBanner(outputCtx, 0, bannerY, outputWidth, bannerHeight, outputWidth);
 
       // Show preview
