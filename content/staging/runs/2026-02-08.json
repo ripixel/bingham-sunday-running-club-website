@@ -79,6 +79,13 @@
       "mediumLoops": 1,
       "longLoops": 3,
       "time": "31:16"
+    },
+    {
+      "runner": "sarah-n",
+      "smallLoops": 2,
+      "mediumLoops": 0,
+      "longLoops": 1,
+      "time": "32:15"
     }
   ]
 }
