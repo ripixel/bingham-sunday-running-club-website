@@ -1,0 +1,84 @@
+{
+  "date": "2026-02-08T09:44:25.658Z",
+  "mainPhoto": "/images/races/2026-02-08.jpg",
+  "body": "Clear skies, and Dean cut himself open jumping off a bench 😂 good times all round 🎉",
+  "participants": [
+    {
+      "runner": "james",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "24:00"
+    },
+    {
+      "runner": "daisy",
+      "smallLoops": 0,
+      "mediumLoops": 4,
+      "longLoops": 0,
+      "time": "32:07"
+    },
+    {
+      "runner": "sarah",
+      "smallLoops": 0,
+      "mediumLoops": 4,
+      "longLoops": 0,
+      "time": "29:45"
+    },
+    {
+      "runner": "perry",
+      "smallLoops": 1,
+      "mediumLoops": 3,
+      "longLoops": 0,
+      "time": "32:35"
+    },
+    {
+      "runner": "hazel",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 1,
+      "time": "32:10"
+    },
+    {
+      "runner": "pete",
+      "smallLoops": 0,
+      "mediumLoops": 4,
+      "longLoops": 0,
+      "time": "29:09"
+    },
+    {
+      "runner": "dean",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "31:12"
+    },
+    {
+      "runner": "jack",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "28:42"
+    },
+    {
+      "runner": "victoria",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "30:26"
+    },
+    {
+      "runner": "zoe",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "33:05"
+    },
+    {
+      "runner": "charlotte",
+      "smallLoops": 1,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "31:16"
+    }
+  ]
+}
