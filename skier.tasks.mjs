@@ -28,6 +28,7 @@ const { createHashAdminAssetsTask } = require('./tasks/hash-admin-assets.cts');
 const { createHashScriptsTask } = require('./tasks/hash-scripts.cts');
 const { createGenerateRunnerPagesTask } = require('./tasks/generate-runner-pages.cts');
 const { createGenerateResultPagesTask } = require('./tasks/generate-result-pages.cts');
+const { createOptimizeImagesTask } = require('./tasks/optimize-images.cts');
 
 
 // Generate a hash for cache busting (using timestamp)
@@ -88,6 +89,9 @@ export const tasks = [
     from: './assets/scripts',
     to: './public/scripts',
   }),
+
+  // Generate optimized OG images for social sharing
+  createOptimizeImagesTask(),
 
   // Hash scripts
   createHashScriptsTask(cacheHash),

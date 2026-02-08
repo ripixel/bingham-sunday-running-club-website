@@ -42,7 +42,9 @@
   {{else}}
   <meta property="og:description" content="{{description}}" />
   {{/if}}
-  {{#if result.mainPhoto}}
+  {{#if result.ogPhoto}}
+  <meta property="og:image" content="{{siteUrl}}{{result.ogPhoto}}" />
+  {{else if result.mainPhoto}}
   <meta property="og:image" content="{{siteUrl}}{{result.mainPhoto}}" />
   {{else}}
   <meta property="og:image" content="{{siteUrl}}/images/og-image.png" />

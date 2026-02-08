@@ -67,6 +67,10 @@ export const createGenerateResultPagesTask = (
           ...result,
           slug,
           dateObj,
+          // Derive OG-optimized image path from mainPhoto
+          ogPhoto: result.mainPhoto
+            ? result.mainPhoto.replace(/^(.+)\/([^/]+)\.[^.]+$/, '$1/og/$2.jpg')
+            : null,
           displayDate: dateObj.toLocaleDateString('en-GB', {
             weekday: 'long',
             day: 'numeric',
