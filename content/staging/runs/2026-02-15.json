@@ -1,0 +1,71 @@
+{
+  "date": "2026-02-15T10:13:18.290Z",
+  "mainPhoto": "/images/races/2026-02-15.jpg",
+  "body": "Wet, cold, and windy - but we do it anyway for Valentine's day 💘",
+  "participants": [
+    {
+      "runner": "charlotte",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "28:56"
+    },
+    {
+      "runner": "hazel",
+      "smallLoops": 2,
+      "mediumLoops": 1,
+      "longLoops": 1,
+      "time": "31:20"
+    },
+    {
+      "runner": "zoe",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "35:56"
+    },
+    {
+      "runner": "dean",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 4,
+      "time": "28:57"
+    },
+    {
+      "runner": "james",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "24:00"
+    },
+    {
+      "runner": "pete",
+      "smallLoops": 0,
+      "mediumLoops": 4,
+      "longLoops": 0,
+      "time": "28:53"
+    },
+    {
+      "runner": "rory",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "28:58"
+    },
+    {
+      "runner": "victoria",
+      "smallLoops": 0,
+      "mediumLoops": 2,
+      "longLoops": 3,
+      "time": "35:21"
+    },
+    {
+      "runner": "guest",
+      "guestName": "Natty",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "28:59"
+    }
+  ]
+}
