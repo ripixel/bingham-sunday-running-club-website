@@ -1,0 +1,84 @@
+{
+  "date": "2026-02-22T09:37:55.409Z",
+  "mainPhoto": "/images/races/2026-02-22.jpg",
+  "body": "The first bit of sunshine but it's still blummin' cold!",
+  "participants": [
+    {
+      "runner": "james",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "20:32"
+    },
+    {
+      "runner": "charlotte",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "28:26"
+    },
+    {
+      "runner": "dean",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "28:27"
+    },
+    {
+      "runner": "alex",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "24:44"
+    },
+    {
+      "runner": "daisy",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 1,
+      "time": "31:12"
+    },
+    {
+      "runner": "darcy",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "29:14"
+    },
+    {
+      "runner": "dimitri",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "29:28"
+    },
+    {
+      "runner": "finn",
+      "smallLoops": 1,
+      "mediumLoops": 1,
+      "longLoops": 1,
+      "time": "22:22"
+    },
+    {
+      "runner": "holly",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "30:08"
+    },
+    {
+      "runner": "lana",
+      "smallLoops": 1,
+      "mediumLoops": 1,
+      "longLoops": 1,
+      "time": "25:22"
+    },
+    {
+      "runner": "tom",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "21:14"
+    }
+  ]
+}
