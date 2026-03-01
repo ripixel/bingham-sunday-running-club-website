@@ -1,0 +1,41 @@
+{
+  "date": "2026-03-01T12:57:08.010Z",
+  "mainPhoto": "/images/races/2026-03-01.jpg",
+  "participants": [
+    {
+      "runner": "holly",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 1,
+      "time": "31:55"
+    },
+    {
+      "runner": "hazel",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 1,
+      "time": "33:26"
+    },
+    {
+      "runner": "pete",
+      "smallLoops": 1,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "29:38"
+    },
+    {
+      "runner": "sarah",
+      "smallLoops": 0,
+      "mediumLoops": 4,
+      "longLoops": 0,
+      "time": "31:56"
+    },
+    {
+      "runner": "steve",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 0,
+      "time": "24:59"
+    }
+  ]
+}
