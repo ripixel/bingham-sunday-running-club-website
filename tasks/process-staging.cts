@@ -217,13 +217,10 @@ export const createProcessStagingTask = (): TaskDef<{}, void> => ({
         // External events use recurring run defaults + an appended note
         const useEventOverrides = matchingEvent && !matchingEvent.isExternalVenue;
 
-        const title = stagedData.title || (useEventOverrides ? matchingEvent.title : recurringSettings.title);
+        const title = stagedData.title || (useEventOverrides ? matchingEvent.title : (matchingEvent ? `${recurringSettings.title} x ${matchingEvent.title}` : recurringSettings.title));
         const eventTitle = useEventOverrides ? matchingEvent.title : recurringSettings.title;
 
-        let eventDescription = useEventOverrides ? matchingEvent.body : recurringSettings.description;
-        if (matchingEvent?.isExternalVenue) {
-          eventDescription += `\nThis run took place while the ${matchingEvent.title} was going on.`;
-        }
+        const eventDescription = useEventOverrides ? matchingEvent.body : recurringSettings.description;
 
         const location = useEventOverrides ? (matchingEvent.location || recurringSettings.defaultLocation) : recurringSettings.defaultLocation;
 
@@ -242,7 +239,11 @@ export const createProcessStagingTask = (): TaskDef<{}, void> => ({
 
         // Write result file
         const yamlContent = yaml.dump(frontmatter);
-        const trimmedBody = stagedData.body?.trim() || '';
+        let trimmedBody = stagedData.body?.trim() || '';
+        if (matchingEvent?.isExternalVenue) {
+          const externalNote = `This run took place while the ${matchingEvent.title} was going on.`;
+          trimmedBody = trimmedBody ? `${trimmedBody}\n\n${externalNote}` : externalNote;
+        }
         const bodyContent = trimmedBody ? `\n${trimmedBody}\n` : '';
         const fileContent = `---\n${yamlContent}---\n${bodyContent}`;
 
