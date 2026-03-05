@@ -40,6 +40,7 @@ interface SpecialEvent {
   location?: string;
   body: string;
   fileSlug: string;
+  isExternalVenue: boolean;
 }
 
 // Weather emoji map
@@ -120,6 +121,7 @@ function loadSpecialEvents(projectRoot: string): SpecialEvent[] {
             location: data.location as string | undefined,
             body: raw.replace(match[0], '').trim(),
             fileSlug: file.replace('.md', ''),
+            isExternalVenue: !!(data.isExternalVenue),
           });
         }
       } catch {
@@ -212,16 +214,26 @@ export const createProcessStagingTask = (): TaskDef<{}, void> => ({
         });
 
         // Build frontmatter
-        const title = stagedData.title || (matchingEvent ? matchingEvent.title : recurringSettings.title);
-        const eventTitle = matchingEvent ? matchingEvent.title : recurringSettings.title;
+        // External events use recurring run defaults + an appended note
+        const useEventOverrides = matchingEvent && !matchingEvent.isExternalVenue;
+
+        const title = stagedData.title || (useEventOverrides ? matchingEvent.title : recurringSettings.title);
+        const eventTitle = useEventOverrides ? matchingEvent.title : recurringSettings.title;
+
+        let eventDescription = useEventOverrides ? matchingEvent.body : recurringSettings.description;
+        if (matchingEvent?.isExternalVenue) {
+          eventDescription += `\nThis run took place while the ${matchingEvent.title} was going on.`;
+        }
+
+        const location = useEventOverrides ? (matchingEvent.location || recurringSettings.defaultLocation) : recurringSettings.defaultLocation;
 
         const frontmatter = {
           date: stagedData.date,
           title,
           eventTitle,
           showEventTitle: title !== eventTitle,
-          eventDescription: matchingEvent ? matchingEvent.body : recurringSettings.description,
-          location: matchingEvent?.location || recurringSettings.defaultLocation,
+          eventDescription,
+          location,
           mainPhoto: stagedData.mainPhoto || '',
           weather: weather || '',
           isSpecialEvent: !!matchingEvent,
