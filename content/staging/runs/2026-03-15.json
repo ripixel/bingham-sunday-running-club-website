@@ -1,0 +1,70 @@
+{
+  "date": "2026-03-15T09:37:49.402Z",
+  "mainPhoto": "/images/races/2026-03-15.jpg",
+  "body": "Bloody cold, but bloody beautiful 🌞",
+  "participants": [
+    {
+      "runner": "james",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "27:30"
+    },
+    {
+      "runner": "dean",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "29:46"
+    },
+    {
+      "runner": "victoria",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "29:45"
+    },
+    {
+      "runner": "steve",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "33:27"
+    },
+    {
+      "runner": "hazel",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "33:56"
+    },
+    {
+      "runner": "adam",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "27:34"
+    },
+    {
+      "runner": "bella",
+      "smallLoops": 0,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "27:51"
+    },
+    {
+      "runner": "rory-n",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "27:43"
+    },
+    {
+      "runner": "rory",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "28:02"
+    }
+  ]
+}
