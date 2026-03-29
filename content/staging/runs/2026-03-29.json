@@ -53,8 +53,7 @@
       "time": "35:01"
     },
     {
-      "runner": "guest",
-      "guestName": "Ronnie",
+      "runner": "ronnie",
       "smallLoops": 1,
       "mediumLoops": 1,
       "longLoops": 0,
