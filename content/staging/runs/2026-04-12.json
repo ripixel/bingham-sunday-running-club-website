@@ -1,0 +1,105 @@
+{
+  "date": "2026-04-12T09:01:33.386Z",
+  "mainPhoto": "/images/races/2026-04-12.jpg",
+  "body": "Such a great morning in the sunshine with lots of new faces ☀️ summer is on the way!",
+  "participants": [
+    {
+      "runner": "dean",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 5,
+      "time": "31:49"
+    },
+    {
+      "runner": "charlotte",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 5,
+      "time": "31:50"
+    },
+    {
+      "runner": "kat",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 0,
+      "time": "32:44"
+    },
+    {
+      "runner": "helen",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 0,
+      "time": "32:45"
+    },
+    {
+      "runner": "daisy",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "32:04"
+    },
+    {
+      "runner": "holly",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "34:12"
+    },
+    {
+      "runner": "simon",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 5,
+      "time": "31:20"
+    },
+    {
+      "runner": "alex",
+      "smallLoops": 1,
+      "mediumLoops": 1,
+      "longLoops": 2,
+      "time": "26:43"
+    },
+    {
+      "runner": "emma",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "33:46"
+    },
+    {
+      "runner": "hazel",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "28:43"
+    },
+    {
+      "runner": "james",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "26:47"
+    },
+    {
+      "runner": "sarah",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "28:42"
+    },
+    {
+      "runner": "stephen-m",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "33:47"
+    },
+    {
+      "runner": "steve",
+      "smallLoops": 0,
+      "mediumLoops": 3,
+      "longLoops": 0,
+      "time": "33:02"
+    }
+  ]
+}
