@@ -40,7 +40,7 @@
     },
     {
       "runner": "beth",
-      "smallLoops": 0,
+      "smallLoops": 1,
       "mediumLoops": 0,
       "longLoops": 3,
       "time": "32:14"
