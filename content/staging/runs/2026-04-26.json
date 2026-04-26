@@ -1,0 +1,98 @@
+{
+  "date": "2026-04-26T08:44:18.138Z",
+  "mainPhoto": "/images/races/2026-04-26.jpg",
+  "body": "Lots of new faces in th beautiful April sun 🌞",
+  "participants": [
+    {
+      "runner": "pete",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "26:50"
+    },
+    {
+      "runner": "dean",
+      "smallLoops": 2,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "33:31"
+    },
+    {
+      "runner": "hazel",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "28:04"
+    },
+    {
+      "runner": "james-e",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "33:25"
+    },
+    {
+      "runner": "alex",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "23:32"
+    },
+    {
+      "runner": "beth",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "32:14"
+    },
+    {
+      "runner": "daisy",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "30:31"
+    },
+    {
+      "runner": "darcey",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "27:52"
+    },
+    {
+      "runner": "gemma",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "24:57"
+    },
+    {
+      "runner": "holly",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 4,
+      "time": "31:18"
+    },
+    {
+      "runner": "james",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "22:42"
+    },
+    {
+      "runner": "lara",
+      "smallLoops": 0,
+      "mediumLoops": 0,
+      "longLoops": 3,
+      "time": "23:31"
+    },
+    {
+      "runner": "max",
+      "smallLoops": 1,
+      "mediumLoops": 1,
+      "longLoops": 3,
+      "time": "33:39"
+    }
+  ]
+}
