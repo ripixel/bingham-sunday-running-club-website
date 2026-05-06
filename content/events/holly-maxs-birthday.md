@@ -1,6 +1,6 @@
 ---
 title: 🎂  Holly & Max's Birthday
-date: 2026-05-10T21:55:00.000+01:00
+date: 2026-05-10T09:00:00.000+01:00
 location: Bingham Market Place
 distance: " 2-10km (your choice!)"
 linkText: ""
