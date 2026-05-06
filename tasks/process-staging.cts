@@ -26,7 +26,6 @@ interface RecurringSettings {
   description: string;
   defaultLocation: string;
   loopDistances: {
-    approach?: number;
     small: number;
     medium: number;
     long: number;
@@ -195,12 +194,9 @@ export const createProcessStagingTask = (): TaskDef<{}, void> => ({
         const participants = stagedData.participants.map(p => {
           let distance = p.distance;
           if (distance === undefined || distance === null) {
-            const totalLoops = (p.smallLoops || 0) + (p.mediumLoops || 0) + (p.longLoops || 0);
-            const loopDistance = (p.smallLoops || 0) * loops.small +
+            distance = (p.smallLoops || 0) * loops.small +
               (p.mediumLoops || 0) * loops.medium +
               (p.longLoops || 0) * loops.long;
-            // Add approach distance only if there are any loops
-            distance = totalLoops > 0 ? (loops.approach || 0) + loopDistance : loopDistance;
           }
 
           return {
