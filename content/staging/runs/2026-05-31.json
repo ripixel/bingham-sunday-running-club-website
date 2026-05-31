@@ -1,5 +1,7 @@
 {
   "date": "2026-05-31T09:48:19.658Z",
+  "mainPhoto": "/images/races/2026-05-31.jpg",
+  "body": "Such glorious weather, and not too hot this time - just nice and sunny and lots of great chats at Gilt afterwards 💪",
   "participants": [
     {
       "runner": "james",
@@ -62,7 +64,7 @@
       "smallLoops": 0,
       "mediumLoops": 0,
       "longLoops": 4,
-      "time": "30:58"
+      "time": "30:18"
     },
     {
       "runner": "steve",
@@ -111,7 +113,7 @@
       "smallLoops": 0,
       "mediumLoops": 0,
       "longLoops": 4,
-      "time": "31:01"
+      "time": "30:01"
     },
     {
       "runner": "james-e",
@@ -121,8 +123,7 @@
       "time": "25:49"
     },
     {
-      "runner": "guest",
-      "guestName": "Lillie",
+      "runner": "lillie",
       "smallLoops": 0,
       "mediumLoops": 1,
       "longLoops": 2,
